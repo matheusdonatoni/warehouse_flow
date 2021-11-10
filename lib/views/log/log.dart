@@ -6,8 +6,8 @@ class LogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Log'),
+      body: Center(
+        child: Text('Registros'),
       ),
     );
   }
