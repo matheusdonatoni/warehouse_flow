@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../services/navigation_services.dart';
-import '../home/home.dart';
-import '../log/log.dart';
-import '../../routes/routes.dart';
 import 'widgets/drawer/drawer_tile.dart';
 import 'widgets/drawer/persistend_navigation_drawer.dart';
+import 'widgets/navigators/home_navigator.dart';
+import 'widgets/navigators/log_navigator.dart';
 
 class RootPage extends GetView<NavigationServices> {
   const RootPage({Key? key}) : super(key: key);
@@ -14,7 +13,7 @@ class RootPage extends GetView<NavigationServices> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Controle de estoque'),
+        title: Text('Controle de Estoque'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 24.0),
@@ -47,36 +46,8 @@ class RootPage extends GetView<NavigationServices> {
                   () => IndexedStack(
                     index: controller.index,
                     children: [
-                      Navigator(
-                        key: Get.nestedKey(0),
-                        onGenerateInitialRoutes:
-                            (navigator, initialRouteName) => [
-                          GetPageRoute(
-                            page: () => HomePage(),
-                          )
-                        ],
-                        initialRoute: Routes.HOME,
-                        onGenerateRoute: (settings) {
-                          return GetPageRoute(
-                            page: () => HomePage(),
-                          );
-                        },
-                      ),
-                      Navigator(
-                        key: Get.nestedKey(1),
-                        initialRoute: Routes.LOG,
-                        onGenerateInitialRoutes:
-                            (navigator, initialRouteName) => [
-                          GetPageRoute(
-                            page: () => LogPage(),
-                          )
-                        ],
-                        onGenerateRoute: (settings) {
-                          return GetPageRoute(
-                            page: () => LogPage(),
-                          );
-                        },
-                      ),
+                      HomeNavigator(),
+                      LogNavigator(),
                     ],
                   ),
                 ),
