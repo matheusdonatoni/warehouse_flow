@@ -70,7 +70,6 @@ class LocalStorage {
         name TEXT,
         height INTEGER,
         depth INTEGER,
-        quantity REAL,
         streetId INTEGER,
         FOREIGN KEY (streetId) REFERENCES Street(id) 
         ON UPDATE CASACADE

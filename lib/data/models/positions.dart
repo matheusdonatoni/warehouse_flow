@@ -1,29 +1,39 @@
 import 'dart:convert';
 
+import 'product.dart';
+
 class Position {
   Position({
     this.id,
     required this.height,
     required this.depth,
-    required this.quantity,
+    this.products = const [],
+    this.createdAt,
+    this.updatedAt,
   });
 
   int? id;
   int height;
   int depth;
-  double quantity;
+  List<Product> products;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   Position copyWith({
     int? id,
     int? height,
     int? depth,
-    double? quantity,
+    List<Product>? products,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) =>
       Position(
         id: id ?? this.id,
         height: height ?? this.height,
         depth: depth ?? this.depth,
-        quantity: quantity ?? this.quantity,
+        products: products ?? this.products,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
       );
 
   factory Position.fromJson(String str) => Position.fromMap(json.decode(str));
@@ -34,14 +44,20 @@ class Position {
         id: json["id"],
         height: json["height"] ?? -1,
         depth: json["depth"] ?? -1,
-        quantity: json["quantity"] ?? -1,
+        products: List<Product>.from(
+          (json["products"] ?? []).map((x) => Product.fromMap(x)),
+        ),
+        createdAt: DateTime.tryParse(json["createdAt"]),
+        updatedAt: DateTime.tryParse(json["updatedAt"]),
       );
 
   Map<String, dynamic> toMap() => {
         "id": id,
         "height": height,
         "depth": depth,
-        "quantity": quantity,
+        "products": List.from(products.map((x) => x.toMap())),
+        "createdAt": createdAt?.toIso8601String(),
+        "updatedAt": updatedAt?.toIso8601String(),
       };
 
   @override

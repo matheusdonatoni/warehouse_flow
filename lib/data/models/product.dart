@@ -1,55 +1,53 @@
 import 'dart:convert';
 
-import 'street.dart';
+import 'log.dart';
 
-class Chamber {
-  Chamber({
+class Product {
+  Product({
     this.id,
-    required this.name,
-    this.streets = const [],
+    required this.code,
+    required this.log,
     this.createdAt,
     this.updatedAt,
   });
 
   int? id;
-  String name;
-  List<Street> streets;
+  int code;
+  Log log;
   DateTime? createdAt;
   DateTime? updatedAt;
 
-  Chamber copyWith({
+  Product copyWith({
     int? id,
-    String? name,
-    List<Street>? streets,
+    int? code,
+    Log? log,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
-      Chamber(
+      Product(
         id: id ?? this.id,
-        name: name ?? this.name,
-        streets: streets ?? this.streets,
+        code: code ?? this.code,
+        log: log ?? this.log,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
 
-  factory Chamber.fromJson(String str) => Chamber.fromMap(json.decode(str));
+  factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Chamber.fromMap(Map<String, dynamic> json) => Chamber(
+  factory Product.fromMap(Map<String, dynamic> json) => Product(
         id: json["id"],
-        name: json["name"] ?? '',
-        streets: List<Street>.from(
-          (json["streets"] ?? []).map((x) => Street.fromMap(x)),
-        ),
+        code: json["code"] ?? -1,
+        log: Log.fromMap(json["log"] ?? Log()),
         createdAt: DateTime.tryParse(json["createdAt"]),
         updatedAt: DateTime.tryParse(json["updatedAt"]),
       );
 
   Map<String, dynamic> toMap() => {
         "id": id,
-        "name": name,
-        "streets": List<dynamic>.from(streets.map((x) => x.toMap())),
+        "code": code,
+        "log": log.toMap(),
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
       };
