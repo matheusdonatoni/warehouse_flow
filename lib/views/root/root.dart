@@ -15,11 +15,11 @@ class RootPage extends GetView<NavigationServices> {
       appBar: AppBar(
         title: Text('Controle de Estoque'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24.0),
-        child: Row(
-          children: [
-            Obx(
+      body: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 24.0),
+            child: Obx(
               () => PersistentNavigationDrawer(
                 index: controller.index,
                 onTap: controller.onItemTapped,
@@ -35,26 +35,19 @@ class RootPage extends GetView<NavigationServices> {
                 ],
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 24.0,
-                  top: 24.0,
-                  right: 24.0,
-                ),
-                child: Obx(
-                  () => IndexedStack(
-                    index: controller.index,
-                    children: [
-                      HomeNavigator(),
-                      LogNavigator(),
-                    ],
-                  ),
-                ),
+          ),
+          Expanded(
+            child: Obx(
+              () => IndexedStack(
+                index: controller.index,
+                children: [
+                  HomeNavigator(),
+                  LogNavigator(),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
