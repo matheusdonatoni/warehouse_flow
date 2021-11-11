@@ -55,6 +55,7 @@ class LocalStorage {
       (
         id INTEGER PRIMARY KEY, 
         name TEXT,
+        number INTEGER,
         chamberId INTEGER,
         FOREIGN KEY (chamberId) REFERENCES Chamber(id) 
         ON UPDATE CASACADE
@@ -69,6 +70,7 @@ class LocalStorage {
         name TEXT,
         height INTEGER,
         depth INTEGER,
+        quantity REAL,
         streetId INTEGER,
         FOREIGN KEY (streetId) REFERENCES Street(id) 
         ON UPDATE CASACADE
