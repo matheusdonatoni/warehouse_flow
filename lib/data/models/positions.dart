@@ -27,9 +27,9 @@ class Position {
   String toJson() => json.encode(toMap());
 
   factory Position.fromMap(Map<String, dynamic> json) => Position(
-        id: json["id"] == null ? null : json["id"],
-        height: json["height"] == null ? null : json["height"],
-        depth: json["depth"] == null ? null : json["depth"],
+        id: json["id"],
+        height: json["height"] ?? -1,
+        depth: json["depth"] ?? -1,
       );
 
   Map<String, dynamic> toMap() => {
@@ -37,4 +37,9 @@ class Position {
         "height": height,
         "depth": depth,
       };
+
+  @override
+  String toString() {
+    return toMap().toString();
+  }
 }

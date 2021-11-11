@@ -41,4 +41,9 @@ class Warehouse {
         "name": name,
         "chambers": List.from(chambers.map((x) => x.toMap())),
       };
+
+  @override
+  String toString() {
+    return toMap().toString();
+  }
 }

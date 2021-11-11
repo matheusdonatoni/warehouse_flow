@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../data/models/chamber.dart';
 
 class ChamberDropDownButton extends StatelessWidget {
   const ChamberDropDownButton({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class ChamberDropDownButton extends StatelessWidget {
       onChanged: (value) {},
       selectedItemBuilder: (context) => [
         DropdownMenuItem(
-          value: 0,
+          value: Chamber(name: ''),
           child: Text('Câmara ${0 + 1}'),
         ),
       ],

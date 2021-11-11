@@ -5,7 +5,7 @@ import 'street.dart';
 class Chamber {
   Chamber({
     this.id,
-    this.name = '',
+    required this.name,
     this.streets = const [],
   });
 
@@ -30,7 +30,7 @@ class Chamber {
 
   factory Chamber.fromMap(Map<String, dynamic> json) => Chamber(
         id: json["id"],
-        name: json["name"],
+        name: json["name"] ?? '',
         streets: List<Street>.from(
           (json["streets"] ?? []).map((x) => Street.fromMap(x)),
         ),
@@ -41,4 +41,9 @@ class Chamber {
         "name": name,
         "streets": List<dynamic>.from(streets.map((x) => x.toMap())),
       };
+
+  @override
+  String toString() {
+    return toMap().toString();
+  }
 }
