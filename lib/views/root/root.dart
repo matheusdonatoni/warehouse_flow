@@ -11,53 +11,49 @@ class RootPage extends GetResponsiveView<NavigationServices> {
 
   @override
   Widget? phone() => Scaffold(
-        appBar: AppBar(
-          title: Text('Controle de Estoque'),
-        ),
-        drawer: NavigationDrawer(
-          index: controller.index,
-          onTap: controller.onItemTapped,
-          items: _items,
-        ),
-        body: _body,
+        appBar: _appbar,
+        drawer: _drawer,
+        body: _effectiveBody,
       );
 
   @override
   Widget? desktop() => Scaffold(
-        appBar: AppBar(
-          title: Text('Controle de Estoque'),
-        ),
+        appBar: _appbar,
         body: Row(
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 24.0),
-              child: Obx(
-                () => NavigationDrawer(
-                  index: controller.index,
-                  onTap: controller.onItemTapped,
-                  items: _items,
-                ),
-              ),
+              child: _drawer,
             ),
             Expanded(
-              child: _body,
+              child: _effectiveBody,
             ),
           ],
         ),
       );
 
-  List<DrawerTile> get _items => [
-        DrawerTile(
-          icon: Icon(Icons.home),
-          label: 'Início',
-        ),
-        DrawerTile(
-          icon: Icon(Icons.table_chart_outlined),
-          label: 'Registros',
-        ),
-      ];
+  PreferredSizeWidget get _appbar => AppBar(
+        title: Text('Controle de Estoque'),
+      );
 
-  Widget get _body => Obx(
+  Widget get _drawer => Obx(
+        () => NavigationDrawer(
+          index: controller.index,
+          onTap: controller.onItemTapped,
+          items: [
+            DrawerTile(
+              icon: Icon(Icons.home),
+              label: 'Início',
+            ),
+            DrawerTile(
+              icon: Icon(Icons.table_chart_outlined),
+              label: 'Registros',
+            ),
+          ],
+        ),
+      );
+
+  Widget get _effectiveBody => Obx(
         () => IndexedStack(
           index: controller.index,
           children: [
