@@ -1,22 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'drawer_tile.dart';
 
-class PersistentNavigationDrawer extends StatelessWidget {
+class NavigationDrawer extends GetResponsiveView {
   final List<DrawerTile> items;
   final void Function(int index)? onTap;
+  final double elevation;
   final int index;
-  final double width;
 
-  const PersistentNavigationDrawer({
+  @override
+  Widget? phone() => Drawer(
+        child: ListView(
+          shrinkWrap: true,
+          children: _createTiles,
+        ),
+      );
+
+  NavigationDrawer({
     Key? key,
     required this.items,
     this.index = 0,
     this.onTap,
-    this.width = 256,
-  }) : super(key: key);
+  })  : this.elevation = 16.0,
+        super(key: key);
 
-  List<Widget> _createTiles() {
+  List<Widget> get _createTiles {
     final List<Widget> _items = [];
 
     for (int i = 0; i < items.length; i++) {
@@ -31,20 +40,6 @@ class PersistentNavigationDrawer extends StatelessWidget {
     }
 
     return _items;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.topLeft,
-      width: width,
-      child: ListView(
-        shrinkWrap: true,
-        children: [
-          ..._createTiles(),
-        ],
-      ),
-    );
   }
 }
 
@@ -65,21 +60,24 @@ class _DrawerTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return ListTile(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.horizontal(
-          right: Radius.circular(
-            32,
+    return Padding(
+      padding: const EdgeInsets.only(right: 12.0),
+      child: ListTile(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.horizontal(
+            right: Radius.circular(
+              32,
+            ),
           ),
         ),
+        title: Text(label),
+        leading: icon,
+        onTap: onTap,
+        selected: selected,
+        selectedTileColor: selected
+            ? theme.colorScheme.primary.withOpacity(0.12)
+            : Colors.transparent,
       ),
-      title: Text(label),
-      leading: icon,
-      onTap: onTap,
-      selected: selected,
-      selectedTileColor: selected
-          ? theme.colorScheme.primary.withOpacity(0.12)
-          : Colors.transparent,
     );
   }
 }
