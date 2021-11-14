@@ -23,56 +23,107 @@ class LocalStorage {
     return localStorage;
   }
 
-  Future _onConfigure(Database db) async {
+  Future<void> _onConfigure(Database db) async {
     await db.execute('PRAGMA foreign_keys = ON');
   }
 
-  Future _onCreate(Database db, int version) async {
+  Future<void> _onCreate(Database db, int version) async {
+    _migrations(db);
+  }
+
+  Future<void> _migrations(Database db) async {
     // Create Warehouse table
     await db.execute(
-      '''CREATE TABLE Warehouse
+      '''CREATE TABLE warehouses
       (
         id INTEGER PRIMARY KEY, 
-        name TEXT, 
+        name TEXT,
+        createdAt TEXT,
+        updatedAt TEXT
       )''',
     );
 
     // Create Chamber table
     await db.execute(
-      '''CREATE TABLE Chamber
+      '''CREATE TABLE chambers
       (
         id INTEGER PRIMARY KEY, 
         name TEXT,
         warehouseId INTEGER,
-        FOREIGN KEY (warehouseId) REFERENCES Warehouse(id) 
-        ON UPDATE CASACADE
+        createdAt TEXT,
+        updatedAt TEXT,
+        FOREIGN KEY (warehouseId) REFERENCES warehouses(id) ON UPDATE CASCADE
       )''',
     );
 
     // Create Street table
     await db.execute(
-      '''CREATE TABLE Street
+      '''CREATE TABLE streets
       (
         id INTEGER PRIMARY KEY, 
         name TEXT,
         number INTEGER,
         chamberId INTEGER,
-        FOREIGN KEY (chamberId) REFERENCES Chamber(id) 
-        ON UPDATE CASACADE
+        createdAt TEXT,
+        updatedAt TEXT,
+        FOREIGN KEY (chamberId) REFERENCES chambers(id) ON UPDATE CASCADE
       )''',
     );
 
     // Create Position table
     await db.execute(
-      '''CREATE TABLE position
+      '''CREATE TABLE positions
       (
         id INTEGER PRIMARY KEY, 
-        name TEXT,
         height INTEGER,
         depth INTEGER,
+        type TEXT,
         streetId INTEGER,
-        FOREIGN KEY (streetId) REFERENCES Street(id) 
-        ON UPDATE CASACADE
+        createdAt TEXT,
+        updatedAt TEXT,
+        FOREIGN KEY (streetId) REFERENCES streets(id) ON UPDATE CASCADE
+      )''',
+    );
+
+    // Create register table
+    await db.execute(
+      '''CREATE TABLE registers
+      (
+        id INTEGER PRIMARY KEY,
+        positionId INTEGER,
+        createdAt TEXT,
+        updatedAt TEXT,
+        FOREIGN KEY (positionId) REFERENCES positions(id) ON UPDATE CASCADE
+      )''',
+    );
+
+    // Create Product table
+    await db.execute(
+      '''CREATE TABLE products
+      (
+        id INTEGER PRIMARY KEY, 
+        code TEXT,
+        description TEXT,
+        unit TEXT,
+        type TEXT,
+        createdAt TEXT,
+        updatedAt TEXT
+      )''',
+    );
+
+    // Create Operation table
+    await db.execute(
+      '''CREATE TABLE operations
+      (
+        id INTEGER PRIMARY KEY,
+        amount REAL,
+        type TEXT,
+        registerId INTEGER,
+        productId INTEGER,
+        createdAt TEXT,
+        updatedAt TEXT,
+        FOREIGN KEY (registerId) REFERENCES registers(id) ON UPDATE CASCADE
+        FOREIGN KEY (productId) REFERENCES products(id) ON UPDATE CASCADE
       )''',
     );
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../data/models/chamber.dart';
+import '../../../data/models/street.dart';
 
-class ChamberDropDownButton extends StatelessWidget {
-  const ChamberDropDownButton({Key? key}) : super(key: key);
+class StreetDropDownButton extends StatelessWidget {
+  const StreetDropDownButton({Key? key}) : super(key: key);
 
   List<DropdownMenuItem<int>> _createTiles() {
     final _items = <DropdownMenuItem<int>>[];
@@ -11,7 +11,7 @@ class ChamberDropDownButton extends StatelessWidget {
       _items.add(
         DropdownMenuItem(
           value: i,
-          child: Text('Câmara ${i + 1}'),
+          child: Text('Rua A'),
         ),
       );
     }
@@ -25,7 +25,7 @@ class ChamberDropDownButton extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Câmara',
+          'Rua',
           style: Theme.of(context).textTheme.subtitle1,
         ),
         SizedBox(
@@ -36,8 +36,8 @@ class ChamberDropDownButton extends StatelessWidget {
           onChanged: (value) {},
           selectedItemBuilder: (context) => [
             DropdownMenuItem(
-              value: Chamber(name: ''),
-              child: Text('Câmara ${5}'),
+              value: Street(name: 'A', number: 1),
+              child: Text('Rua A'),
             ),
           ],
           value: 0,

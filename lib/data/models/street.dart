@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'positions.dart';
+import 'position.dart';
 
 class Street {
   Street({

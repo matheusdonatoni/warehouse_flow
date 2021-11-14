@@ -1,13 +1,14 @@
 import 'dart:convert';
 
-import 'product.dart';
+import 'register.dart';
 
 class Position {
   Position({
     this.id,
     required this.height,
     required this.depth,
-    this.products = const [],
+    required this.register,
+    required this.type,
     this.createdAt,
     this.updatedAt,
   });
@@ -15,7 +16,8 @@ class Position {
   int? id;
   int height;
   int depth;
-  List<Product> products;
+  String type;
+  Register register;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -23,7 +25,8 @@ class Position {
     int? id,
     int? height,
     int? depth,
-    List<Product>? products,
+    String? type,
+    Register? register,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
@@ -31,7 +34,8 @@ class Position {
         id: id ?? this.id,
         height: height ?? this.height,
         depth: depth ?? this.depth,
-        products: products ?? this.products,
+        type: type ?? this.type,
+        register: register ?? this.register,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
@@ -44,9 +48,8 @@ class Position {
         id: json["id"],
         height: json["height"] ?? -1,
         depth: json["depth"] ?? -1,
-        products: List<Product>.from(
-          (json["products"] ?? []).map((x) => Product.fromMap(x)),
-        ),
+        type: json["type"] ?? '',
+        register: Register.fromMap(json["register"] ?? Register()),
         createdAt: DateTime.tryParse(json["createdAt"]),
         updatedAt: DateTime.tryParse(json["updatedAt"]),
       );
@@ -55,7 +58,8 @@ class Position {
         "id": id,
         "height": height,
         "depth": depth,
-        "products": List.from(products.map((x) => x.toMap())),
+        "type": type,
+        "register": register.toMap(),
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
       };

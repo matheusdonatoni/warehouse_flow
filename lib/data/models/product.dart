@@ -1,33 +1,39 @@
 import 'dart:convert';
 
-import 'log.dart';
-
 class Product {
   Product({
     this.id,
-    required this.code,
-    required this.log,
+    this.code = '',
+    this.description = '',
+    this.unit = '',
+    this.type = '',
     this.createdAt,
     this.updatedAt,
   });
 
   int? id;
-  int code;
-  Log log;
+  String code;
+  String description;
+  String unit;
+  String type;
   DateTime? createdAt;
   DateTime? updatedAt;
 
   Product copyWith({
     int? id,
-    int? code,
-    Log? log,
+    String? code,
+    String? description,
+    String? unit,
+    String? type,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
       Product(
         id: id ?? this.id,
         code: code ?? this.code,
-        log: log ?? this.log,
+        description: description ?? this.description,
+        unit: unit ?? this.unit,
+        type: type ?? this.type,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
@@ -38,8 +44,10 @@ class Product {
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
         id: json["id"],
-        code: json["code"] ?? -1,
-        log: Log.fromMap(json["log"] ?? Log()),
+        code: json["code"] ?? '',
+        description: json["description"] ?? '',
+        unit: json["unit"] ?? '',
+        type: json["unit"] ?? '',
         createdAt: DateTime.tryParse(json["createdAt"]),
         updatedAt: DateTime.tryParse(json["updatedAt"]),
       );
@@ -47,7 +55,9 @@ class Product {
   Map<String, dynamic> toMap() => {
         "id": id,
         "code": code,
-        "log": log.toMap(),
+        "description": description,
+        "unit": unit,
+        "type": type,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
       };

@@ -2,39 +2,39 @@ import 'dart:convert';
 
 import 'operation.dart';
 
-class Log {
-  Log({
+class Register {
+  Register({
     this.id,
-    this.logOperations = const [],
+    this.opreations = const [],
     this.createdAt,
     this.updatedAt,
   });
 
   int? id;
-  List<Operation> logOperations;
+  List<Operation> opreations;
   DateTime? createdAt;
   DateTime? updatedAt;
 
-  Log copyWith({
+  Register copyWith({
     int? id,
     List<Operation>? operations,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
-      Log(
+      Register(
         id: id ?? this.id,
-        logOperations: operations ?? this.logOperations,
+        opreations: operations ?? this.opreations,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
 
-  factory Log.fromJson(String str) => Log.fromMap(json.decode(str));
+  factory Register.fromJson(String str) => Register.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Log.fromMap(Map<String, dynamic> json) => Log(
+  factory Register.fromMap(Map<String, dynamic> json) => Register(
         id: json["id"],
-        logOperations: List<Operation>.from(
+        opreations: List<Operation>.from(
           (json["operations"] ?? []).map((x) => Operation.fromMap(x)),
         ),
         createdAt: DateTime.tryParse(json["createdAt"]),
@@ -43,7 +43,7 @@ class Log {
 
   Map<String, dynamic> toMap() => {
         "id": id,
-        "operations": List.from(logOperations.map((x) => x.toMap())),
+        "operations": List.from(opreations.map((x) => x.toMap())),
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
       };

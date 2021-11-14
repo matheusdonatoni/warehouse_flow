@@ -1,10 +1,13 @@
 import 'dart:convert';
 
+import 'package:warehouse_flow/data/models/product.dart';
+
 class Operation {
   Operation({
     this.id,
     required this.amount,
     required this.type,
+    required this.product,
     this.createdAt,
     this.updatedAt,
   });
@@ -12,6 +15,7 @@ class Operation {
   int? id;
   double amount;
   OperationType type;
+  Product product;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -19,6 +23,7 @@ class Operation {
     int? id,
     double? amount,
     OperationType? type,
+    Product? product,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
@@ -26,6 +31,7 @@ class Operation {
         id: id ?? this.id,
         amount: amount ?? this.amount,
         type: type ?? this.type,
+        product: product ?? this.product,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
@@ -37,6 +43,7 @@ class Operation {
   factory Operation.fromMap(Map<String, dynamic> json) => Operation(
         id: json["id"],
         amount: json["amount"] ?? -1,
+        product: Product.fromMap(json["product"] ?? Product()),
         type: Operation.parseOperation(json["type"] ?? ''),
         createdAt: DateTime.tryParse(json["createdAt"]),
         updatedAt: DateTime.tryParse(json["updatedAt"]),
