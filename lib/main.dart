@@ -5,8 +5,10 @@ import 'package:warehouse_flow/data/providers/local_storage.dart';
 import 'routes/pages.dart';
 import 'bindings/initial_bindings.dart';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 void main() async {
-  await Get.putAsync(() => LocalStorage.init(), permanent: true);
+  if (!kIsWeb) await Get.putAsync(() => LocalStorage.init(), permanent: true);
 
   runApp(MyApp());
 }

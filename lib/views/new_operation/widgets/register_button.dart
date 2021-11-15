@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DoneButton extends StatelessWidget {
-  const DoneButton({Key? key}) : super(key: key);
+class RegisterButton extends StatelessWidget {
+  const RegisterButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class DoneButton extends StatelessWidget {
               minimumSize: const Size(64, 48),
             ),
             onPressed: () {},
-            child: Text('Concluir'),
+            child: Text('Registrar'),
           ),
         ),
       ],

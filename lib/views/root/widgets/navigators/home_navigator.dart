@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../home/home.dart';
+
+import '../../../../bindings/home_bindings.dart';
 import '../../../../routes/routes.dart';
 
 class HomeNavigator extends StatelessWidget {
@@ -14,11 +17,13 @@ class HomeNavigator extends StatelessWidget {
       onGenerateInitialRoutes: (navigator, initialRouteName) => [
         GetPageRoute(
           page: () => HomePage(),
+          binding: HomePageBinding(),
         )
       ],
       onGenerateRoute: (settings) {
         return GetPageRoute(
           page: () => HomePage(),
+          binding: HomePageBinding(),
         );
       },
     );

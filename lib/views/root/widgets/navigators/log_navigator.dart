@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../log/log.dart';
 import '../../../../routes/routes.dart';
+import '../../../../bindings/log_bindings.dart';
 
 class LogNavigator extends StatelessWidget {
   const LogNavigator({Key? key}) : super(key: key);
@@ -14,11 +16,13 @@ class LogNavigator extends StatelessWidget {
       onGenerateInitialRoutes: (navigator, initialRouteName) => [
         GetPageRoute(
           page: () => LogPage(),
+          binding: LogPageBinding(),
         )
       ],
       onGenerateRoute: (settings) {
         return GetPageRoute(
           page: () => LogPage(),
+          binding: LogPageBinding(),
         );
       },
     );
