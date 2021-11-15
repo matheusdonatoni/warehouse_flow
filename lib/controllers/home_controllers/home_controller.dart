@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../impl/base_get_notifier_impl.dart';
+import '../_impl/base_get_notifier_impl.dart';
 import '../../routes/routes.dart';
 
 class HomeController extends BaseGetNotifierImpl<int> {
