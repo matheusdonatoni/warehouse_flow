@@ -4,14 +4,14 @@ import 'street.dart';
 
 class Chamber {
   Chamber({
-    this.id,
+    this.id = 0,
     required this.name,
     this.streets = const [],
     this.createdAt,
     this.updatedAt,
   });
 
-  int? id;
+  int id;
   String name;
   List<Street> streets;
   DateTime? createdAt;
@@ -37,7 +37,7 @@ class Chamber {
   String toJson() => json.encode(toMap());
 
   factory Chamber.fromMap(Map<String, dynamic> json) => Chamber(
-        id: json["id"],
+        id: json["id"] ?? 0,
         name: json["name"] ?? '',
         streets: List<Street>.from(
           (json["streets"] ?? []).map((x) => Street.fromMap(x)),

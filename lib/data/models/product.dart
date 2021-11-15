@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class Product {
   Product({
-    this.id,
+    this.id = 0,
     this.code = '',
     this.description = '',
     this.unit = '',
@@ -11,7 +11,7 @@ class Product {
     this.updatedAt,
   });
 
-  int? id;
+  int id;
   String code;
   String description;
   String unit;
@@ -43,7 +43,7 @@ class Product {
   String toJson() => json.encode(toMap());
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
-        id: json["id"],
+        id: json["id"] ?? 0,
         code: json["code"] ?? '',
         description: json["description"] ?? '',
         unit: json["unit"] ?? '',

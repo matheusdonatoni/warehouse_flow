@@ -4,13 +4,13 @@ import 'operation.dart';
 
 class Register {
   Register({
-    this.id,
+    this.id = 0,
     this.opreations = const [],
     this.createdAt,
     this.updatedAt,
   });
 
-  int? id;
+  int id;
   List<Operation> opreations;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -33,7 +33,7 @@ class Register {
   String toJson() => json.encode(toMap());
 
   factory Register.fromMap(Map<String, dynamic> json) => Register(
-        id: json["id"],
+        id: json["id"] ?? 0,
         opreations: List<Operation>.from(
           (json["operations"] ?? []).map((x) => Operation.fromMap(x)),
         ),

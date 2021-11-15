@@ -11,7 +11,7 @@ class HomePage extends GetView<HomeController> {
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add),
         label: Text("Operação"),
-        onPressed: controller.pushNewOperationPage,
+        onPressed: () => controller.pushNewOperationPage(),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),

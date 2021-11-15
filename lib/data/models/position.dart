@@ -4,7 +4,7 @@ import 'register.dart';
 
 class Position {
   Position({
-    this.id,
+    this.id = 0,
     required this.height,
     required this.depth,
     required this.register,
@@ -13,7 +13,7 @@ class Position {
     this.updatedAt,
   });
 
-  int? id;
+  int id;
   int height;
   int depth;
   String type;
@@ -45,9 +45,9 @@ class Position {
   String toJson() => json.encode(toMap());
 
   factory Position.fromMap(Map<String, dynamic> json) => Position(
-        id: json["id"],
-        height: json["height"] ?? -1,
-        depth: json["depth"] ?? -1,
+        id: json["id"] = 0,
+        height: json["height"] ?? 0,
+        depth: json["depth"] ?? 0,
         type: json["type"] ?? '',
         register: Register.fromMap(json["register"] ?? Register()),
         createdAt: DateTime.tryParse(json["createdAt"]),

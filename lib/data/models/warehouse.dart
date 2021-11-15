@@ -4,14 +4,14 @@ import 'chamber.dart';
 
 class Warehouse {
   Warehouse({
-    this.id,
+    this.id = 0,
     this.name = '',
     this.chambers = const [],
     this.createdAt,
     this.updatedAt,
   });
 
-  int? id;
+  int id;
   String name;
   List<Chamber> chambers;
   DateTime? createdAt;
@@ -37,7 +37,7 @@ class Warehouse {
   String toJson() => json.encode(toMap());
 
   factory Warehouse.fromMap(Map<String, dynamic> json) => Warehouse(
-        id: json["id"],
+        id: json["id"] ?? 0,
         name: json["name"] ?? '',
         chambers: List<Chamber>.from(
           (json["chambers"] ?? []).map((x) => Chamber.fromMap(x)),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'widgets/chamber_drop_down_button.dart';
+import '/controllers/new_operation_controllers/new_operation_controller.dart';
+
+import 'widgets/chamber_drop_down_button/chamber_drop_down_button.dart';
 import 'widgets/register_button.dart';
 import 'widgets/operation_radios.dart';
 import 'widgets/position_drop_down_buttons.dart';
@@ -9,7 +11,7 @@ import 'widgets/product_text_form_field.dart';
 import 'widgets/street_drop_down_button.dart';
 import 'widgets/street_number_drop_down_button.dart';
 
-class NewOperationPage extends GetResponsiveView {
+class NewOperationPage extends GetResponsiveView<NewOperationController> {
   NewOperationPage({Key? key}) : super(key: key);
 
   @override
@@ -45,7 +47,10 @@ class NewOperationPage extends GetResponsiveView {
   Widget get _form => Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ChamberDropDownButton(),
+          ChamberDropDownButton(
+            value: controller.chamber,
+            onChanged: (chamber) => controller.chamber = chamber,
+          ),
           StreetDropDownButton(),
           StreetNumberDropDownButton(),
           PositionDropDownButtons(),

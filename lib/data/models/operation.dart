@@ -4,18 +4,18 @@ import 'package:warehouse_flow/data/models/product.dart';
 
 class Operation {
   Operation({
-    this.id,
-    required this.amount,
-    required this.type,
-    required this.product,
+    this.id = 0,
+    this.amount = 0,
+    this.type = OperationType.none,
+    this.product,
     this.createdAt,
     this.updatedAt,
   });
 
-  int? id;
-  double amount;
-  OperationType type;
-  Product product;
+  int id;
+  late double amount;
+  late OperationType type;
+  Product? product;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -41,9 +41,9 @@ class Operation {
   String toJson() => json.encode(toMap());
 
   factory Operation.fromMap(Map<String, dynamic> json) => Operation(
-        id: json["id"],
-        amount: json["amount"] ?? -1,
-        product: Product.fromMap(json["product"] ?? Product()),
+        id: json["id"] ?? 0,
+        amount: json["amount"] ?? 0,
+        product: Product.fromMap(json["product"]),
         type: Operation.parseOperation(json["type"] ?? ''),
         createdAt: DateTime.tryParse(json["createdAt"]),
         updatedAt: DateTime.tryParse(json["updatedAt"]),
