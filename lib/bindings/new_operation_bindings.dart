@@ -2,8 +2,12 @@ import 'package:get/get.dart';
 import '/data/repositories/street_repository.dart';
 import '/data/repositories/chamber_repository.dart';
 import '/data/models/operation.dart';
-import '/views/new_operation/widgets/chamber_drop_down_button/bloc.dart';
+
 import '/controllers/new_operation_controllers/new_operation_controller.dart';
+
+import '/views/new_operation/widgets/chamber_drop_down_button/bloc.dart';
+import '/views/new_operation/widgets/street_name_drop_down_button/bloc.dart';
+import '/views/new_operation/widgets/street_number_drop_down_button/bloc.dart';
 
 class NewOperationBinding implements Bindings {
   @override
@@ -26,5 +30,7 @@ class NewOperationBinding implements Bindings {
 
   void _injectWidgetBlocs() {
     Get.create(() => ChamberDropDownButtonBloc());
+    Get.create(() => StreetNameDropDownButtonBloc());
+    Get.create(() => StreetNumberDropDownButtonBloc());
   }
 }

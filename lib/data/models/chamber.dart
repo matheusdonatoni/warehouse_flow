@@ -5,14 +5,14 @@ import 'street.dart';
 class Chamber {
   Chamber({
     this.id = 0,
-    required this.name,
+    this.name,
     this.streets = const [],
     this.createdAt,
     this.updatedAt,
   });
 
   int id;
-  String name;
+  String? name;
   List<Street> streets;
   DateTime? createdAt;
   DateTime? updatedAt;

@@ -5,16 +5,16 @@ import 'position.dart';
 class Street {
   Street({
     this.id = 0,
-    required this.name,
-    required this.number,
+    this.name,
+    this.number,
     this.positions = const [],
     this.createdAt,
     this.updatedAt,
   });
 
   int id;
-  String name;
-  int number;
+  String? name;
+  int? number;
   List<Position> positions;
   DateTime? createdAt;
   DateTime? updatedAt;

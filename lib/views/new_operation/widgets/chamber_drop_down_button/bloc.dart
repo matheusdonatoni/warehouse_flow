@@ -10,6 +10,10 @@ class ChamberDropDownButtonBloc extends GetxController {
   NewOperationController get _newOperationController => Get.find();
   Warehouse get _warehouse => _newOperationController.warehouse;
 
+  Rxn<Chamber?> get _chamber => _newOperationController.chamber;
+  Chamber? get chamber => _chamber.value;
+  set chamber(Chamber? val) => _chamber.value = val;
+
   final chambers = RxList<Chamber>();
 
   @override
@@ -23,5 +27,9 @@ class ChamberDropDownButtonBloc extends GetxController {
     chambers.assignAll(
       await _repo.findFromWarehouse(_warehouse),
     );
+  }
+
+  void onChanged(Chamber? chamber) {
+    this.chamber = chamber;
   }
 }

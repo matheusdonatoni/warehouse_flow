@@ -6,12 +6,7 @@ import 'bloc.dart';
 class ChamberDropDownButton extends GetWidget<ChamberDropDownButtonBloc> {
   ChamberDropDownButton({
     Key? key,
-    this.value,
-    this.onChanged,
   }) : super(key: key);
-
-  final Chamber? value;
-  final void Function(Chamber?)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +19,14 @@ class ChamberDropDownButton extends GetWidget<ChamberDropDownButtonBloc> {
         ),
         Obx(
           () => DropdownButtonFormField<Chamber>(
-            onChanged: onChanged,
-            value: value,
+            onChanged: controller.onChanged,
+            value: controller.chamber,
             hint: Text('Selecionar Câmara'),
             items: controller.chambers
                 .map(
                   (chamber) => DropdownMenuItem(
                     value: chamber,
-                    child: Text(chamber.name),
+                    child: Text(chamber.name ?? ''),
                   ),
                 )
                 .toList(),

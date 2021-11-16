@@ -66,14 +66,26 @@ class LocalStorage {
     return result;
   }
 
-  Future<List<Map<String, dynamic>>> findStreersFromChamber(
-    Chamber chamber,
+  Future<List<Map<String, dynamic>>> findStreetsFromChamber(
+    Chamber? chamber,
   ) async {
     var result = await _database.rawQuery(
-      'SELECT * FROM streets WHERE chamberId = ${chamber.id}',
+      'SELECT * FROM streets WHERE chamberId = ${chamber?.id}',
     );
 
     return result;
+  }
+
+  Future<Map<String, dynamic>> findStreetFromAddress(
+    Chamber? chamber,
+    int? number,
+    String? name,
+  ) async {
+    var result = await _database.rawQuery(
+      'SELECT * FROM streets WHERE chamberid = ${chamber?.id} AND number = $number AND name = $name',
+    );
+
+    return result.single;
   }
 
   Future<List<Map<String, dynamic>>> findPositionsFromStreet(
