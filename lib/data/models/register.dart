@@ -1,19 +1,42 @@
 import 'dart:convert';
 
+import 'package:get/get_rx/get_rx.dart';
+
 import 'operation.dart';
+
+class RxRegister {
+  final id = Rxn<int>();
+  final opreations = RxList<Operation>();
+  final createdAt = Rxn<DateTime>();
+  final updatedAt = Rxn<DateTime>();
+}
 
 class Register {
   Register({
-    this.id = 0,
-    this.opreations = const [],
-    this.createdAt,
-    this.updatedAt,
-  });
+    int? id,
+    List<Operation> operations = const [],
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    this.id = id;
+    this.opreations = opreations;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
 
-  int id;
-  List<Operation> opreations;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  final rx = RxRegister();
+
+  int? get id => rx.id.value;
+  set id(int? value) => rx.id.value = value;
+
+  List<Operation> get opreations => rx.opreations;
+  set opreations(List<Operation> value) => rx.opreations.value = value;
+
+  DateTime? get createdAt => rx.createdAt.value;
+  set createdAt(DateTime? value) => rx.createdAt.value = value;
+
+  DateTime? get updatedAt => rx.updatedAt.value;
+  set updatedAt(DateTime? value) => rx.updatedAt.value = value;
 
   Register copyWith({
     int? id,
@@ -23,7 +46,7 @@ class Register {
   }) =>
       Register(
         id: id ?? this.id,
-        opreations: operations ?? this.opreations,
+        operations: operations ?? this.opreations,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
@@ -34,7 +57,7 @@ class Register {
 
   factory Register.fromMap(Map<String, dynamic> json) => Register(
         id: json["id"] ?? 0,
-        opreations: List<Operation>.from(
+        operations: List<Operation>.from(
           (json["operations"] ?? []).map((x) => Operation.fromMap(x)),
         ),
         createdAt: DateTime.tryParse(json["createdAt"]),

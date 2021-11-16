@@ -1,23 +1,54 @@
 import 'dart:convert';
 
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+
 import 'position.dart';
+
+class RxStreet {
+  final id = Rxn<int>();
+  final name = Rxn<String>();
+  final number = Rxn<int>();
+  final positions = RxList<Position>();
+  final createdAt = Rxn<DateTime>();
+  final updatedAt = Rxn<DateTime>();
+}
 
 class Street {
   Street({
-    this.id = 0,
-    this.name,
-    this.number,
-    this.positions = const [],
-    this.createdAt,
-    this.updatedAt,
-  });
+    int? id,
+    String? name,
+    int? number,
+    List<Position> positions = const [],
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    this.id = id;
+    this.name = name;
+    this.number = number;
+    this.positions = positions;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
 
-  int id;
-  String? name;
-  int? number;
-  List<Position> positions;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+  final rx = RxStreet();
+
+  int? get id => rx.id.value;
+  set id(int? value) => rx.id.value = value;
+
+  String? get name => rx.name.value;
+  set name(String? value) => rx.name.value = value;
+
+  int? get number => rx.number.value;
+  set number(int? value) => rx.number.value = value;
+
+  List<Position> get positions => rx.positions;
+  set positions(List<Position> value) => rx.positions.value = value;
+
+  DateTime? get createdAt => rx.createdAt.value;
+  set createdAt(DateTime? value) => rx.createdAt.value = value;
+
+  DateTime? get updatedAt => rx.updatedAt.value;
+  set updatedAt(DateTime? value) => rx.updatedAt.value = value;
 
   Street copyWith({
     int? id,
@@ -41,9 +72,9 @@ class Street {
   String toJson() => json.encode(toMap());
 
   factory Street.fromMap(Map<String, dynamic> json) => Street(
-        id: json["id"] ?? 0,
-        name: json["name"] ?? '',
-        number: json["number"] ?? 0,
+        id: json["id"],
+        name: json["name"],
+        number: json["number"],
         positions: List<Position>.from(
           (json["positions"] ?? []).map((x) => Position.fromMap(x)),
         ),
