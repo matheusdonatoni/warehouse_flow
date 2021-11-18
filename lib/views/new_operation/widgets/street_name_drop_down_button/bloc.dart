@@ -9,40 +9,52 @@ class StreetNameDropDownButtonBloc extends GetxController {
 
   NewOperationController get _newOperationController => Get.find();
 
-  Rxn<Chamber?> get _chamber => _newOperationController.chamber;
-  Chamber? get chamber => _chamber.value;
-  set chamber(Chamber? val) => _chamber.value = val;
+  Rx<Chamber> get _chamber => _newOperationController.chamber;
+  Chamber get chamber => _chamber.value;
+  set chamber(Chamber val) => _chamber.value = val;
 
-  Rxn<Street?> get _street => _newOperationController.street;
-  Street? get street => _street.value;
-  set street(Street? val) => _street.value = val;
+  Rx<Street> get _street => _newOperationController.street;
+  Street get street => _street.value;
+  set street(Street val) => _street.value = val;
 
-  final streetNames = RxList<String>();
+  final names = RxList<String>();
 
-  @override
-  void onInit() {
-    super.onInit();
-
-    _trackRelative();
-  }
-
-  void _trackRelative() {
-    _chamber.listenAndPump(
+  void _listenRelative() {
+    _chamber.listen(
       (chamber) async {
-        if (chamber != null) {
-          _street.call(Street());
+        street = Street();
 
-          final streets = await _repo.findFromChamber(chamber);
+        names.assignAll(
+          await _repo.findNames(chamber),
+        );
 
-          streetNames.assignAll(
-            streets.map((street) => street.name!).toSet(),
+        if (names.length == 1) {
+          street = Street(
+            name: names.single,
           );
         }
       },
     );
   }
 
-  void onChanged(String? value) {
-    street = Street(name: value);
+  String? validator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Selecione uma rua';
+    }
+
+    return null;
+  }
+
+  void onChanged(String? name) {
+    if (name != street.name) {
+      street = Street(name: name);
+    }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    _listenRelative();
   }
 }

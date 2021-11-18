@@ -8,12 +8,8 @@ class HomePageBinding implements Bindings {
   void dependencies() async {
     Get.lazyPut(() => WarehouseRepository(), fenix: true);
 
-    final warehouse = await Get.find<WarehouseRepository>().find(1);
+    // final warehouse = Get.find<WarehouseRepository>().find(1);
 
-    Get.lazyPut(
-      () => HomeController(
-        warehouse,
-      ),
-    );
+    Get.lazyPut(() => HomeController());
   }
 }

@@ -3,17 +3,20 @@ import 'package:get/get.dart';
 import 'bloc.dart';
 
 class StreetNumberDropDownButton
-    extends GetWidget<StreetNumberDropDownButtonBloc> {
+    extends GetView<StreetNumberDropDownButtonBloc> {
   const StreetNumberDropDownButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => StreetNumberDropDownButtonBloc());
+
     return Obx(
       () => DropdownButtonFormField<int>(
-        onChanged: (value) => controller.street?.number = value,
-        value: controller.street?.number,
+        validator: controller.validator,
+        onChanged: controller.onChanged,
+        value: controller.street.number,
         hint: Text('Selecione o número'),
-        items: controller.streetNumbers
+        items: controller.numbers
             .map(
               (number) => DropdownMenuItem(
                 value: number,

@@ -9,44 +9,55 @@ class StreetNumberDropDownButtonBloc extends GetxController {
 
   NewOperationController get _newOperationController => Get.find();
 
-  Rxn<Chamber?> get _chamber => _newOperationController.chamber;
-  Chamber? get chamber => _chamber.value;
-  set chamber(Chamber? val) => _chamber.value = val;
+  Rx<Chamber> get _chamber => _newOperationController.chamber;
+  Chamber get chamber => _chamber.value;
+  set chamber(Chamber val) => _chamber.value = val;
 
-  Rxn<Street?> get _street => _newOperationController.street;
-  Street? get street => _street.value;
-  set street(Street? val) => _street.value = val;
+  Rx<Street> get _street => _newOperationController.street;
+  Street get street => _street.value;
+  set street(Street val) => _street.value = val;
 
-  final streetNumbers = RxList<int>();
+  final numbers = RxList<int>();
+
+  void _listenRelative() {
+    _street.listen(
+      (street) async {
+        if (street.name != null) {
+          numbers.assignAll(
+            await _repo.findNumbers(chamber, street.name),
+          );
+        } else {
+          numbers.clear();
+        }
+      },
+    );
+  }
+
+  String? validator(int? value) {
+    if (value == null) {
+      return 'Selecione o número da rua';
+    }
+
+    return null;
+  }
+
+  void onChanged(int? number) async {
+    if (number != street.number) {
+      street = street.copyWith(
+        number: number,
+      );
+
+      street = await _repo.findFromAddress(
+        chamber,
+        street,
+      );
+    }
+  }
 
   @override
   void onInit() {
     super.onInit();
 
-    _trackRelative();
-  }
-
-  void _trackRelative() {
-    _street.listenAndPump(
-      (street) async {
-        if (street?.name != null) {
-          final streets = await _repo.findFromChamber(chamber);
-
-          streetNumbers.assignAll(
-            streets.map((street) => street.number!).toSet(),
-          );
-        } else {}
-      },
-    );
-  }
-
-  void onChanged(int? value) async {
-    street = street?.copyWith(number: value);
-
-    street = await _repo.findFromAddress(
-      chamber,
-      street?.number,
-      street?.name,
-    );
+    _listenRelative();
   }
 }

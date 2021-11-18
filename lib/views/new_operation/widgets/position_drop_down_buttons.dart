@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'depth_drop_down_button.dart';
-import 'height_drop_down_button.dart';
+import 'position_depth_drop_down_button/position_depth_drop_down_button.dart';
+import 'position_height_drop_down_button/position_height_drop_down_button.dart';
 
 class PositionDropDownButtons extends StatelessWidget {
   const PositionDropDownButtons({Key? key}) : super(key: key);

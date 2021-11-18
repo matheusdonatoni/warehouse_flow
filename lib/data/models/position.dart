@@ -84,7 +84,7 @@ class Position {
         height: json["height"],
         depth: json["depth"],
         type: json["type"],
-        register: Register.fromMap(json["register"] ?? Register()),
+        register:  Register.fromMap(json["register"] ?? {}),
         createdAt: DateTime.tryParse(json["createdAt"]),
         updatedAt: DateTime.tryParse(json["updatedAt"]),
       );

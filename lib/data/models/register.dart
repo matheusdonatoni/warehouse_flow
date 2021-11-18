@@ -60,8 +60,8 @@ class Register {
         operations: List<Operation>.from(
           (json["operations"] ?? []).map((x) => Operation.fromMap(x)),
         ),
-        createdAt: DateTime.tryParse(json["createdAt"]),
-        updatedAt: DateTime.tryParse(json["updatedAt"]),
+        createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
+        updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
       );
 
   Map<String, dynamic> toMap() => {

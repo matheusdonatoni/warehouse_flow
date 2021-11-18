@@ -8,28 +8,34 @@ class ChamberDropDownButtonBloc extends GetxController {
   ChamberRepository get _repo => Get.find();
 
   NewOperationController get _newOperationController => Get.find();
-  Warehouse get _warehouse => _newOperationController.warehouse;
+  Warehouse get _warehouse => _newOperationController.warehouse!;
 
-  Rxn<Chamber?> get _chamber => _newOperationController.chamber;
-  Chamber? get chamber => _chamber.value;
-  set chamber(Chamber? val) => _chamber.value = val;
+  Rx<Chamber> get _chamber => _newOperationController.chamber;
+  Chamber get chamber => _chamber.value;
+  set chamber(Chamber val) => _chamber.value = val;
 
-  final chambers = RxList<Chamber>();
+  final names = RxList<String>();
+
+  String? validator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Selecione uma câmara';
+    }
+
+    return null;
+  }
+
+  void onChanged(String? name) async {
+    if (name != chamber.name) {
+      chamber = await _repo.findFromName(name);
+    }
+  }
 
   @override
   void onInit() async {
     super.onInit();
 
-    findChambers();
-  }
-
-  void findChambers() async {
-    chambers.assignAll(
-      await _repo.findFromWarehouse(_warehouse),
+    names.assignAll(
+      await _repo.findChamberNames(_warehouse),
     );
-  }
-
-  void onChanged(Chamber? chamber) {
-    this.chamber = chamber;
   }
 }

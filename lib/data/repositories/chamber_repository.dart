@@ -14,4 +14,20 @@ class ChamberRepository extends BaseRepositoryImpl {
       ),
     );
   }
+
+  Future<List<String>> findChamberNames(Warehouse warehouse) async {
+    var result = await localStorage.findChamberNames(warehouse);
+
+    return List.from(
+      result.map(
+        (e) => e['name'],
+      ),
+    );
+  }
+
+  Future<Chamber> findFromName(String? name) async {
+    var result = await localStorage.findChamberFromName(name);
+
+    return Chamber.fromMap(result);
+  }
 }

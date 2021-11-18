@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'bloc.dart';
 
-class DoneButton extends StatelessWidget {
-  const DoneButton({Key? key}) : super(key: key);
+class RegisterButton extends GetView<RegisterButtonBloc> {
+  const RegisterButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => RegisterButtonBloc());
+
     return Row(
       children: [
         Expanded(
@@ -12,8 +16,8 @@ class DoneButton extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               minimumSize: const Size(64, 48),
             ),
-            onPressed: () {},
-            child: Text('Concluir'),
+            onPressed: controller.onPressed,
+            child: Text('Registrar'),
           ),
         ),
       ],

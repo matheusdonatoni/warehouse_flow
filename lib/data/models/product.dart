@@ -82,7 +82,7 @@ class Product {
         code: json["code"],
         description: json["description"],
         unit: json["unit"],
-        type: json["unit"],
+        type: json["type"],
         createdAt: DateTime.tryParse(json["createdAt"]),
         updatedAt: DateTime.tryParse(json["updatedAt"]),
       );

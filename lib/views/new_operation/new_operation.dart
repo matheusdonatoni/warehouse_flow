@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import '/controllers/new_operation_controllers/new_operation_controller.dart';
 
 import 'widgets/chamber_drop_down_button/chamber_drop_down_button.dart';
-import 'widgets/register_button.dart';
-import 'widgets/operation_radios.dart';
+import 'widgets/product_text_form_fields.dart';
+import 'widgets/register_button/register_button.dart';
+import 'widgets/operation_radios/operation_radios.dart';
 import 'widgets/position_drop_down_buttons.dart';
-import 'widgets/product_text_form_field.dart';
 import 'widgets/street_name_drop_down_button/street_name_drop_down_button.dart';
 import 'widgets/street_number_drop_down_button/street_number_drop_down_button.dart';
 
@@ -44,18 +44,21 @@ class NewOperationPage extends GetResponsiveView<NewOperationController> {
     );
   }
 
-  Widget get _form => Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          ChamberDropDownButton(),
-          StreetNameDropDownButton(),
-          StreetNumberDropDownButton(),
-          PositionDropDownButtons(),
-          ProductTextFormField(),
-          OperationRadios(),
-          SizedBox(height: 24.0),
-          RegisterButton(),
-          SizedBox(height: 24.0)
-        ],
+  Widget get _form => Form(
+        key: controller.formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ChamberDropDownButton(),
+            StreetNameDropDownButton(),
+            StreetNumberDropDownButton(),
+            PositionDropDownButtons(),
+            ProductTextFormFields(),
+            OperationRadios(),
+            SizedBox(height: 24.0),
+            RegisterButton(),
+            SizedBox(height: 24.0)
+          ],
+        ),
       );
 }
