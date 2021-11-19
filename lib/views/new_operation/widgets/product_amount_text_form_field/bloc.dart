@@ -6,6 +6,7 @@ import '/controllers/new_operation_controllers/new_operation_controller.dart';
 
 class ProductAmountTextFormFieldBloc extends GetxController {
   final textController = TextEditingController();
+  final focusNode = FocusNode();
 
   NewOperationController get _newOperationController => Get.find();
 
@@ -21,10 +22,9 @@ class ProductAmountTextFormFieldBloc extends GetxController {
 
   void _listenRelative() {
     _product.listen((product) {
-      if (product.id == null) {
-        textController.clear();
-        operation = Operation(type: operation.type);
-      }
+      textController.clear();
+
+      operation = Operation(type: operation.type);
     });
   }
 
@@ -36,7 +36,7 @@ class ProductAmountTextFormFieldBloc extends GetxController {
     final parsedValue = double.tryParse(value);
 
     if (parsedValue == null) {
-      return 'Formato de valor inválido';
+      return 'Formato inválido';
     } else if (parsedValue <= 0) {
       return 'Valor inválido';
     }
@@ -45,7 +45,7 @@ class ProductAmountTextFormFieldBloc extends GetxController {
   }
 
   void onSubmitted(String? amount) {
-    if (amount != null) {
+    if (amount != null && amount.isNotEmpty) {
       operation.amount = double.tryParse(amount);
     }
   }

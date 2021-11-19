@@ -20,7 +20,11 @@ class LocalStorage {
       'SELECT * FROM warehouses WHERE id = $id',
     );
 
-    return result.single;
+    try {
+      return result.single;
+    } catch (e) {
+      throw e;
+    }
   }
 
   Future<List<Map<String, dynamic>>> findChambersFromWarehouse(
@@ -50,7 +54,11 @@ class LocalStorage {
       'SELECT * FROM chambers WHERE name = "$name"',
     );
 
-    return result.single;
+    try {
+      return result.single;
+    } catch (e) {
+      throw e;
+    }
   }
 
   Future<List<Map<String, dynamic>>> findStreets(
@@ -95,7 +103,11 @@ class LocalStorage {
       AND number = ${street.number}''',
     );
 
-    return result.single;
+    try {
+      return result.single;
+    } catch (e) {
+      throw e;
+    }
   }
 
   Future<List<Map<String, dynamic>>> findPositions(
@@ -119,7 +131,9 @@ class LocalStorage {
        AND depth = ${position.depth}''',
     );
 
+
     return result.single;
+   
   }
 
   Future<List<Map<String, dynamic>>> findPositionHeights(
@@ -153,7 +167,11 @@ class LocalStorage {
       'SELECT * FROM products WHERE code = $code',
     );
 
-    return result.single;
+    try {
+      return result.single;
+    } catch (e) {
+      throw e;
+    }
   }
 
   static Future<LocalStorage> init() async {

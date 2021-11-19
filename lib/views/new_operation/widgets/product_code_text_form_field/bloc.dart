@@ -46,18 +46,24 @@ class ProductCodeTextFormFieldBloc extends GetxController {
   }
 
   void onSubmitted(String? code) async {
-    if (code != product.code) {
-      product = await _repo.findFromCode(code);
+    if (code != null && code.isNotEmpty && code != product.code) {
+      try {
+        product = await _repo.findFromCode(code);
+      } catch (_) {
+        product = Product();
+
+        Get.rawSnackbar(
+          message: 'Produto não cadastrado',
+        );
+      }
     }
   }
+
+
 
   @override
   void onInit() {
     super.onInit();
-
-    focusNode.addListener(() {
-      print('mundaça de foco');
-    });
 
     _listenRelative();
   }

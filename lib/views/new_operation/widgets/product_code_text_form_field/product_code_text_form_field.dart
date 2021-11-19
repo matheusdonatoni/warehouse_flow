@@ -16,6 +16,7 @@ class ProductCodeTextFormField extends GetView<ProductCodeTextFormFieldBloc> {
         readOnly: controller.readOnly,
         controller: controller.textController,
         keyboardType: TextInputType.number,
+        textInputAction: TextInputAction.next,
         onFieldSubmitted: controller.onSubmitted,
         decoration: InputDecoration(
           hintText: 'Código',

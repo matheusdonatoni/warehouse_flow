@@ -1,4 +1,4 @@
-import '/data/models/product.dart';
+import 'package:warehouse_flow/data/models/product.dart';
 
 import '_impl/base_repository_impl.dart';
 

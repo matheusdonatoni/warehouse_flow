@@ -10,13 +10,16 @@ class ProductAmountTextFormField
   Widget build(BuildContext context) {
     Get.lazyPut(() => ProductAmountTextFormFieldBloc());
 
-    return TextFormField(
-      controller: controller.textController,
-      validator: controller.validator,
-      readOnly: controller.readOnly,
-      keyboardType: TextInputType.number,
-      decoration: InputDecoration(
-        hintText: 'Quantidade',
+    return Obx(
+      () => TextFormField(
+        readOnly: controller.readOnly,
+        focusNode: controller.focusNode,
+        controller: controller.textController,
+        validator: controller.validator,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          hintText: 'Quantidade',
+        ),
       ),
     );
   }

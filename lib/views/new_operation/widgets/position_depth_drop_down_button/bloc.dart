@@ -26,6 +26,14 @@ class PositionDepthDropDownButtonBloc extends GetxController {
           depths.assignAll(
             await _repo.findDepths(street, position.height!),
           );
+
+          if (depths.length == 1 && this.position.id == null) {
+            position = position.copyWith(
+              depth: depths.single,
+            );
+
+            this.position = await _repo.find(street, position);
+          }
         } else {
           depths.clear();
         }
