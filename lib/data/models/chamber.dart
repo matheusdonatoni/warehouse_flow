@@ -65,7 +65,7 @@ class Chamber {
 
   factory Chamber.fromMap(Map<String, dynamic> json) => Chamber(
         id: json["id"],
-        name: json["name"] ?? '',
+        name: json["name"],
         streets: List<Street>.from(
           (json["streets"] ?? []).map((x) => Street.fromMap(x)),
         ),

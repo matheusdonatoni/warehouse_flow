@@ -50,6 +50,10 @@ class Operation {
   DateTime? get updatedAt => rx.updatedAt.value;
   set updatedAt(DateTime? value) => rx.updatedAt.value = value;
 
+  bool get isNotEmpty => (amount ?? -1) > 0;
+
+  bool get isInsertion => type == OperationType.insert;
+
   Operation copyWith({
     int? id,
     double? amount,

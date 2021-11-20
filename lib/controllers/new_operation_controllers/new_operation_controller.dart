@@ -22,6 +22,14 @@ class NewOperationController extends BaseGetxControllerImpl<Rx<Operation>> {
   final position = Position().obs;
   final product = Product().obs;
 
+  void register() {
+    // TODO: implement register
+    // need to check amount if operation is remove, format number value
+    // add thounds . for product code and comma and dot for amount
+    // implement from mask and remove on when i need to read to avoid
+    // parser errors
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -35,4 +43,6 @@ class NewOperationController extends BaseGetxControllerImpl<Rx<Operation>> {
       status: RxStatus.success(),
     );
   }
+
+  
 }

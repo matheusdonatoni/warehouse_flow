@@ -65,7 +65,7 @@ class Warehouse {
 
   factory Warehouse.fromMap(Map<String, dynamic> json) => Warehouse(
         id: json["id"],
-        name: json["name"] ?? '',
+        name: json["name"],
         chambers: List<Chamber>.from(
           (json["chambers"] ?? []).map((x) => Chamber.fromMap(x)),
         ),

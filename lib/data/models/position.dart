@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
+import 'product.dart';
 import 'register.dart';
 
 class RxPosition {
@@ -9,7 +10,7 @@ class RxPosition {
   final height = Rxn<int>();
   final depth = Rxn<int>();
   final type = Rxn<String>();
-  final register = Rxn<Register>();
+  final register = Rx<Register>(Register());
   final createdAt = Rxn<DateTime>();
   final updatedAt = Rxn<DateTime>();
 }
@@ -28,7 +29,7 @@ class Position {
     this.height = height;
     this.depth = depth;
     this.type = type;
-    this.register = register;
+    this.register = register ?? Register();
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -47,14 +48,16 @@ class Position {
   String? get type => rx.type.value;
   set type(String? value) => rx.type.value = value;
 
-  Register? get register => rx.register.value;
-  set register(Register? value) => rx.register.value = value;
+  Register get register => rx.register.value;
+  set register(Register value) => rx.register.value = value;
 
   DateTime? get createdAt => rx.createdAt.value;
   set createdAt(DateTime? value) => rx.createdAt.value = value;
 
   DateTime? get updatedAt => rx.updatedAt.value;
   set updatedAt(DateTime? value) => rx.updatedAt.value = value;
+
+  List<Product> get products => register.products;
 
   Position copyWith({
     int? id,
@@ -84,7 +87,7 @@ class Position {
         height: json["height"],
         depth: json["depth"],
         type: json["type"],
-        register:  Register.fromMap(json["register"] ?? {}),
+        register: Register.fromMap(json["register"] ?? {}),
         createdAt: DateTime.tryParse(json["createdAt"]),
         updatedAt: DateTime.tryParse(json["updatedAt"]),
       );
@@ -94,7 +97,7 @@ class Position {
         "height": height,
         "depth": depth,
         "type": type,
-        "register": register?.toMap(),
+        "register": register.toMap(),
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
       };
