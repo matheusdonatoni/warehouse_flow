@@ -43,6 +43,4 @@ class NewOperationController extends BaseGetxControllerImpl<Rx<Operation>> {
       status: RxStatus.success(),
     );
   }
-
-  
 }

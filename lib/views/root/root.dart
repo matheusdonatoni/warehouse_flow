@@ -4,7 +4,7 @@ import '../../services/navigation_services.dart';
 import 'widgets/drawer/drawer_tile.dart';
 import 'widgets/drawer/navigation_drawer.dart';
 import 'widgets/navigators/home_navigator.dart';
-import 'widgets/navigators/log_navigator.dart';
+import 'widgets/navigators/register_navigator.dart';
 
 class RootPage extends GetResponsiveView<NavigationServices> {
   RootPage({Key? key}) : super(key: key);
