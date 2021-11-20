@@ -6,9 +6,9 @@ import 'product.dart';
 
 class RxOperation {
   final id = Rxn<int>();
-  final amount = Rxn<double>();
-  final type = Rxn<OperationType>();
-  final product = Rxn<Product>();
+  final amount = Rx<double>(0.0);
+  final type = Rx<OperationType>(OperationType.insert);
+  final product = Rx<Product>(Product());
   final createdAt = Rxn<DateTime>();
   final updatedAt = Rxn<DateTime>();
 }
@@ -16,16 +16,16 @@ class RxOperation {
 class Operation {
   Operation({
     int? id,
-    double? amount,
+    double amount = 0,
     OperationType? type,
     Product? product,
     DateTime? createdAt,
     DateTime? updatedAt,
-  }) {
+  }) : assert(amount >= 0) {
     this.id = id;
     this.amount = amount;
-    this.type = type;
-    this.product = product;
+    this.type = type ?? OperationType.insert;
+    this.product = product ?? Product();
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -35,14 +35,14 @@ class Operation {
   int? get id => rx.id.value;
   set id(int? value) => rx.id.value = value;
 
-  double? get amount => rx.amount.value;
-  set amount(double? value) => rx.amount.value = value;
+  double get amount => rx.amount.value;
+  set amount(double value) => rx.amount.value = value;
 
-  OperationType? get type => rx.type.value;
-  set type(OperationType? value) => rx.type.value = value;
+  OperationType get type => rx.type.value;
+  set type(OperationType value) => rx.type.value = value;
 
-  Product? get product => rx.product.value;
-  set product(Product? value) => rx.product.value = value;
+  Product get product => rx.product.value;
+  set product(Product value) => rx.product.value = value;
 
   DateTime? get createdAt => rx.createdAt.value;
   set createdAt(DateTime? value) => rx.createdAt.value = value;
@@ -50,9 +50,10 @@ class Operation {
   DateTime? get updatedAt => rx.updatedAt.value;
   set updatedAt(DateTime? value) => rx.updatedAt.value = value;
 
-  bool get isNotEmpty => (amount ?? -1) > 0;
+  bool get isNotEmpty => amount > 0;
 
   bool get isInsertion => type == OperationType.insert;
+  bool get isRemoval => !isInsertion;
 
   Operation copyWith({
     int? id,
@@ -87,7 +88,7 @@ class Operation {
   Map<String, dynamic> toMap() => {
         "id": id,
         "amount": amount,
-        "type": type?.valueToString(),
+        "type": type.valueToString(),
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
       };

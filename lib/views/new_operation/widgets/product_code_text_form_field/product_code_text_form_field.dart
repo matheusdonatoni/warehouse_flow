@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../data/utils/decimal_formatter.dart';
 import 'bloc.dart';
 
 class ProductCodeTextFormField extends GetView<ProductCodeTextFormFieldBloc> {
@@ -17,6 +18,7 @@ class ProductCodeTextFormField extends GetView<ProductCodeTextFormFieldBloc> {
         controller: controller.textController,
         keyboardType: TextInputType.number,
         textInputAction: TextInputAction.next,
+        inputFormatters: [DecimalFormatter(decimalDigits: 0)],
         onFieldSubmitted: controller.onSubmitted,
         decoration: InputDecoration(
           hintText: 'Código',

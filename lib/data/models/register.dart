@@ -21,7 +21,7 @@ class Register {
     DateTime? updatedAt,
   }) {
     this.id = id;
-    this.operations = operations;
+    this._operations = operations;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -32,7 +32,7 @@ class Register {
   set id(int? value) => rx.id.value = value;
 
   List<Operation> get operations => rx.opreations;
-  set operations(List<Operation> value) => rx.opreations.value = value;
+  set _operations(List<Operation> value) => rx.opreations.value = value;
 
   DateTime? get createdAt => rx.createdAt.value;
   set createdAt(DateTime? value) => rx.createdAt.value = value;
@@ -48,13 +48,12 @@ class Register {
     for (final operation in operations) {
       final product = operation.product;
 
-      if (product != null && operation.type != null && operation.isNotEmpty) {
+      if (operation.isNotEmpty) {
         var _isNew = !_productResumes.any(
           (e) => e.product.id == product.id,
         );
 
-        var amount =
-            operation.isInsertion ? operation.amount! : -operation.amount!;
+        var amount = operation.isRemoval ? -operation.amount : operation.amount;
 
         if (_isNew) {
           _productResumes.add(

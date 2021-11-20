@@ -48,7 +48,9 @@ class ProductCodeTextFormFieldBloc extends GetxController {
   void onSubmitted(String? code) async {
     if (code != null && code.isNotEmpty && code != product.code) {
       try {
-        product = await _repo.findFromCode(code);
+        product = await _repo.findFromCode(
+          code.replaceAll(RegExp('[^0-9\]'), ''),
+        );
       } catch (_) {
         product = Product();
 
@@ -58,8 +60,6 @@ class ProductCodeTextFormFieldBloc extends GetxController {
       }
     }
   }
-
-
 
   @override
   void onInit() {

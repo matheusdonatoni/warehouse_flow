@@ -46,7 +46,10 @@ class ProductAmountTextFormFieldBloc extends GetxController {
 
   void onSubmitted(String? amount) {
     if (amount != null && amount.isNotEmpty) {
-      operation.amount = double.tryParse(amount);
+      operation.amount = double.tryParse(
+            amount.replaceAll('.', '').replaceAll(',', '.'),
+          ) ??
+          0;
     }
   }
 
