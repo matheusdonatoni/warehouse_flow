@@ -8,7 +8,7 @@ class RegisterButtonBloc extends GetxController {
 
   GlobalKey<FormState> get _formKey => _newOperationController.formKey;
 
-  Rx<Operation> get _operation => _newOperationController.state!;
+  Rx<Operation> get _operation => _newOperationController.operation;
   Operation get operation => _operation.value;
   set operation(Operation val) => _operation.value = val;
 

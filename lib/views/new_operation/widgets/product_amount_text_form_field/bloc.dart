@@ -14,7 +14,7 @@ class ProductAmountTextFormFieldBloc extends GetxController {
   Product get product => _product.value;
   set product(Product val) => _product.value = val;
 
-  Rx<Operation> get _operation => _newOperationController.state!;
+  Rx<Operation> get _operation => _newOperationController.operation;
   Operation get operation => _operation.value;
   set operation(Operation val) => _operation.value = val;
 

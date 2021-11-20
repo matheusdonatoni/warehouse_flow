@@ -8,7 +8,7 @@ class ChamberDropDownButtonBloc extends GetxController {
   ChamberRepository get _repo => Get.find();
 
   NewOperationController get _newOperationController => Get.find();
-  Warehouse get _warehouse => _newOperationController.warehouse!;
+  Warehouse get _warehouse => _newOperationController.warehouse;
 
   Rx<Chamber> get _chamber => _newOperationController.chamber;
   Chamber get chamber => _chamber.value;

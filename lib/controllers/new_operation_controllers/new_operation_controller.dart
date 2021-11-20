@@ -11,9 +11,9 @@ import '/data/models/position.dart';
 import '/data/models/operation.dart';
 import '/data/models/product.dart';
 
-class NewOperationController extends BaseGetxControllerImpl<Rx<Operation>> {
+class NewOperationController extends BaseGetxControllerImpl {
   HomeController get _homeController => Get.find();
-  Warehouse? get warehouse => _homeController.state;
+  Warehouse get warehouse => _homeController.warehouse;
 
   final formKey = GlobalKey<FormState>();
 
@@ -21,6 +21,7 @@ class NewOperationController extends BaseGetxControllerImpl<Rx<Operation>> {
   final street = Street().obs;
   final position = Position().obs;
   final product = Product().obs;
+  final operation = Operation().obs;
 
   void register() {
     // TODO: implement register
@@ -28,19 +29,5 @@ class NewOperationController extends BaseGetxControllerImpl<Rx<Operation>> {
     // add thounds . for product code and comma and dot for amount
     // implement from mask and remove on when i need to read to avoid
     // parser errors
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-
-    change(
-      Rx<Operation>(
-        Operation(
-          type: OperationType.insert,
-        ),
-      ),
-      status: RxStatus.success(),
-    );
   }
 }
