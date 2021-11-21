@@ -87,6 +87,16 @@ class Product {
         updatedAt: DateTime.tryParse(json["updatedAt"]),
       );
 
+  factory Product.fromAlisesMap(Map<String, dynamic> json) => Product(
+        id: json["pr_id"],
+        code: json["code"],
+        description: json["description"],
+        unit: json["unit"],
+        type: json["pr_type"],
+        createdAt: DateTime.tryParse(json["pr_createdAt"]),
+        updatedAt: DateTime.tryParse(json["pr_updatedAt"]),
+      );
+
   Map<String, dynamic> toMap() => {
         "id": id,
         "code": code,

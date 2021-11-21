@@ -25,7 +25,9 @@ class LocalStorage {
                 c.id as c_id, c.name as c_name, warehouseId, c.createdat as c_createdAt, c.updatedat as c_updatedAt,
                 s.id as s_id, s.name as s_name, number, chamberId, s.createdat as s_createdAt, s.updatedat as s_updatedAt,
                 p.id as p_id, height, depth, streetId, p.type as p_type, p.createdat as p_createdAt, p.updatedat as p_updatedAt,
-                r.id as r_id, positionId, r.createdat as r_createdAt, r.updatedat as r_updatedAt
+                r.id as r_id, positionId, r.createdat as r_createdAt, r.updatedat as r_updatedAt,
+                o.id as o_id, amount, o.type as o_type, registerId, productId, o.createdat as o_createdAt, o.updatedat as o_updatedAt,
+                pr.id as pr_id, code, description, unit, pr.type as pr_type, pr.createdat as pr_createdAt, pr.updatedat as pr_updatedAt
                 FROM warehouses as w
                 LEFT JOIN chambers as c
                 ON c.warehouseid = w.id
@@ -35,6 +37,10 @@ class LocalStorage {
                 ON p.streetid = s.id
                 LEFT JOIN registers as r
                 ON r.positionId = p.id
+                LEFT JOIN operations as o
+                ON o.registerId = r.id
+                LEFT JOIN products as pr
+                ON o.productId = pr.id
                 WHERE w.id = ?''';
 
     final result = _database.rawQuery(sql, [id]);
@@ -219,7 +225,7 @@ class LocalStorage {
       (amount, type, registerid, productid, createdat, updatedat) 
       VALUES 
       (${operation.amount}, "${operation.type}", ${register.id}, 
-      ${operation.product.id}, "$kNowtoIso", "$kNowtoIso");''',
+      ${operation.product.id}, "$kNowtoIso", "$kNowtoIso")''',
     );
 
     return result.single;

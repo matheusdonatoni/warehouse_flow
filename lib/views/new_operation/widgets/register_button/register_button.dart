@@ -16,7 +16,7 @@ class RegisterButton extends GetView<RegisterButtonBloc> {
             style: ElevatedButton.styleFrom(
               minimumSize: const Size(64, 48),
             ),
-            onPressed: controller.onPressed,
+            onPressed: controller.registerOperation,
             child: Text('Registrar'),
           ),
         ),

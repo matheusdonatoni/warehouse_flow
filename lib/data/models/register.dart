@@ -16,12 +16,12 @@ class RxRegister {
 class Register {
   Register({
     int? id,
-    List<Operation> operations = const [],
+    List<Operation>? operations,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
     this.id = id;
-    this._operations = operations;
+    this._operations = operations ?? [];
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }

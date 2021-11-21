@@ -16,14 +16,17 @@ class RxOperation {
 class Operation {
   Operation({
     int? id,
-    double amount = 0,
+    double? amount,
     OperationType? type,
     Product? product,
     DateTime? createdAt,
     DateTime? updatedAt,
-  }) : assert(amount >= 0) {
+  }) {
     this.id = id;
-    this.amount = amount;
+    this.amount = amount ?? 0;
+
+    assert(this.amount >= 0);
+
     this.type = type ?? OperationType.insert;
     this.product = product ?? Product();
     this.createdAt = createdAt;
@@ -80,9 +83,17 @@ class Operation {
         id: json["id"],
         amount: json["amount"],
         product: Product.fromMap(json["product"]),
-        type: Operation.parseOperation(json["type"]),
-        createdAt: DateTime.tryParse(json["createdAt"]),
-        updatedAt: DateTime.tryParse(json["updatedAt"]),
+        type: Operation.parseOperation(json["type"] ?? ''),
+        createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
+        updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
+      );
+
+  factory Operation.fromAliasesMap(Map<String, dynamic> json) => Operation(
+        id: json["o_id"],
+        amount: json["amount"],
+        type: Operation.parseOperation(json["o_type"] ?? ''),
+        createdAt: DateTime.tryParse(json["o_createdAt"] ?? ''),
+        updatedAt: DateTime.tryParse(json["o_updatedAt"] ?? ''),
       );
 
   Map<String, dynamic> toMap() => {
@@ -103,11 +114,11 @@ class Operation {
       return OperationType.remove;
     }
 
-    return OperationType.none;
+    return OperationType.remove;
   }
 }
 
-enum OperationType { insert, remove, none }
+enum OperationType { insert, remove }
 
 extension OperationExt on OperationType {
   String valueToString() {

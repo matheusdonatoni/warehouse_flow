@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'product_amount_text_form_field/product_amount_text_form_field.dart';
+import 'operation_amount_text_form_field/operation_amount_text_form_field.dart';
 import 'product_code_text_form_field/product_code_text_form_field.dart';
 import 'product_description_text_field/product_description_text_field.dart';
 import 'product_type_text_field/product_type_text_field.dart';

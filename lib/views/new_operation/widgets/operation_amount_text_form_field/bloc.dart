@@ -4,7 +4,7 @@ import 'package:warehouse_flow/data/models/operation.dart';
 import '/data/models/product.dart';
 import '/controllers/new_operation_controllers/new_operation_controller.dart';
 
-class ProductAmountTextFormFieldBloc extends GetxController {
+class OperationAmountTextFormFieldBloc extends GetxController {
   final textController = TextEditingController();
   final focusNode = FocusNode();
 

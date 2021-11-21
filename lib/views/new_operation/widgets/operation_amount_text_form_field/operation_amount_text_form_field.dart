@@ -4,12 +4,12 @@ import '/data/utils/decimal_formatter.dart';
 import 'bloc.dart';
 
 class ProductAmountTextFormField
-    extends GetView<ProductAmountTextFormFieldBloc> {
+    extends GetView<OperationAmountTextFormFieldBloc> {
   const ProductAmountTextFormField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => ProductAmountTextFormFieldBloc());
+    Get.lazyPut(() => OperationAmountTextFormFieldBloc());
 
     return Obx(
       () => TextFormField(
@@ -17,6 +17,7 @@ class ProductAmountTextFormField
         focusNode: controller.focusNode,
         controller: controller.textController,
         validator: controller.validator,
+        onFieldSubmitted: controller.onSubmitted,
         inputFormatters: [DecimalFormatter(decimalDigits: 5)],
         keyboardType: TextInputType.number,
         decoration: InputDecoration(

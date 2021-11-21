@@ -1,6 +1,7 @@
-import 'package:warehouse_flow/data/models/position.dart';
-import 'package:warehouse_flow/data/models/register.dart';
-
+import '../models/operation.dart';
+import '../models/position.dart';
+import '../models/product.dart';
+import '../models/register.dart';
 import '../models/street.dart';
 import '../models/chamber.dart';
 import '../models/warehouse.dart';
@@ -48,6 +49,14 @@ class WarehouseRepository extends BaseRepositoryImpl {
       if (street.id == map['streetId'] &&
           !street.positions.any((e) => e.id == position.id)) {
         street.positions.add(position);
+      }
+
+      var operation = Operation.fromAliasesMap(map);
+
+      if (position.register.id == map['registerId'] && operation.id != null) {
+        operation.product = Product.fromAlisesMap(map);
+
+        position.register.operations.add(operation);
       }
     }
 
