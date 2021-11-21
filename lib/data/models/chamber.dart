@@ -16,13 +16,13 @@ class Chamber {
   Chamber({
     int? id,
     String? name,
-    List<Street> streets = const [],
+    List<Street>? streets,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
     this.id = id;
     this.name = name;
-    this.streets = streets;
+    this.streets = streets ?? [];
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -71,6 +71,13 @@ class Chamber {
         ),
         createdAt: DateTime.tryParse(json["createdAt"]),
         updatedAt: DateTime.tryParse(json["updatedAt"]),
+      );
+
+  factory Chamber.fromAliasesMap(Map<String, dynamic> json) => Chamber(
+        id: json["c_id"],
+        name: json["c_name"],
+        createdAt: DateTime.tryParse(json["c_createdAt"]),
+        updatedAt: DateTime.tryParse(json["c_updatedAt"]),
       );
 
   Map<String, dynamic> toMap() => {

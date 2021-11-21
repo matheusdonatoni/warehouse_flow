@@ -101,6 +101,12 @@ class Register {
         updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
       );
 
+  factory Register.fromAliasesMap(Map<String, dynamic> json) => Register(
+        id: json["r_id"],
+        createdAt: DateTime.tryParse(json["r_createdAt"] ?? ''),
+        updatedAt: DateTime.tryParse(json["r_updatedAt"] ?? ''),
+      );
+
   Map<String, dynamic> toMap() => {
         "id": id,
         "operations": List.from(operations.map((x) => x.toMap())),

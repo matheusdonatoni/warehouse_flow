@@ -5,15 +5,42 @@ import 'package:flutter/widgets.dart';
 
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'package:warehouse_flow/data/models/position.dart';
-import '/data/models/warehouse.dart';
-import '/data/models/chamber.dart';
-import '/data/models/street.dart';
+import '../utils/constants.dart';
+
+import '../models/operation.dart';
+import '../models/position.dart';
+import '../models/register.dart';
+import '../models/warehouse.dart';
+import '../models/chamber.dart';
+import '../models/street.dart';
 
 class LocalStorage {
   LocalStorage._init();
 
   late final Database _database;
+
+  Future<List<Map<String, dynamic>>> findWarehouseEagerLoading(int id) async {
+    final sql = '''SELECT 
+                w.id as w_id, w.name as w_name, w.createdat as w_createdAt, w.updatedat as w_updatedAt,
+                c.id as c_id, c.name as c_name, warehouseId, c.createdat as c_createdAt, c.updatedat as c_updatedAt,
+                s.id as s_id, s.name as s_name, number, chamberId, s.createdat as s_createdAt, s.updatedat as s_updatedAt,
+                p.id as p_id, height, depth, streetId, p.type as p_type, p.createdat as p_createdAt, p.updatedat as p_updatedAt,
+                r.id as r_id, positionId, r.createdat as r_createdAt, r.updatedat as r_updatedAt
+                FROM warehouses as w
+                LEFT JOIN chambers as c
+                ON c.warehouseid = w.id
+                LEFT JOIN streets as s
+                ON s.chamberid = c.id
+                LEFT JOIN positions as p
+                ON p.streetid = s.id
+                LEFT JOIN registers as r
+                ON r.positionId = p.id
+                WHERE w.id = ?''';
+
+    final result = _database.rawQuery(sql, [id]);
+
+    return result;
+  }
 
   Future<Map<String, dynamic>> findWarehouse(int id) async {
     var result = await _database.rawQuery(
@@ -131,9 +158,7 @@ class LocalStorage {
        AND depth = ${position.depth}''',
     );
 
-
     return result.single;
-   
   }
 
   Future<List<Map<String, dynamic>>> findPositionHeights(
@@ -172,6 +197,42 @@ class LocalStorage {
     } catch (e) {
       throw e;
     }
+  }
+
+  Future<Map<String, dynamic>> findRegisterFromPosition(
+    Position position,
+  ) async {
+    var result = await _database.rawQuery(
+      '''SELECT * FROM registers 
+      WHERE positionId = ${position.id}''',
+    );
+
+    return result.single;
+  }
+
+  Future<Map<String, dynamic>> createOperation(
+    Operation operation,
+    Register register,
+  ) async {
+    var result = await _database.rawQuery(
+      '''INSERT INTO operations 
+      (amount, type, registerid, productid, createdat, updatedat) 
+      VALUES 
+      (${operation.amount}, "${operation.type}", ${register.id}, 
+      ${operation.product.id}, "$kNowtoIso", "$kNowtoIso");''',
+    );
+
+    return result.single;
+  }
+
+  Future<List<Map<String, dynamic>>> findOperationsFromRegister(
+    Register register,
+  ) async {
+    var result = await _database.rawQuery(
+      '''SELECT * FROM operations WHERE registerid = ${register.id}''',
+    );
+
+    return result;
   }
 
   static Future<LocalStorage> init() async {

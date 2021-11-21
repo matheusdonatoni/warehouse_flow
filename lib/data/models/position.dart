@@ -92,6 +92,15 @@ class Position {
         updatedAt: DateTime.tryParse(json["updatedAt"]),
       );
 
+  factory Position.fromAliasesMap(Map<String, dynamic> json) => Position(
+        id: json["p_id"],
+        height: json["height"],
+        depth: json["depth"],
+        type: json["p_type"],
+        createdAt: DateTime.tryParse(json["p_createdAt"]),
+        updatedAt: DateTime.tryParse(json["p_updatedAt"]),
+      );
+
   Map<String, dynamic> toMap() => {
         "id": id,
         "height": height,

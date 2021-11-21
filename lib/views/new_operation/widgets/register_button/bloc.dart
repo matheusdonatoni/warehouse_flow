@@ -13,6 +13,6 @@ class RegisterButtonBloc extends GetxController {
   set operation(Operation val) => _operation.value = val;
 
   void onPressed() {
-    _formKey.currentState?.validate();
+    _newOperationController.registerOperation();
   }
 }

@@ -18,14 +18,14 @@ class Street {
     int? id,
     String? name,
     int? number,
-    List<Position> positions = const [],
+    List<Position>? positions,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
     this.id = id;
     this.name = name;
     this.number = number;
-    this.positions = positions;
+    this.positions = positions ?? [];
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -80,6 +80,14 @@ class Street {
         ),
         createdAt: DateTime.tryParse(json["createdAt"]),
         updatedAt: DateTime.tryParse(json["updatedAt"]),
+      );
+
+  factory Street.fromAliasesMap(Map<String, dynamic> json) => Street(
+        id: json["s_id"],
+        name: json["s_name"],
+        number: json["number"],
+        createdAt: DateTime.tryParse(json["s_createdAt"]),
+        updatedAt: DateTime.tryParse(json["s_updatedAt"]),
       );
 
   Map<String, dynamic> toMap() => {

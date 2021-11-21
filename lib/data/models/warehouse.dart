@@ -16,13 +16,13 @@ class Warehouse {
   Warehouse({
     int? id,
     String? name,
-    List<Chamber> chambers = const [],
+    List<Chamber>? chambers,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
     this.id = id;
     this.name = name;
-    this.chambers = chambers;
+    this.chambers = chambers ?? [];
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -71,6 +71,13 @@ class Warehouse {
         ),
         createdAt: DateTime.tryParse(json["createdAt"]),
         updatedAt: DateTime.tryParse(json["updatedAt"]),
+      );
+
+  factory Warehouse.fromAliasesMap(Map<String, dynamic> json) => Warehouse(
+        id: json["w_id"],
+        name: json["w_name"],
+        createdAt: DateTime.tryParse(json["w_createdAt"]),
+        updatedAt: DateTime.tryParse(json["w_updatedAt"]),
       );
 
   Map<String, dynamic> toMap() => {
