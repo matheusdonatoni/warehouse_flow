@@ -18,6 +18,8 @@ class ProductResume {
 
   final rx = RxProductResume();
 
+  int? get id => product.id;
+
   Product get product => rx.product.value;
   set product(Product value) => rx.product.value = value;
 

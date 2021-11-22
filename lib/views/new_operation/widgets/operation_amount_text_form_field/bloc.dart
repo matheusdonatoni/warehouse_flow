@@ -24,7 +24,10 @@ class OperationAmountTextFormFieldBloc extends GetxController {
     _product.listen((product) {
       textController.clear();
 
-      operation = Operation(type: operation.type);
+      operation = Operation(
+        type: operation.type,
+        product: product,
+      );
     });
   }
 

@@ -40,39 +40,39 @@ class Register {
   DateTime? get updatedAt => rx.updatedAt.value;
   set updatedAt(DateTime? value) => rx.updatedAt.value = value;
 
-  List<Product> get products => productResumes.map((e) => e.product).toList();
+  List<Product> get products => resumes.map((e) => e.product).toList();
 
-  List<ProductResume> get productResumes {
-    final _productResumes = <ProductResume>[];
+  List<ProductResume> get resumes {
+    final _resumes = <ProductResume>[];
 
     for (final operation in operations) {
-      final product = operation.product;
-
       if (operation.isNotEmpty) {
-        var _isNew = !_productResumes.any(
-          (e) => e.product.id == product.id,
+        final product = operation.product;
+
+        var _isNew = !_resumes.any(
+          (e) => e.id == product.id,
         );
 
         var amount = operation.isRemoval ? -operation.amount : operation.amount;
 
         if (_isNew) {
-          _productResumes.add(
+          _resumes.add(
             ProductResume(
               product: product,
               amount: amount,
             ),
           );
         } else {
-          final resume = _productResumes.singleWhere(
-            (e) => e.product.id == product.id,
-          );
-
-          resume.amount += amount;
+          _resumes.singleWhere(
+            (e) => e.id == product.id,
+          )..amount += amount;
         }
       }
     }
 
-    return _productResumes;
+    _resumes.removeWhere((e) => e.amount == 0);
+
+    return _resumes;
   }
 
   Register copyWith({
@@ -101,8 +101,13 @@ class Register {
         updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
       );
 
-  factory Register.fromAliasesMap(Map<String, dynamic> json) => Register(
+  factory Register.fromAliasesMap(
+    Map<String, dynamic> json, {
+    List<Operation>? operations,
+  }) =>
+      Register(
         id: json["r_id"],
+        operations: operations,
         createdAt: DateTime.tryParse(json["r_createdAt"] ?? ''),
         updatedAt: DateTime.tryParse(json["r_updatedAt"] ?? ''),
       );

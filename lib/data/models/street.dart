@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 import 'position.dart';
+import 'product.dart';
+import 'product_resume.dart';
 
 class RxStreet {
   final id = Rxn<int>();
@@ -50,6 +52,34 @@ class Street {
   DateTime? get updatedAt => rx.updatedAt.value;
   set updatedAt(DateTime? value) => rx.updatedAt.value = value;
 
+  List<Product> get products => resumes.map((e) => e.product).toList();
+
+  List<ProductResume> get resumes {
+    final _resumes = <ProductResume>[];
+
+    for (final position in positions) {
+      if (_resumes.isEmpty) {
+        _resumes.assignAll(position.resumes);
+      } else {
+        for (final resume in position.resumes) {
+          final _isNew = !_resumes.any(
+            (e) => e.id == resume.id,
+          );
+
+          if (_isNew) {
+            _resumes.add(resume);
+          } else {
+            _resumes.singleWhere(
+              (e) => e.id == resume.id,
+            )..amount += resume.amount;
+          }
+        }
+      }
+    }
+
+    return _resumes;
+  }
+
   Street copyWith({
     int? id,
     String? name,
@@ -78,16 +108,21 @@ class Street {
         positions: List<Position>.from(
           (json["positions"] ?? []).map((x) => Position.fromMap(x)),
         ),
-        createdAt: DateTime.tryParse(json["createdAt"]),
-        updatedAt: DateTime.tryParse(json["updatedAt"]),
+        createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
+        updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
       );
 
-  factory Street.fromAliasesMap(Map<String, dynamic> json) => Street(
+  factory Street.fromAliasesMap(
+    Map<String, dynamic> json, {
+    List<Position>? positions,
+  }) =>
+      Street(
         id: json["s_id"],
         name: json["s_name"],
         number: json["number"],
-        createdAt: DateTime.tryParse(json["s_createdAt"]),
-        updatedAt: DateTime.tryParse(json["s_updatedAt"]),
+        positions: positions,
+        createdAt: DateTime.tryParse(json["s_createdAt"] ?? ''),
+        updatedAt: DateTime.tryParse(json["s_updatedAt"] ?? ''),
       );
 
   Map<String, dynamic> toMap() => {

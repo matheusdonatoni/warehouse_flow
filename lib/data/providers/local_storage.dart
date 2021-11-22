@@ -21,13 +21,13 @@ class LocalStorage {
 
   Future<List<Map<String, dynamic>>> findWarehouseEagerLoading(int id) async {
     final sql = '''SELECT 
-                w.id as w_id, w.name as w_name, w.createdat as w_createdAt, w.updatedat as w_updatedAt,
-                c.id as c_id, c.name as c_name, warehouseId, c.createdat as c_createdAt, c.updatedat as c_updatedAt,
-                s.id as s_id, s.name as s_name, number, chamberId, s.createdat as s_createdAt, s.updatedat as s_updatedAt,
-                p.id as p_id, height, depth, streetId, p.type as p_type, p.createdat as p_createdAt, p.updatedat as p_updatedAt,
-                r.id as r_id, positionId, r.createdat as r_createdAt, r.updatedat as r_updatedAt,
-                o.id as o_id, amount, o.type as o_type, registerId, productId, o.createdat as o_createdAt, o.updatedat as o_updatedAt,
-                pr.id as pr_id, code, description, unit, pr.type as pr_type, pr.createdat as pr_createdAt, pr.updatedat as pr_updatedAt
+                $kWarehouseAliasQuery,
+                $kChamberAliasQuery,
+                $kStreetAliasQuery,
+                $kPositionAliasQuery,
+                $kRegisterAliasQuery,
+                $kOperationAliasQuery,
+                $kProductAliasQuery
                 FROM warehouses as w
                 LEFT JOIN chambers as c
                 ON c.warehouseid = w.id
@@ -153,18 +153,29 @@ class LocalStorage {
     return result;
   }
 
-  Future<Map<String, dynamic>> findPosition(
+  Future<List<Map<String, dynamic>>> findPosition(
     Street street,
     Position position,
   ) async {
     var result = await _database.rawQuery(
-      '''SELECT * FROM positions
-       WHERE streetid = ${street.id} 
-       AND height = ${position.height} 
-       AND depth = ${position.depth}''',
+      '''SELECT
+      $kPositionAliasQuery,
+      $kRegisterAliasQuery,
+      $kOperationAliasQuery,
+      $kProductAliasQuery
+      FROM positions AS p
+      LEFT JOIN registers as r
+      ON r.positionid = p.id
+      LEFT JOIN operations as o
+      ON o.registerid = r.id
+      LEFT JOIN products as pr
+      ON pr.id = o.productid
+      WHERE p.streetid = ${street.id} 
+      AND p.height = ${position.height} 
+      AND p.depth = ${position.depth}''',
     );
 
-    return result.single;
+    return result;
   }
 
   Future<List<Map<String, dynamic>>> findPositionHeights(
@@ -220,12 +231,22 @@ class LocalStorage {
     Operation operation,
     Register register,
   ) async {
-    var result = await _database.rawQuery(
+    var id = await _database.rawInsert(
       '''INSERT INTO operations 
       (amount, type, registerid, productid, createdat, updatedat) 
       VALUES 
-      (${operation.amount}, "${operation.type}", ${register.id}, 
+      (${operation.amount}, "${operation.type.valueToString()}", ${register.id}, 
       ${operation.product.id}, "$kNowtoIso", "$kNowtoIso")''',
+    );
+
+    var result = await _database.rawQuery(
+      '''SELECT
+      $kOperationAliasQuery,
+      $kProductAliasQuery
+      FROM operations AS o
+      LEFT JOIN products as pr
+      ON pr.id = o.productId
+      WHERE o.id = $id''',
     );
 
     return result.single;

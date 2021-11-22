@@ -9,10 +9,6 @@ class OperationRadiosBloc extends GetxController {
   Operation get operation => _operation.value;
   set operation(Operation val) => _operation.value = val;
 
-  void _listenRelative() {
-    
-  }
-
   void onChanged(OperationType? type) {
     if (type != operation.type) {
       operation = operation.copyWith(type: type);
@@ -22,7 +18,5 @@ class OperationRadiosBloc extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
-    _listenRelative();
   }
 }

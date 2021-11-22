@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
+import 'product.dart';
+import 'product_resume.dart';
 import 'street.dart';
 
 class RxChamber {
@@ -44,6 +46,34 @@ class Chamber {
   DateTime? get updatedAt => rx.updatedAt.value;
   set updatedAt(DateTime? value) => rx.updatedAt.value = value;
 
+  List<Product> get products => resumes.map((e) => e.product).toList();
+
+  List<ProductResume> get resumes {
+    final _resumes = <ProductResume>[];
+
+    for (final street in streets) {
+      if (_resumes.isEmpty) {
+        _resumes.assignAll(street.resumes);
+      } else {
+        for (final resume in street.resumes) {
+          final _isNew = !_resumes.any(
+            (e) => e.id == resume.id,
+          );
+
+          if (_isNew) {
+            _resumes.add(resume);
+          } else {
+            _resumes.singleWhere(
+              (e) => e.id == resume.id,
+            )..amount += resume.amount;
+          }
+        }
+      }
+    }
+
+    return _resumes;
+  }
+
   Chamber copyWith({
     int? id,
     String? name,
@@ -69,15 +99,20 @@ class Chamber {
         streets: List<Street>.from(
           (json["streets"] ?? []).map((x) => Street.fromMap(x)),
         ),
-        createdAt: DateTime.tryParse(json["createdAt"]),
-        updatedAt: DateTime.tryParse(json["updatedAt"]),
+        createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
+        updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
       );
 
-  factory Chamber.fromAliasesMap(Map<String, dynamic> json) => Chamber(
+  factory Chamber.fromAliasesMap(
+    Map<String, dynamic> json, {
+    List<Street>? streets,
+  }) =>
+      Chamber(
         id: json["c_id"],
         name: json["c_name"],
-        createdAt: DateTime.tryParse(json["c_createdAt"]),
-        updatedAt: DateTime.tryParse(json["c_updatedAt"]),
+        streets: streets,
+        createdAt: DateTime.tryParse(json["c_createdAt"] ?? ''),
+        updatedAt: DateTime.tryParse(json["c_updatedAt"] ?? ''),
       );
 
   Map<String, dynamic> toMap() => {

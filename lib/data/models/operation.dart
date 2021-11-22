@@ -82,15 +82,20 @@ class Operation {
   factory Operation.fromMap(Map<String, dynamic> json) => Operation(
         id: json["id"],
         amount: json["amount"],
-        product: Product.fromMap(json["product"]),
+        product: Product.fromMap(json["product"] ?? {}),
         type: Operation.parseOperation(json["type"] ?? ''),
         createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
         updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
       );
 
-  factory Operation.fromAliasesMap(Map<String, dynamic> json) => Operation(
+  factory Operation.fromAliasesMap(
+    Map<String, dynamic> json, {
+    Product? product,
+  }) =>
+      Operation(
         id: json["o_id"],
         amount: json["amount"],
+        product: product,
         type: Operation.parseOperation(json["o_type"] ?? ''),
         createdAt: DateTime.tryParse(json["o_createdAt"] ?? ''),
         updatedAt: DateTime.tryParse(json["o_updatedAt"] ?? ''),

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:warehouse_flow/data/models/product.dart';
-import 'package:warehouse_flow/data/models/register.dart';
+import '../../../../data/models/product_resume.dart';
+import '/data/models/position.dart';
+import '/data/models/product.dart';
+import '/data/models/register.dart';
 import '/views/widgets/info_dialog.dart';
 import '/data/repositories/operation_repository.dart';
 import '/controllers/new_operation_controllers/new_operation_controller.dart';
@@ -19,20 +21,24 @@ class RegisterButtonBloc extends GetxController {
 
   Rx<Product> get _product => _newOperationController.product;
   Product get product => _product.value;
-  set product(Product val) => _product.value = val;
 
-  Rx<Register> get _register => _newOperationController.register;
-  Register get register => _register.value;
-  set register(Register val) => _register.value = val;
+  Rx<Position> get _position => _newOperationController.position;
+  Position get position => _position.value;
 
-  get resume => register.productResumes.singleWhere(
+  Register get _register => position.register;
+
+  Register get register => _newOperationController.register;
+
+  ProductResume get resume => _register.resumes.singleWhere(
         (e) => e.product.id == product.id,
       );
 
   Future<void> create() async {
-    operation = await _repo.create(operation, register);
+    operation = await _repo.create(operation, _register);
 
-    register.operations.add(operation);
+    _register.operations.add(operation);
+
+    register.operations.assignAll(_register.operations);
   }
 
   void callNoProductDialog() {
@@ -51,7 +57,7 @@ class RegisterButtonBloc extends GetxController {
       InfoDialog(
         title: 'Operação negada',
         message: 'Não é possível realizar a '
-            'remoção de ${operation.amount} '
+            'remoção de ${operation.amount} ${product.unit} '
             'do produto ${product.code}, '
             'existem apenas ${resume.amount} nesta posição.',
       ),
@@ -61,13 +67,9 @@ class RegisterButtonBloc extends GetxController {
   void registerOperation() async {
     if (_formKey.currentState!.validate()) {
       if (operation.type == OperationType.insert) {
-        try {
-          await create();
+        await create();
 
-          Get.back();
-        } catch (e) {
-          print(e);
-        }
+        Get.back();
       } else {
         try {
           if (resume.amount - operation.amount >= 0) {

@@ -1,3 +1,4 @@
+import '../utils/constants.dart';
 import '../models/operation.dart';
 import '../models/position.dart';
 import '../models/product.dart';
@@ -27,7 +28,7 @@ class WarehouseRepository extends BaseRepositoryImpl {
 
       var chamber = Chamber.fromAliasesMap(map);
 
-      if (map['warehouseId'] == warehouse.id &&
+      if (map[kWarehouseId] == warehouse.id &&
           !warehouse.chambers.any((e) => e.id == chamber.id)) {
         warehouse.chambers.add(chamber);
       } else {
@@ -36,24 +37,28 @@ class WarehouseRepository extends BaseRepositoryImpl {
 
       var street = Street.fromAliasesMap(map);
 
-      if (chamber.id == map['chamberId'] &&
+      if (chamber.id == map[kChamberId] &&
           !chamber.streets.any((e) => e.id == street.id)) {
         chamber.streets.add(street);
       } else {
         street = chamber.streets.singleWhere((e) => e.id == street.id);
       }
 
-      var position = Position.fromAliasesMap(map);
-      position.register = Register.fromAliasesMap(map);
+      var position = Position.fromAliasesMap(
+        map,
+        register: Register.fromAliasesMap(map),
+      );
 
-      if (street.id == map['streetId'] &&
+      if (street.id == map[kStreetId] &&
           !street.positions.any((e) => e.id == position.id)) {
         street.positions.add(position);
+      } else {
+        position = street.positions.singleWhere((e) => e.id == position.id);
       }
 
       var operation = Operation.fromAliasesMap(map);
 
-      if (position.register.id == map['registerId'] && operation.id != null) {
+      if (position.register.id == map[kRegisterId] && operation.id != null) {
         operation.product = Product.fromAlisesMap(map);
 
         position.register.operations.add(operation);

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 import 'product.dart';
+import 'product_resume.dart';
 import 'register.dart';
 
 class RxPosition {
@@ -59,6 +60,8 @@ class Position {
 
   List<Product> get products => register.products;
 
+  List<ProductResume> get resumes => register.resumes;
+
   Position copyWith({
     int? id,
     int? height,
@@ -88,17 +91,22 @@ class Position {
         depth: json["depth"],
         type: json["type"],
         register: Register.fromMap(json["register"] ?? {}),
-        createdAt: DateTime.tryParse(json["createdAt"]),
-        updatedAt: DateTime.tryParse(json["updatedAt"]),
+        createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
+        updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
       );
 
-  factory Position.fromAliasesMap(Map<String, dynamic> json) => Position(
+  factory Position.fromAliasesMap(
+    Map<String, dynamic> json, {
+    Register? register,
+  }) =>
+      Position(
         id: json["p_id"],
         height: json["height"],
         depth: json["depth"],
         type: json["p_type"],
-        createdAt: DateTime.tryParse(json["p_createdAt"]),
-        updatedAt: DateTime.tryParse(json["p_updatedAt"]),
+        register: register,
+        createdAt: DateTime.tryParse(json["p_createdAt"] ?? ''),
+        updatedAt: DateTime.tryParse(json["p_updatedAt"] ?? ''),
       );
 
   Map<String, dynamic> toMap() => {

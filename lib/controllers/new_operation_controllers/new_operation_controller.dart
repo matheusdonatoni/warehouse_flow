@@ -24,12 +24,11 @@ class NewOperationController extends BaseGetxControllerImpl {
   final operation = Operation().obs;
   final product = Product().obs;
 
-  Rx<Register> get register => warehouse.chambers
+  Register get register => warehouse.chambers
       .singleWhere((e) => e.id == chamber().id)
       .streets
       .singleWhere((e) => e.id == street().id)
       .positions
       .singleWhere((e) => e.id == position().id)
-      .rx
       .register;
 }
