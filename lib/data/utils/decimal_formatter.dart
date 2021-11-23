@@ -40,7 +40,17 @@ class DecimalFormatter extends TextInputFormatter {
 
     //in case if input is empty or zero
     if (newText.trim() == '' || newText.trim() == '0') {
-      return newValue.copyWith(text: '');
+      if (decimalDigits > 0 && oldValue.text != '0,') {
+        return newValue.copyWith(
+          text: '0,',
+          selection: TextSelection.collapsed(offset: 2),
+        );
+      }
+
+      return newValue.copyWith(
+        text: '',
+        selection: TextSelection.collapsed(offset: 0),
+      );
     } else if (int.parse(newText) < 1) {
       return newValue.copyWith(text: '');
     }
