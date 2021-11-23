@@ -25,7 +25,7 @@ class ChamberDropDownButtonBloc extends GetxController {
   }
 
   void onChanged(String? name) async {
-    if (name != chamber.name) {
+    if (name != null && name != chamber.name) {
       chamber = await _repo.findFromName(name);
     }
   }

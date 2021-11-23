@@ -28,11 +28,7 @@ class StreetNameDropDownButtonBloc extends GetxController {
           await _repo.findNames(chamber),
         );
 
-        if (names.length == 1) {
-          street = Street(
-            name: names.single,
-          );
-        }
+        if (names.length == 1) street = Street(name: names.single);
       },
     );
   }
@@ -46,7 +42,7 @@ class StreetNameDropDownButtonBloc extends GetxController {
   }
 
   void onChanged(String? name) {
-    if (name != street.name) {
+    if (name != null && name != street.name) {
       street = Street(name: name);
     }
   }

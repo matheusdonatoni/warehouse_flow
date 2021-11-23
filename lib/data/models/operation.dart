@@ -129,4 +129,12 @@ extension OperationExt on OperationType {
   String valueToString() {
     return this.toString().split('.').last;
   }
+
+  String valueToStringInPortuguese() {
+    if (this == OperationType.insert) {
+      return 'Inserção';
+    } else {
+      return 'Remoção';
+    }
+  }
 }

@@ -36,9 +36,9 @@ class RegisterButtonBloc extends GetxController {
   Future<void> create() async {
     operation = await _repo.create(operation, _register);
 
-    _register.operations.add(operation);
+    _register.operations.assign(operation);
 
-    register.operations.assignAll(_register.operations);
+    register.operations.addAll(_register.operations);
   }
 
   void callNoProductDialog() {

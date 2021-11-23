@@ -49,7 +49,7 @@ class PositionRepository extends BaseRepositoryImpl {
     );
   }
 
-  Future<List<int>> findDepths(Street street, int height) async {
+  Future<List<int>> findDepths(Street street, int? height) async {
     var result = await localStorage.findPositionDepths(street, height);
 
     return List.from(

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
+import 'operation.dart';
 import 'product.dart';
 import 'product_resume.dart';
 import 'street.dart';
@@ -45,6 +46,16 @@ class Chamber {
 
   DateTime? get updatedAt => rx.updatedAt.value;
   set updatedAt(DateTime? value) => rx.updatedAt.value = value;
+
+  List<Operation> get operations {
+    final _operations = <Operation>[];
+
+    for (final street in streets) {
+      _operations.addAll(street.operations);
+    }
+
+    return _operations;
+  }
 
   List<Product> get products => resumes.map((e) => e.product).toList();
 

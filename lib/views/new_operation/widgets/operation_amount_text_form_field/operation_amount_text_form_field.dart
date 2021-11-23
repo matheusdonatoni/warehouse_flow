@@ -17,7 +17,7 @@ class ProductAmountTextFormField
         focusNode: controller.focusNode,
         controller: controller.textController,
         validator: controller.validator,
-        onFieldSubmitted: controller.onSubmitted,
+        onChanged: controller.onChanged,
         inputFormatters: [DecimalFormatter(decimalDigits: 5)],
         keyboardType: TextInputType.number,
         decoration: InputDecoration(

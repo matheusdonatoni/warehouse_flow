@@ -25,7 +25,7 @@ class ChamberRepository extends BaseRepositoryImpl {
     );
   }
 
-  Future<Chamber> findFromName(String? name) async {
+  Future<Chamber> findFromName(String name) async {
     var result = await localStorage.findChamberFromName(name);
 
     return Chamber.fromMap(result);

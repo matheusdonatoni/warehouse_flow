@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 import 'chamber.dart';
+import 'operation.dart';
 import 'product.dart';
 import 'product_resume.dart';
 
@@ -45,6 +46,16 @@ class Warehouse {
 
   DateTime? get updatedAt => rx.updatedAt.value;
   set updatedAt(DateTime? value) => rx.updatedAt.value = value;
+
+  List<Operation> get operations {
+    final _operations = <Operation>[];
+
+    for (final chamber in chambers) {
+      _operations.addAll(chamber.operations);
+    }
+
+    return _operations..sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
+  }
 
   List<Product> get products => resumes.map((e) => e.product).toList();
 

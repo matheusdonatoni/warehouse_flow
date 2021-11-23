@@ -81,7 +81,7 @@ class LocalStorage {
   }
 
   Future<Map<String, dynamic>> findChamberFromName(
-    String? name,
+    String name,
   ) async {
     var result = await _database.rawQuery(
       'SELECT * FROM chambers WHERE name = "$name"',
@@ -192,7 +192,7 @@ class LocalStorage {
 
   Future<List<Map<String, dynamic>>> findPositionDepths(
     Street street,
-    int height,
+    int? height,
   ) async {
     var result = await _database.rawQuery(
       '''SELECT DISTINCT depth 

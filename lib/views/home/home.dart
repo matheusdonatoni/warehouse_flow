@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import '/data/models/operation.dart';
 import '/controllers/_impl/base_getx_controller_impl.dart';
 import '/controllers/home_controllers/home_controller.dart';
+import 'widgets/operation_table/operation_table.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
@@ -20,7 +23,9 @@ class HomePage extends GetView<HomeController> {
         () => SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
-            children: [],
+            children: [
+              OperationTable(),
+            ],
           ),
         ),
       ),

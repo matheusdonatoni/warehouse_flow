@@ -44,7 +44,7 @@ class PositionHeightDropDownButtonBloc extends GetxController {
   }
 
   void onChanged(int? height) {
-    if (height != position.height) {
+    if (height != null && height != position.height) {
       position = Position(height: height);
     }
   }

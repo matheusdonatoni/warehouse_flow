@@ -19,17 +19,12 @@ class ProductCodeTextFormFieldBloc extends GetxController {
 
   Rx<Position> get _position => _newOperationController.position;
   Position get position => _position.value;
-  set position(Position val) => _position.value = val;
 
   bool get readOnly => position.id == null;
 
   void _listenRelative() {
     _position.listen((position) {
-      if (position.id == null) {
-        textController.clear();
-
-        product = Product();
-      }
+      if (position.id == null) clearAll();
     });
   }
 
@@ -39,18 +34,25 @@ class ProductCodeTextFormFieldBloc extends GetxController {
     }
 
     if (product.id == null) {
-      return 'Este produto não esta cadastrado';
+      return 'Produto não esta cadastrado';
     }
 
     return null;
   }
 
+  void onChanged(String? code) {
+    if (product.id != null) {
+      product = Product(code: code);
+    }
+  }
+
   void onSubmitted(String? code) async {
-    if (code != null && code.isNotEmpty && code != product.code) {
+    if (code != null &&
+        code.isNotEmpty &&
+        code != product.code &&
+        product.id == null) {
       try {
-        product = await _repo.findFromCode(
-          code.replaceAll(RegExp('[^0-9\]'), ''),
-        );
+        product = await _repo.findFromCode(code);
       } catch (_) {
         product = Product();
 
@@ -59,6 +61,12 @@ class ProductCodeTextFormFieldBloc extends GetxController {
         );
       }
     }
+  }
+
+  void clearAll() {
+    textController.clear();
+
+    product = Product();
   }
 
   @override

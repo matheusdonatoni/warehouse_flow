@@ -24,10 +24,10 @@ class PositionDepthDropDownButtonBloc extends GetxController {
       (position) async {
         if (position.height != null) {
           depths.assignAll(
-            await _repo.findDepths(street, position.height!),
+            await _repo.findDepths(street, position.height),
           );
 
-          if (depths.length == 1 && this.position.id == null) {
+          if (depths.length == 1 && position.id == null) {
             position = position.copyWith(
               depth: depths.single,
             );
@@ -50,7 +50,7 @@ class PositionDepthDropDownButtonBloc extends GetxController {
   }
 
   void onChanged(int? depth) async {
-    if (depth != position.depth) {
+    if (depth != null && depth != position.depth) {
       position = position.copyWith(depth: depth);
 
       position = await _repo.find(street, position);

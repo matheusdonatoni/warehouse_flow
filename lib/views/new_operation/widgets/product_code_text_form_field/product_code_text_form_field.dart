@@ -14,12 +14,13 @@ class ProductCodeTextFormField extends GetView<ProductCodeTextFormFieldBloc> {
       () => TextFormField(
         focusNode: controller.focusNode,
         validator: controller.validator,
-        readOnly: controller.readOnly,
+        onChanged: controller.onChanged,
+        onFieldSubmitted: controller.onSubmitted,
         controller: controller.textController,
+        readOnly: controller.readOnly,
         keyboardType: TextInputType.number,
         textInputAction: TextInputAction.next,
         inputFormatters: [DecimalFormatter(decimalDigits: 0)],
-        onFieldSubmitted: controller.onSubmitted,
         decoration: InputDecoration(
           hintText: 'Código',
         ),

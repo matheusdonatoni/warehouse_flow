@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
+import 'operation.dart';
 import 'product.dart';
 import 'product_resume.dart';
 import 'register.dart';
@@ -57,6 +58,8 @@ class Position {
 
   DateTime? get updatedAt => rx.updatedAt.value;
   set updatedAt(DateTime? value) => rx.updatedAt.value = value;
+
+  List<Operation> get operations => register.operations;
 
   List<Product> get products => register.products;
 

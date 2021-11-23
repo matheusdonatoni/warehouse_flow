@@ -42,7 +42,7 @@ class StreetNumberDropDownButtonBloc extends GetxController {
   }
 
   void onChanged(int? number) async {
-    if (number != street.number) {
+    if (number != null && number != street.number) {
       street = street.copyWith(
         number: number,
       );

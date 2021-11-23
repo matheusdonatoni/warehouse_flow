@@ -21,8 +21,6 @@ class HomeController extends BaseGetxControllerImpl {
 
     warehouse = await _warehouseRepository.findEagerLoading(1);
 
-    print(warehouse.products);
-
     status = RxStatus.success();
   }
 }
