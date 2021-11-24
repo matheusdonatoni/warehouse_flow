@@ -1,7 +1,3 @@
-import '/data/models/operation.dart';
-import '/data/models/product.dart';
-import '/data/models/register.dart';
-
 import '/data/models/street.dart';
 import '/data/models/position.dart';
 
@@ -21,22 +17,7 @@ class PositionRepository extends BaseRepositoryImpl {
   Future<Position> find(Street street, Position position) async {
     var result = await localStorage.findPosition(street, position);
 
-    Position _position = Position();
-
-    for (final map in result) {
-      if (_position.id == null) {
-        _position = Position.fromAliasesMap(map);
-        _position.register = Register.fromAliasesMap(map);
-      }
-
-      var operation = Operation.fromAliasesMap(map);
-
-      operation.product = Product.fromAlisesMap(map);
-
-      _position.register.operations.add(operation);
-    }
-
-    return _position;
+    return Position.fromMap(result);
   }
 
   Future<List<int>> findHeights(Street street) async {

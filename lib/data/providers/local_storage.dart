@@ -15,7 +15,7 @@ import '../models/chamber.dart';
 import '../models/street.dart';
 
 class LocalStorage {
-  LocalStorage._init();
+  LocalStorage._create();
 
   late final Database _database;
 
@@ -153,29 +153,18 @@ class LocalStorage {
     return result;
   }
 
-  Future<List<Map<String, dynamic>>> findPosition(
+  Future<Map<String, dynamic>> findPosition(
     Street street,
     Position position,
   ) async {
     var result = await _database.rawQuery(
-      '''SELECT
-      $kPositionAliasQuery,
-      $kRegisterAliasQuery,
-      $kOperationAliasQuery,
-      $kProductAliasQuery
-      FROM positions AS p
-      LEFT JOIN registers as r
-      ON r.positionid = p.id
-      LEFT JOIN operations as o
-      ON o.registerid = r.id
-      LEFT JOIN products as pr
-      ON pr.id = o.productid
+      '''SELECT * FROM positions
       WHERE p.streetid = ${street.id} 
       AND p.height = ${position.height} 
       AND p.depth = ${position.depth}''',
     );
 
-    return result;
+    return result.single;
   }
 
   Future<List<Map<String, dynamic>>> findPositionHeights(
@@ -233,19 +222,30 @@ class LocalStorage {
   ) async {
     var id = await _database.rawInsert(
       '''INSERT INTO operations 
-      (amount, type, registerid, productid, createdat, updatedat) 
+      (amount, type, registerid, productid, chamberId, 
+      streetId, positionId, createdat, updatedat) 
       VALUES 
       (${operation.amount}, "${operation.type.valueToString()}", ${register.id}, 
-      ${operation.product.id}, "$kNowtoIso", "$kNowtoIso")''',
+      ${operation.product.id}, ${operation.chamber.id}, ${operation.street.id},
+      ${operation.position.id}, "$kNowtoIso", "$kNowtoIso")''',
     );
 
     var result = await _database.rawQuery(
       '''SELECT
       $kOperationAliasQuery,
-      $kProductAliasQuery
+      $kProductAliasQuery,
+      $kChamberAliasQuery,
+      $kStreetAliasQuery,
+      $kPositionAliasQuery
       FROM operations AS o
       LEFT JOIN products as pr
       ON pr.id = o.productId
+      LEFT JOIN chambers as c
+      ON c.id = o.chamberId
+      LEFT JOIN streets as s
+      ON s.id = o.streetId
+      LEFT JOIN positions as p
+      ON p.id = o.positionId
       WHERE o.id = $id''',
     );
 
@@ -256,7 +256,22 @@ class LocalStorage {
     Register register,
   ) async {
     var result = await _database.rawQuery(
-      '''SELECT * FROM operations WHERE registerid = ${register.id}''',
+      '''SELECT
+      $kOperationAliasQuery,
+      $kProductAliasQuery,
+      $kChamberAliasQuery,
+      $kStreetAliasQuery,
+      $kPositionAliasQuery
+      FROM operations AS o
+      LEFT JOIN products as pr
+      ON pr.id = o.productId
+      LEFT JOIN chambers as c
+      ON c.id = o.chamberId
+      LEFT JOIN streets as s
+      ON s.id = o.streetId
+      LEFT JOIN positions as p
+      ON p.id = o.positionId
+      WHERE registerid = ${register.id}''',
     );
 
     return result;
@@ -265,7 +280,7 @@ class LocalStorage {
   static Future<LocalStorage> init() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    final localStorage = LocalStorage._init();
+    final localStorage = LocalStorage._create();
 
     final path = join(await getDatabasesPath(), 'warehouse_flow.db');
 

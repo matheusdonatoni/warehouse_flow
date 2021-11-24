@@ -42,10 +42,12 @@ class Register {
 
   List<Product> get products => resumes.map((e) => e.product).toList();
 
-  List<ProductResume> get resumes {
+  List<ProductResume> get resumes => resumesWhere((e) => true);
+
+  List<ProductResume> resumesWhere(bool Function(Operation operation) test) {
     final _resumes = <ProductResume>[];
 
-    for (final operation in operations) {
+    for (final operation in operations.where(test)) {
       if (operation.isNotEmpty) {
         final product = operation.product;
 

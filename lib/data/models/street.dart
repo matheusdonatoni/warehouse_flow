@@ -2,10 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
-import 'operation.dart';
 import 'position.dart';
-import 'product.dart';
-import 'product_resume.dart';
 
 class RxStreet {
   final id = Rxn<int>();
@@ -52,44 +49,6 @@ class Street {
 
   DateTime? get updatedAt => rx.updatedAt.value;
   set updatedAt(DateTime? value) => rx.updatedAt.value = value;
-
-  List<Operation> get operations {
-    final _operations = <Operation>[];
-
-    for (final position in positions) {
-      _operations.addAll(position.operations);
-    }
-
-    return _operations;
-  }
-
-  List<Product> get products => resumes.map((e) => e.product).toList();
-
-  List<ProductResume> get resumes {
-    final _resumes = <ProductResume>[];
-
-    for (final position in positions) {
-      if (_resumes.isEmpty) {
-        _resumes.assignAll(position.resumes);
-      } else {
-        for (final resume in position.resumes) {
-          final _isNew = !_resumes.any(
-            (e) => e.id == resume.id,
-          );
-
-          if (_isNew) {
-            _resumes.add(resume);
-          } else {
-            _resumes.singleWhere(
-              (e) => e.id == resume.id,
-            )..amount += resume.amount;
-          }
-        }
-      }
-    }
-
-    return _resumes;
-  }
 
   Street copyWith({
     int? id,

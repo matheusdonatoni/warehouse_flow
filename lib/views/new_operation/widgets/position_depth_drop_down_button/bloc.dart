@@ -9,11 +9,11 @@ class PositionDepthDropDownButtonBloc extends GetxController {
 
   NewOperationController get _newOperationController => Get.find();
 
-  Rx<Street> get _street => _newOperationController.street;
+  Rx<Street> get _street => _newOperationController.operation.rx.street;
   Street get street => _street.value;
   set street(Street val) => _street.value = val;
 
-  Rx<Position> get _position => _newOperationController.position;
+  Rx<Position> get _position => _newOperationController.operation.rx.position;
   Position get position => _position.value;
   set position(Position val) => _position.value = val;
 

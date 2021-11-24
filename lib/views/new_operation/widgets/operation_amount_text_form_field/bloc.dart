@@ -11,12 +11,11 @@ class OperationAmountTextFormFieldBloc extends GetxController {
 
   NewOperationController get _newOperationController => Get.find();
 
-  Rx<Product> get _product => _newOperationController.product;
+  Rx<Product> get _product => _newOperationController.operation.rx.product;
   Product get product => _product.value;
 
-  Rx<Operation> get _operation => _newOperationController.operation;
-  Operation get operation => _operation.value;
-  set operation(Operation val) => _operation.value = val;
+  Operation get operation => _newOperationController.operation;
+  set operation(Operation val) => _newOperationController.operation = val;
 
   bool get readOnly => product.id == null;
 
@@ -67,10 +66,7 @@ class OperationAmountTextFormFieldBloc extends GetxController {
   void clearAll() {
     textController.clear();
 
-    operation = Operation(
-      type: operation.type,
-      product: product,
-    );
+    operation = operation.copyWith(amount: 0);
   }
 
   @override

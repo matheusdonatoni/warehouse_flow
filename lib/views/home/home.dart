@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import '/data/models/operation.dart';
 import '/controllers/_impl/base_getx_controller_impl.dart';
 import '/controllers/home_controllers/home_controller.dart';
 import 'widgets/operation_table/operation_table.dart';

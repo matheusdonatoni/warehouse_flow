@@ -13,11 +13,11 @@ class ProductCodeTextFormFieldBloc extends GetxController {
 
   NewOperationController get _newOperationController => Get.find();
 
-  Rx<Product> get _product => _newOperationController.product;
+  Rx<Product> get _product => _newOperationController.operation.rx.product;
   Product get product => _product.value;
   set product(Product val) => _product.value = val;
 
-  Rx<Position> get _position => _newOperationController.position;
+  Rx<Position> get _position => _newOperationController.operation.rx.position;
   Position get position => _position.value;
 
   bool get readOnly => position.id == null;

@@ -9,11 +9,11 @@ class StreetNumberDropDownButtonBloc extends GetxController {
 
   NewOperationController get _newOperationController => Get.find();
 
-  Rx<Chamber> get _chamber => _newOperationController.chamber;
+  Rx<Chamber> get _chamber => _newOperationController.operation.rx.chamber;
   Chamber get chamber => _chamber.value;
   set chamber(Chamber val) => _chamber.value = val;
 
-  Rx<Street> get _street => _newOperationController.street;
+  Rx<Street> get _street => _newOperationController.operation.rx.street;
   Street get street => _street.value;
   set street(Street val) => _street.value = val;
 

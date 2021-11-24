@@ -1,6 +1,6 @@
 class Routes {
-  static final ROOT = '/';
-  static final HOME = '/home';
-  static final NEW_OPERATION = '/home/new-operation';
-  static final REGISTER = '/register';
+  static const ROOT = '/';
+  static const HOME = '/home';
+  static const NEW_OPERATION = '/home/new-operation';
+  static const REGISTER = '/register';
 }

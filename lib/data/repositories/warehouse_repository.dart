@@ -1,8 +1,5 @@
 import '../utils/constants.dart';
-import '../models/operation.dart';
 import '../models/position.dart';
-import '../models/product.dart';
-import '../models/register.dart';
 import '../models/street.dart';
 import '../models/chamber.dart';
 import '../models/warehouse.dart';
@@ -44,24 +41,11 @@ class WarehouseRepository extends BaseRepositoryImpl {
         street = chamber.streets.singleWhere((e) => e.id == street.id);
       }
 
-      var position = Position.fromAliasesMap(
-        map,
-        register: Register.fromAliasesMap(map),
-      );
+      var position = Position.fromAliasesMap(map);
 
       if (street.id == map[kStreetId] &&
           !street.positions.any((e) => e.id == position.id)) {
         street.positions.add(position);
-      } else {
-        position = street.positions.singleWhere((e) => e.id == position.id);
-      }
-
-      var operation = Operation.fromAliasesMap(map);
-
-      if (position.register.id == map[kRegisterId] && operation.id != null) {
-        operation.product = Product.fromAlisesMap(map);
-
-        position.register.operations.add(operation);
       }
     }
 

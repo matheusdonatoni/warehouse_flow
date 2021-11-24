@@ -4,7 +4,7 @@ import 'product.dart';
 
 class RxProductResume {
   final product = Rx<Product>(Product());
-  final amount = Rx<double>(0);
+  final amount = Rx<double>(0.0);
 }
 
 class ProductResume {

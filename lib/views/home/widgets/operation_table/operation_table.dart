@@ -22,7 +22,7 @@ class OperationTable extends GetView<HomeController> {
             DataColumn(label: Text('Operação')),
             DataColumn(label: Text('Data')),
           ],
-          rows: controller.warehouse.operations
+          rows: controller.warehouse.register.operations
               .map(
                 (e) => DataRow(
                   cells: [
