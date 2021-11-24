@@ -119,7 +119,7 @@ class Operation {
       return OperationType.remove;
     }
 
-    return OperationType.remove;
+    return OperationType.insert;
   }
 }
 
