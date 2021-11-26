@@ -19,6 +19,10 @@ class OperationTable extends GetView<HomeController> {
           columns: [
             DataColumn(label: Text('Produto'), numeric: true),
             DataColumn(label: Text('Quantidade'), numeric: true),
+            DataColumn(label: Text('Rua')),
+            DataColumn(label: Text('Número')),
+            DataColumn(label: Text('Altura')),
+            DataColumn(label: Text('Profundidade')),
             DataColumn(label: Text('Operação')),
             DataColumn(label: Text('Data')),
           ],
@@ -30,21 +34,25 @@ class OperationTable extends GetView<HomeController> {
                       Text('${e.product.code}'),
                     ),
                     DataCell(
-                      Text(
-                        '${NumberFormat("#,##0.##", 'pt-br').format(
-                          e.amount,
-                        )}',
-                      ),
+                      Text(e.formatedAmount),
                     ),
                     DataCell(
-                      Text(
-                        '${e.type.valueToStringInPortuguese()}',
-                      ),
+                      Text('${e.street.name}'),
                     ),
                     DataCell(
-                      Text('${DateFormat('dd/MM/yyyy').format(
-                        e.createdAt!,
-                      )}'),
+                      Text('${e.street.number}'),
+                    ),
+                    DataCell(
+                      Text('${e.position.height}'),
+                    ),
+                    DataCell(
+                      Text('${e.position.depth}'),
+                    ),
+                    DataCell(
+                      Text(e.type.valueToStringInPortuguese),
+                    ),
+                    DataCell(
+                      Text(e.formatedDate),
                     ),
                   ],
                 ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:intl/intl.dart';
 
 import 'chamber.dart';
 import 'position.dart';
@@ -79,6 +80,16 @@ class Operation {
 
   bool get isInsertion => type == OperationType.insert;
   bool get isRemoval => !isInsertion;
+
+  String get formatedAmount => NumberFormat("#,##0.##", 'pt-br').format(
+        amount,
+      );
+
+  String get formatedDate {
+    if (createdAt == null) return 'Sem registro';
+
+    return DateFormat('dd/MM/yyyy').format(createdAt!);
+  }
 
   Operation copyWith({
     int? id,
@@ -171,7 +182,7 @@ extension OperationExt on OperationType {
     return this.toString().split('.').last;
   }
 
-  String valueToStringInPortuguese() {
+  String get valueToStringInPortuguese {
     if (this == OperationType.insert) {
       return 'Inserção';
     } else {

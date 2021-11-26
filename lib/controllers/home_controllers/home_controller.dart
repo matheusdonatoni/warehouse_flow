@@ -19,7 +19,7 @@ class HomeController extends BaseGetxControllerImpl {
   void onInit() async {
     super.onInit();
 
-    warehouse = await _warehouseRepository.findEagerLoading(1);
+    warehouse = await _warehouseRepository.findEagerLoadRegister(1);
 
     status = RxStatus.success();
   }

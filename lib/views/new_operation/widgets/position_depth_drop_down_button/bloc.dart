@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '/data/models/operation.dart';
 import '/controllers/new_operation_controllers/new_operation_controller.dart';
 import '/data/repositories/position_repository.dart';
 import '../../../../data/models/street.dart';
@@ -9,11 +10,13 @@ class PositionDepthDropDownButtonBloc extends GetxController {
 
   NewOperationController get _newOperationController => Get.find();
 
-  Rx<Street> get _street => _newOperationController.operation.rx.street;
+  Operation get operation => _newOperationController.operation;
+
+  Rx<Street> get _street => _newOperationController.street;
   Street get street => _street.value;
   set street(Street val) => _street.value = val;
 
-  Rx<Position> get _position => _newOperationController.operation.rx.position;
+  Rx<Position> get _position => _newOperationController.position;
   Position get position => _position.value;
   set position(Position val) => _position.value = val;
 

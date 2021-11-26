@@ -19,33 +19,76 @@ class LocalStorage {
 
   late final Database _database;
 
-  Future<List<Map<String, dynamic>>> findWarehouseEagerLoading(int id) async {
+  Future<List<Object?>> findWarehouseEagerLoadAll(int id) async {
+    final batch = _database.batch();
+
+    final spaceSql = '''SELECT 
+                      $kWarehouseAliasQuery,
+                      $kChamberAliasQuery,
+                      $kStreetAliasQuery,
+                      $kPositionAliasQuery
+                      FROM warehouses as w
+                      LEFT JOIN chambers as c
+                      ON c.warehouseid = w.id
+                      LEFT JOIN streets as s
+                      ON s.chamberid = c.id
+                      LEFT JOIN positions as p
+                      ON p.streetid = s.id
+                      WHERE w.id = ?''';
+
+    final registerSql = '''SELECT 
+                        $kRegisterAliasQuery,
+                        $kChamberAliasQuery,
+                        $kStreetAliasQuery,
+                        $kPositionAliasQuery,
+                        $kOperationAliasQuery,
+                        $kProductAliasQuery
+                        FROM registers as r
+                        LEFT JOIN operations as o
+                        ON r.id = o.registerId
+                        LEFT JOIN chambers as c
+                        ON c.id = o.chamberId
+                        LEFT JOIN streets as s
+                        ON s.id = o.streetId
+                        LEFT JOIN positions as p
+                        ON p.id = o.positionId
+                        LEFT JOIN products as pr
+                        ON pr.id = o.productId
+                        WHERE r.warehouseId = ?''';
+
+    batch.rawQuery(spaceSql, [id]);
+    batch.rawQuery(registerSql, [id]);
+
+    return await batch.commit();
+  }
+
+  Future<List<Map<String, dynamic>>> findWarehouseEagerLoadRegister(
+    int id,
+  ) async {
     final sql = '''SELECT 
                 $kWarehouseAliasQuery,
+                $kRegisterAliasQuery,
                 $kChamberAliasQuery,
                 $kStreetAliasQuery,
                 $kPositionAliasQuery,
-                $kRegisterAliasQuery,
                 $kOperationAliasQuery,
                 $kProductAliasQuery
                 FROM warehouses as w
-                LEFT JOIN chambers as c
-                ON c.warehouseid = w.id
-                LEFT JOIN streets as s
-                ON s.chamberid = c.id
-                LEFT JOIN positions as p
-                ON p.streetid = s.id
                 LEFT JOIN registers as r
-                ON r.positionId = p.id
+                ON w.id = r.warehouseId
                 LEFT JOIN operations as o
-                ON o.registerId = r.id
+                ON r.id = o.registerId
+                LEFT JOIN chambers as c
+                ON c.id = o.chamberId
+                LEFT JOIN streets as s
+                ON s.id = o.streetId
+                LEFT JOIN positions as p
+                ON p.id = o.positionId
                 LEFT JOIN products as pr
-                ON o.productId = pr.id
-                WHERE w.id = ?''';
+                ON pr.id = o.productId
+                WHERE r.warehouseId = ?''';
 
-    final result = _database.rawQuery(sql, [id]);
-
-    return result;
+    return _database.rawQuery(sql, [id]);
   }
 
   Future<Map<String, dynamic>> findWarehouse(int id) async {
@@ -159,9 +202,9 @@ class LocalStorage {
   ) async {
     var result = await _database.rawQuery(
       '''SELECT * FROM positions
-      WHERE p.streetid = ${street.id} 
-      AND p.height = ${position.height} 
-      AND p.depth = ${position.depth}''',
+      WHERE streetid = ${street.id} 
+      AND height = ${position.height} 
+      AND depth = ${position.depth}''',
     );
 
     return result.single;

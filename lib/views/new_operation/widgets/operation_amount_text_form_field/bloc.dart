@@ -11,7 +11,7 @@ class OperationAmountTextFormFieldBloc extends GetxController {
 
   NewOperationController get _newOperationController => Get.find();
 
-  Rx<Product> get _product => _newOperationController.operation.rx.product;
+  Rx<Product> get _product => _newOperationController.product;
   Product get product => _product.value;
 
   Operation get operation => _newOperationController.operation;

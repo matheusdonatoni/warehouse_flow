@@ -9,17 +9,19 @@ class StreetNameDropDownButtonBloc extends GetxController {
 
   NewOperationController get _newOperationController => Get.find();
 
-  Rx<Chamber> get _chamber => _newOperationController.operation.rx.chamber;
+  Rx<Chamber> get _chamber => _newOperationController.chamber;
   Chamber get chamber => _chamber.value;
   set chamber(Chamber val) => _chamber.value = val;
 
-  Rx<Street> get _street => _newOperationController.operation.rx.street;
+  Rx<Street> get _street => _newOperationController.street;
   Street get street => _street.value;
   set street(Street val) => _street.value = val;
 
   final names = RxList<String>();
 
   void _listenRelative() {
+    
+
     _chamber.listen(
       (chamber) async {
         street = Street();

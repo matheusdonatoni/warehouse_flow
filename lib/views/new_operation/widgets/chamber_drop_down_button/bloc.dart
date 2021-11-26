@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '/data/models/operation.dart';
 import '/controllers/new_operation_controllers/new_operation_controller.dart';
 import '/data/models/warehouse.dart';
 import '/data/models/chamber.dart';
@@ -10,7 +11,9 @@ class ChamberDropDownButtonBloc extends GetxController {
   NewOperationController get _newOperationController => Get.find();
   Warehouse get _warehouse => _newOperationController.warehouse;
 
-  Rx<Chamber> get _chamber => _newOperationController.operation.rx.chamber;
+  Operation get operation => _newOperationController.operation;
+
+  Rx<Chamber> get _chamber => _newOperationController.chamber;
   Chamber get chamber => _chamber.value;
   set chamber(Chamber val) => _chamber.value = val;
 

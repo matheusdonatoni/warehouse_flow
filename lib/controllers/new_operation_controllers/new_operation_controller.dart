@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '/data/models/chamber.dart';
+import '/data/models/street.dart';
 import '/views/widgets/info_dialog.dart';
 
 import 'package:get/get.dart';
@@ -21,9 +23,14 @@ class NewOperationController extends BaseGetxControllerImpl {
 
   final formKey = GlobalKey<FormState>();
 
-  final _operation = Operation().obs;
+  final _operation = Rx<Operation>(Operation());
   Operation get operation => _operation.value;
   set operation(Operation val) => _operation.value = val;
+
+  final chamber = Rx<Chamber>(Chamber());
+  final street = Rx<Street>(Street());
+  final position = Rx<Position>(Position());
+  final product = Rx<Product>(Product());
 
   Position get _position => operation.position;
   Product get _product => operation.product;
@@ -39,9 +46,7 @@ class NewOperationController extends BaseGetxControllerImpl {
   Future<void> create() async {
     operation = await _repo.create(operation, register);
 
-    register.operations.assign(operation);
-
-    register.operations.addAll(register.operations);
+    register.operations.add(operation);
   }
 
   void callNoProductDialog() {
@@ -91,5 +96,27 @@ class NewOperationController extends BaseGetxControllerImpl {
         }
       }
     }
+  }
+
+  void updateOperation(dynamic value) {
+    if (value is Chamber) {
+      operation.chamber = value;
+    } else if (value is Street) {
+      operation.street = value;
+    } else if (value is Position) {
+      operation.position = value;
+    } else if (value is Product) {
+      operation.product = value;
+    }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    everAll(
+      [chamber, street, position, product],
+      updateOperation,
+    );
   }
 }
