@@ -8,4 +8,14 @@ class ProductRepository extends BaseRepositoryImpl {
 
     return Product.fromMap(result);
   }
+
+  Future<List<Product>> findAll() async {
+    var result = await localStorage.findAllProducts();
+
+    return List<Product>.from(
+      result.map(
+        (e) => Product.fromMap(e),
+      ),
+    );
+  }
 }

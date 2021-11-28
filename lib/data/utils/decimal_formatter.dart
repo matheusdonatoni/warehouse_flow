@@ -11,6 +11,13 @@ class DecimalFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
+    if (newValue.text.length > 1 &&
+        newValue.text[newValue.text.length - 1] == '.') {
+      newValue = newValue.copyWith(
+        text: newValue.text.substring(0, newValue.text.length - 1) + ',',
+      );
+    }
+
     String newText;
 
     if (decimalDigits == 0) {
@@ -40,7 +47,9 @@ class DecimalFormatter extends TextInputFormatter {
 
     //in case if input is empty or zero
     if (newText.trim() == '' || newText.trim() == '0') {
-      if (decimalDigits > 0 && oldValue.text != '0,') {
+      if (decimalDigits > 0 &&
+          oldValue.text != '0,' &&
+          oldValue.text.length < newValue.text.length) {
         return newValue.copyWith(
           text: '0,',
           selection: TextSelection.collapsed(offset: 2),

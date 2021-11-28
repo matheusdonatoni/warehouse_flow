@@ -1,4 +1,5 @@
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:intl/intl.dart';
 
 import 'product.dart';
 
@@ -25,4 +26,8 @@ class ProductResume {
 
   double get amount => rx.amount.value;
   set amount(double value) => rx.amount.value = value;
+
+  String get formatedAmount => NumberFormat("#,##0.##", 'pt-br').format(
+        amount,
+      );
 }

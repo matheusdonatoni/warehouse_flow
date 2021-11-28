@@ -55,24 +55,26 @@ class NavigationDrawer extends GetResponsiveView {
 
     for (int i = 0; i < items.length; i++) {
       _items.add(
-        Builder(builder: (context) {
-          final _scafoldState = Scaffold.of(context);
+        Builder(
+          builder: (context) {
+            final _scafoldState = Scaffold.of(context);
 
-          return _DrawerTile(
-            icon: items[i].icon,
-            label: items[i].label,
-            selected: index == i,
-            onTap: () async {
-              if (_scafoldState.hasDrawer && _scafoldState.isDrawerOpen) {
-                Get.back();
-              }
+            return _DrawerTile(
+              icon: items[i].icon,
+              label: items[i].label,
+              selected: index == i,
+              onTap: () async {
+                if (_scafoldState.hasDrawer && _scafoldState.isDrawerOpen) {
+                  Get.back();
+                }
 
-              Future.delayed(Duration(milliseconds: 300)).whenComplete(
-                () => onTap?.call(i),
-              );
-            },
-          );
-        }),
+                Future.delayed(Duration(milliseconds: 300)).whenComplete(
+                  () => onTap?.call(i),
+                );
+              },
+            );
+          },
+        ),
       );
     }
 

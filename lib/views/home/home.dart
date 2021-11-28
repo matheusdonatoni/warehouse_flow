@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '/controllers/_impl/base_getx_controller_impl.dart';
-import '/controllers/home_controllers/home_controller.dart';
-import 'widgets/operation_table/operation_table.dart';
+import '../../controllers/_impl/base_getx_controller_impl.dart';
+import '../../controllers/home_controllers/home_controller.dart';
+import 'widgets/resume_data_table/resume_data_table.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
@@ -22,7 +22,9 @@ class HomePage extends GetView<HomeController> {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             children: [
-              OperationTable(),
+              SizedBox(height: 24.0),
+              ResumeDataTable(),
+              SizedBox(height: 76.0),
             ],
           ),
         ),

@@ -248,6 +248,14 @@ class LocalStorage {
     }
   }
 
+  Future<List<Map<String, dynamic>>> findAllProducts() async {
+    var result = await _database.rawQuery(
+      'SELECT * FROM products',
+    );
+
+    return result;
+  }
+
   Future<Map<String, dynamic>> findRegisterFromPosition(
     Position position,
   ) async {
