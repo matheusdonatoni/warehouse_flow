@@ -256,6 +256,22 @@ class LocalStorage {
     return result;
   }
 
+  Future<List<Map<String, dynamic>>> findAllProductUnits() async {
+    var result = await _database.rawQuery(
+      'SELECT DISTINCT unit FROM products',
+    );
+
+    return result;
+  }
+
+  Future<List<Map<String, dynamic>>> findAllProductTypes() async {
+    var result = await _database.rawQuery(
+      'SELECT DISTINCT type FROM products',
+    );
+
+    return result;
+  }
+
   Future<Map<String, dynamic>> findRegisterFromPosition(
     Position position,
   ) async {

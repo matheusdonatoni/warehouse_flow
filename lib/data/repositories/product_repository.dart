@@ -18,4 +18,24 @@ class ProductRepository extends BaseRepositoryImpl {
       ),
     );
   }
+
+  Future<List<String>> findAllProductUnits() async {
+    var result = await localStorage.findAllProductUnits();
+
+    return List<String>.from(
+      result.map(
+        (e) => e['unit'],
+      ),
+    );
+  }
+
+  Future<List<String>> findAllProductTypes() async {
+    var result = await localStorage.findAllProductTypes();
+
+    return List<String>.from(
+      result.map(
+        (e) => e['type'],
+      ),
+    );
+  }
 }

@@ -12,6 +12,7 @@ class RegisterPage extends GetView<RegisterController> {
     return Scaffold(
       floatingActionButton: controller.simpleObx(
         () => FloatingActionButton.extended(
+          heroTag: controller.toString(),
           icon: Icon(Icons.add),
           label: Text("Operação"),
           onPressed: () => controller.pushNewOperationPage(),

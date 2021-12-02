@@ -9,6 +9,12 @@ class ProductPage extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        heroTag: controller.toString(),
+        onPressed: () {},
+        icon: Icon(Icons.add),
+        label: Text('Produto'),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
