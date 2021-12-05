@@ -46,7 +46,7 @@ class NewOperationController extends BaseGetxControllerImpl {
   Future<void> create() async {
     operation = await _repo.create(operation, register);
 
-    register.operations.add(operation);
+    register.operations.insert(0, operation);
   }
 
   void callNoProductDialog() {

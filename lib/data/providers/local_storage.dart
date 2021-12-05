@@ -54,7 +54,8 @@ class LocalStorage {
                         ON p.id = o.positionId
                         LEFT JOIN products as pr
                         ON pr.id = o.productId
-                        WHERE r.warehouseId = ?''';
+                        WHERE r.warehouseId = ?
+                        ORDER BY o.createdAt DESC''';
 
     batch.rawQuery(spaceSql, [id]);
     batch.rawQuery(registerSql, [id]);
@@ -86,7 +87,8 @@ class LocalStorage {
                 ON p.id = o.positionId
                 LEFT JOIN products as pr
                 ON pr.id = o.productId
-                WHERE r.warehouseId = ?''';
+                WHERE r.warehouseId = ?
+                ORDER BY o.createdAt DESC''';
 
     return _database.rawQuery(sql, [id]);
   }
@@ -294,7 +296,7 @@ class LocalStorage {
       VALUES 
       (${operation.amount}, "${operation.type.valueToString()}", ${register.id}, 
       ${operation.product.id}, ${operation.chamber.id}, ${operation.street.id},
-      ${operation.position.id}, "$kNowtoIso", "$kNowtoIso")''',
+      ${operation.position.id}, "$kNowToIso", "$kNowToIso")''',
     );
 
     var result = await _database.rawQuery(

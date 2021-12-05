@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:warehouse_flow/controllers/_impl/filterable_list_mixin.dart';
-import 'package:warehouse_flow/views/widgets/column_filter.dart';
+import '../_impl/filterable_list_mixin.dart';
+import 'package:warehouse_flow/data/utils/table_view_model.dart';
+import '/views/widgets/column_filter.dart';
 import '../../data/repositories/product_repository.dart';
-import '../../data/helpers/table_view_model.dart';
 import '../../data/models/product.dart';
 import '../../controllers/root_controllers/root_controller.dart';
 

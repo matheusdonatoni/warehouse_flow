@@ -1,5 +1,5 @@
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:warehouse_flow/data/helpers/table_view_model.dart';
+import '/data/utils/table_view_model.dart';
 
 mixin FilterableTableMixin<T> {
   final filteredList = <T>[].obs;

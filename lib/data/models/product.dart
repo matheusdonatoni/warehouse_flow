@@ -107,6 +107,13 @@ class Product {
         "updatedAt": updatedAt?.toIso8601String(),
       };
 
+  Map<String, dynamic> toDataTable() => {
+        "Produto": code,
+        "Descrição": description,
+        "Unidade": unit,
+        "Tipo": type,
+      };
+
   @override
   String toString() {
     return toMap().toString();

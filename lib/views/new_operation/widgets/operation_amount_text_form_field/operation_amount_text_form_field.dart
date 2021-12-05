@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../data/helpers/decimal_formatter.dart';
+import '../../../../data/utils/decimal_formatter.dart';
 import 'bloc.dart';
 
 class ProductAmountTextFormField

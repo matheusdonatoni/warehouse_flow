@@ -42,7 +42,10 @@ class Register {
 
   List<Product> get products => resumes.map((e) => e.product).toList();
 
-  List<ProductResume> get resumes => resumesWhere((e) => true);
+  List<ProductResume> get resumes => resumesWhere((e) => true)
+    ..sort(
+      (a, b) => a.product.code!.compareTo(b.product.code!),
+    );
 
   List<ProductResume> resumesWhere(bool Function(Operation operation) test) {
     final _resumes = <ProductResume>[];
@@ -58,24 +61,38 @@ class Register {
         var amount = operation.isRemoval ? -operation.amount : operation.amount;
 
         if (_isNew) {
-          _resumes.add(
-            ProductResume(
-              product: product,
-              amount: amount,
-            ),
-          );
+          _resumes.add(ProductResume(
+            product: product,
+            amount: amount,
+          ));
         } else {
           _resumes.singleWhere(
             (e) => e.id == product.id,
           )..amount += amount;
         }
       }
-    }
 
-    _resumes.removeWhere((e) => e.amount == 0);
+      _resumes.removeWhere((e) => e.amount == 0);
+    }
 
     return _resumes;
   }
+
+  String resumesJsonDataTable() => json.encode(
+        resumes
+            .map(
+              (e) => e.toDataTable(),
+            )
+            .toList(),
+      );
+
+  String operationsJsonDataTable() => json.encode(
+        operations
+            .map(
+              (e) => e.toDataTable(),
+            )
+            .toList(),
+      );
 
   Register copyWith({
     int? id,

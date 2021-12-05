@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:intl/intl.dart';
 
@@ -30,4 +32,29 @@ class ProductResume {
   String get formatedAmount => NumberFormat("#,##0.##", 'pt-br').format(
         amount,
       );
+
+  factory ProductResume.fromJson(String str) => ProductResume.fromMap(
+        json.decode(str),
+      );
+
+  String toJson() => json.encode(toMap());
+
+  factory ProductResume.fromMap(
+    Map<String, dynamic> json,
+  ) =>
+      ProductResume(
+        product: Product.fromMap(json["product"] ?? {}),
+        amount: json["amount"] ?? 0,
+      );
+
+  Map<String, dynamic> toMap() => {
+        "product": product.toMap(),
+        "amount": amount,
+      };
+
+  Map<String, dynamic> toDataTable() => {
+        "Produto": product.code,
+        "Descrição": product.description,
+        "Consolidado": amount,
+      };
 }

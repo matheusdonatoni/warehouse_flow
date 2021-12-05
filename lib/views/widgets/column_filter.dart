@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:warehouse_flow/data/helpers/table_view_model.dart';
+import 'package:warehouse_flow/data/utils/table_view_model.dart';
 
 class ColumnFilterBottomSheet extends StatelessWidget {
   final ColumnFilter columnFilter;

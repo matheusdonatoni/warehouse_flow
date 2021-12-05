@@ -88,7 +88,7 @@ class Operation {
   String get formatedDate {
     if (createdAt == null) return 'Sem registro';
 
-    return DateFormat('dd/MM/yyyy').format(createdAt!);
+    return DateFormat('dd/MM/yy - hh:mm').format(createdAt!);
   }
 
   Operation copyWith({
@@ -161,6 +161,19 @@ class Operation {
         "updatedAt": updatedAt?.toIso8601String(),
       };
 
+  Map<String, dynamic> toDataTable() => {
+        "Produto": product.code,
+        "Descrição": product.description,
+        "Quantidade": formatedAmount,
+        "Câmara": chamber.name,
+        "Rua": street.name,
+        "Número": street.number,
+        "Altura": position.height,
+        "Profundidade": position.depth,
+        "Operação": type.valueToStringInPT,
+        "Data": formatedDate,
+      };
+
   @override
   String toString() => toMap().toString();
 
@@ -182,7 +195,7 @@ extension OperationExt on OperationType {
     return this.toString().split('.').last;
   }
 
-  String get valueToStringInPortuguese {
+  String get valueToStringInPT {
     if (this == OperationType.insert) {
       return 'Inserção';
     } else {
