@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '/controllers/new_operation_controllers/new_operation_controller.dart';
 import '/data/repositories/product_repository.dart';
 import '/data/models/position.dart';
@@ -41,26 +42,42 @@ class ProductCodeTextFormFieldBloc extends GetxController {
   }
 
   void onChanged(String? code) {
+    var parsedCode = parseCode(code);
+
     if (product.id != null) {
-      product = Product(code: code);
+      product = Product(
+        code: parsedCode,
+      );
     }
   }
 
-  void onSubmitted(String? code) async {
-    if (code != null &&
-        code.isNotEmpty &&
-        code != product.code &&
-        product.id == null) {
+  void onEditingComplete() async {
+    var parsedCode = parseCode(textController.text);
+
+    if (product.id == null) {
       try {
-        product = await _repo.findFromCode(code);
+        product = await _repo.findFromCode(parsedCode);
+
+        focusNode.nextFocus();
       } catch (_) {
         product = Product();
 
-        Get.rawSnackbar(
-          message: 'Produto não cadastrado',
-        );
+        if (!(Get.isSnackbarOpen ?? true))
+          Get.rawSnackbar(
+            message: 'Produto não cadastrado',
+          );
+
+        focusNode.requestFocus();
       }
+    } else {
+      focusNode.nextFocus();
     }
+  }
+
+  int? parseCode(String? code) {
+    if (code == null || code.isEmpty) return null;
+
+    return NumberFormat("#,##0.##", 'pt-br').parse(code).toInt();
   }
 
   void clearAll() {

@@ -39,7 +39,7 @@ class RegisterDataTable extends GetView<HomeController> {
             source: TableSource<Operation>(
               data: operations,
               rowBuilder: (int index) => [
-                DataCell(Text('${operations[index].product.code}')),
+                DataCell(Text('${operations[index].product.parsedCode}')),
                 DataCell(Text('${operations[index].product.description}')),
                 DataCell(Text(operations[index].formatedAmount)),
                 DataCell(Text('${operations[index].chamber.name}')),

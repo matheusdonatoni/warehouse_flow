@@ -58,7 +58,7 @@ class OperationAmountTextFormFieldBloc extends GetxController {
       } catch (e) {
         clearAll();
 
-        Get.rawSnackbar(message: 'Formato numeral inválido');
+        Get.rawSnackbar(message: 'Formato inválido');
       }
     }
   }

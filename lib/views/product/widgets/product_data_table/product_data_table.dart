@@ -50,7 +50,7 @@ class ProductDataTable extends GetView<ProductsController> {
             source: TableSource<Product>(
               data: products,
               rowBuilder: (int index) => [
-                DataCell(Text('${products[index].code}')),
+                DataCell(Text('${products[index].parsedCode}')),
                 DataCell(Text('${products[index].description}')),
                 DataCell(Text('${products[index].unit}')),
                 DataCell(Text('${products[index].type}')),

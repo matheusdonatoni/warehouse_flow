@@ -43,7 +43,7 @@ class ResumeDataTable extends GetView<HomeController> {
             source: TableSource<ProductResume>(
               data: resumes,
               rowBuilder: (int index) => [
-                DataCell(Text('${resumes[index].product.code}')),
+                DataCell(Text('${resumes[index].product.parsedCode}')),
                 DataCell(Text('${resumes[index].product.description}')),
                 DataCell(Text(resumes[index].formatedAmount)),
               ],

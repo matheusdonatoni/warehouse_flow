@@ -238,7 +238,7 @@ class LocalStorage {
     return result;
   }
 
-  Future<Map<String, dynamic>> findProductFromCode(String? code) async {
+  Future<Map<String, dynamic>> findProductFromCode(int? code) async {
     var result = await _database.rawQuery(
       'SELECT * FROM products WHERE code = $code',
     );

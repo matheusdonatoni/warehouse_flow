@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:intl/intl.dart';
 
 class RxProdcut {
   final id = Rxn<int>();
-  final code = Rxn<String>();
+  final code = Rxn<int>();
   final description = Rxn<String>();
   final unit = Rxn<String>();
   final type = Rxn<String>();
@@ -15,7 +16,7 @@ class RxProdcut {
 class Product {
   Product({
     int? id,
-    String? code,
+    int? code,
     String? description,
     String? unit,
     String? type,
@@ -36,8 +37,8 @@ class Product {
   int? get id => rx.id.value;
   set id(int? value) => rx.id.value = value;
 
-  String? get code => rx.code.value;
-  set code(String? value) => rx.code.value = value;
+  int? get code => rx.code.value;
+  set code(int? value) => rx.code.value = value;
 
   String? get description => rx.description.value;
   set description(String? value) => rx.description.value = value;
@@ -54,9 +55,11 @@ class Product {
   DateTime? get updatedAt => rx.updatedAt.value;
   set updatedAt(DateTime? value) => rx.updatedAt.value = value;
 
+  String get parsedCode => NumberFormat("#,##0", 'pt-br').format(code);
+
   Product copyWith({
     int? id,
-    String? code,
+    int? code,
     String? description,
     String? unit,
     String? type,

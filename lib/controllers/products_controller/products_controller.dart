@@ -48,7 +48,7 @@ class ProductsController extends BaseGetxControllerImpl
         'Código',
         options: products.map(
           (product) => BooleanFilter(
-            product.code,
+            product.code.toString(),
             onChanged: (value) {
               if (value != null && value) {
                 filteredList.removeWhere(
