@@ -1,5 +1,5 @@
-import '../../data/models/chamber.dart';
-import '../../data/models/street.dart';
+import '../models/spot.dart';
+import '../models/address.dart';
 import '../../data/models/position.dart';
 import '../../data/models/product.dart';
 import '../../data/models/register.dart';
@@ -17,8 +17,8 @@ class OperationRepository extends BaseRepositoryImpl {
     return Operation.fromAliasesMap(
       result,
       product: Product.fromAlisesMap(result),
-      chamber: Chamber.fromAliasesMap(result),
-      street: Street.fromAliasesMap(result),
+      spot: Spot.fromAliasesMap(result),
+      address: Address.fromAliasesMap(result),
       position: Position.fromAliasesMap(result),
     );
   }
@@ -31,8 +31,8 @@ class OperationRepository extends BaseRepositoryImpl {
         (e) => Operation.fromAliasesMap(
           e,
           product: Product.fromAlisesMap(e),
-          chamber: Chamber.fromAliasesMap(e),
-          street: Street.fromAliasesMap(e),
+          spot: Spot.fromAliasesMap(e),
+          address: Address.fromAliasesMap(e),
           position: Position.fromAliasesMap(e),
         ),
       ),

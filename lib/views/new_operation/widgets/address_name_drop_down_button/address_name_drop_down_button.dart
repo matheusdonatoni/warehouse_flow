@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'bloc.dart';
 
-class StreetNameDropDownButton extends GetView<StreetNameDropDownButtonBloc> {
-  const StreetNameDropDownButton({Key? key}) : super(key: key);
+class AddressNameDropDownButton extends GetView<AddressNameDropDownButtonBloc> {
+  const AddressNameDropDownButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => StreetNameDropDownButtonBloc());
+    Get.lazyPut(() => AddressNameDropDownButtonBloc());
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

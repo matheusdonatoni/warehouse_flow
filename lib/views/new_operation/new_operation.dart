@@ -3,13 +3,13 @@ import 'package:get/get.dart';
 
 import '/controllers/new_operation_controllers/new_operation_controller.dart';
 
-import 'widgets/chamber_drop_down_button/chamber_drop_down_button.dart';
+import 'widgets/spot_drop_down_button/spot_drop_down_button.dart';
 import 'widgets/product_text_form_fields.dart';
 import 'widgets/register_button/register_button.dart';
 import 'widgets/operation_radios/operation_radios.dart';
 import 'widgets/position_drop_down_buttons.dart';
-import 'widgets/street_name_drop_down_button/street_name_drop_down_button.dart';
-import 'widgets/street_number_drop_down_button/street_number_drop_down_button.dart';
+import 'widgets/address_name_drop_down_button/address_name_drop_down_button.dart';
+import 'widgets/address_indicator_drop_down_button/address_indicator_drop_down_button.dart';
 
 class NewOperationPage extends GetResponsiveView<NewOperationController> {
   NewOperationPage({Key? key}) : super(key: key);
@@ -49,9 +49,9 @@ class NewOperationPage extends GetResponsiveView<NewOperationController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ChamberDropDownButton(),
-            StreetNameDropDownButton(),
-            StreetNumberDropDownButton(),
+            SpotDropDownButton(),
+            AddressNameDropDownButton(),
+            AddressIndicatorDropDownButton(),
             PositionDropDownButtons(),
             ProductTextFormFields(),
             OperationRadios(),

@@ -1,11 +1,11 @@
-import '/data/models/street.dart';
+import '../models/address.dart';
 import '/data/models/position.dart';
 
 import '_impl/base_repository_impl.dart';
 
 class PositionRepository extends BaseRepositoryImpl {
-  Future<List<Position>> findFromStreet(Street street) async {
-    var result = await localStorage.findPositions(street);
+  Future<List<Position>> findFromStreet(Address address) async {
+    var result = await localStorage.findPositions(address);
 
     return List.from(
       result.map(
@@ -14,14 +14,14 @@ class PositionRepository extends BaseRepositoryImpl {
     );
   }
 
-  Future<Position> find(Street street, Position position) async {
-    var result = await localStorage.findPosition(street, position);
+  Future<Position> find(Address address, Position position) async {
+    var result = await localStorage.findPosition(address, position);
 
     return Position.fromMap(result);
   }
 
-  Future<List<int>> findHeights(Street street) async {
-    var result = await localStorage.findPositionHeights(street);
+  Future<List<int>> findHeights(Address address) async {
+    var result = await localStorage.findPositionHeights(address);
 
     return List.from(
       result.map(
@@ -30,8 +30,8 @@ class PositionRepository extends BaseRepositoryImpl {
     );
   }
 
-  Future<List<int>> findDepths(Street street, int? height) async {
-    var result = await localStorage.findPositionDepths(street, height);
+  Future<List<int>> findDepths(Address address, int? height) async {
+    var result = await localStorage.findPositionDepths(address, height);
 
     return List.from(
       result.map(

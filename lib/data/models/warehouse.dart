@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
-import 'chamber.dart';
+import 'spot.dart';
 import 'product.dart';
 import 'product_resume.dart';
 import 'register.dart';
@@ -10,7 +10,7 @@ import 'register.dart';
 class RxWarehouse {
   final id = Rxn<int>();
   final name = Rxn<String>();
-  final chambers = RxList<Chamber>();
+  final spots = RxList<Spot>();
   final register = Rx<Register>(Register());
   final createdAt = Rxn<DateTime>();
   final updatedAt = Rxn<DateTime>();
@@ -20,14 +20,14 @@ class Warehouse {
   Warehouse({
     int? id,
     String? name,
-    List<Chamber>? chambers,
+    List<Spot>? spots,
     Register? register,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
     this.id = id;
     this.name = name;
-    this.chambers = chambers ?? [];
+    this.spots = spots ?? [];
     this.register = register ?? Register();
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
@@ -41,8 +41,8 @@ class Warehouse {
   String? get name => rx.name.value;
   set name(String? value) => rx.name.value = value;
 
-  List<Chamber> get chambers => rx.chambers;
-  set chambers(List<Chamber> value) => rx.chambers.value = value;
+  List<Spot> get spots => rx.spots;
+  set spots(List<Spot> value) => rx.spots.value = value;
 
   Register get register => rx.register.value;
   set register(Register value) => rx.register.value = value;
@@ -60,7 +60,7 @@ class Warehouse {
   Warehouse copyWith({
     int? id,
     String? name,
-    List<Chamber>? chambers,
+    List<Spot>? spots,
     Register? register,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -68,7 +68,7 @@ class Warehouse {
       Warehouse(
         id: id ?? this.id,
         name: name ?? this.name,
-        chambers: chambers ?? this.chambers,
+        spots: spots ?? this.spots,
         register: register ?? this.register,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
@@ -81,8 +81,8 @@ class Warehouse {
   factory Warehouse.fromMap(Map<String, dynamic> json) => Warehouse(
         id: json["id"],
         name: json["name"],
-        chambers: List<Chamber>.from(
-          (json["chambers"] ?? []).map((x) => Chamber.fromMap(x)),
+        spots: List<Spot>.from(
+          (json["spots"] ?? []).map((x) => Spot.fromMap(x)),
         ),
         register: Register.fromMap(json['register'] ?? {}),
         createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
@@ -91,13 +91,13 @@ class Warehouse {
 
   factory Warehouse.fromAliasesMap(
     Map<String, dynamic> json, {
-    List<Chamber>? chambers,
+    List<Spot>? spots,
     Register? register,
   }) =>
       Warehouse(
         id: json["w_id"],
         name: json["w_name"],
-        chambers: chambers,
+        spots: spots,
         register: register,
         createdAt: DateTime.tryParse(json["w_createdAt"] ?? ''),
         updatedAt: DateTime.tryParse(json["w_updatedAt"] ?? ''),
@@ -106,7 +106,7 @@ class Warehouse {
   Map<String, dynamic> toMap() => {
         "id": id,
         "name": name,
-        "chambers": List.from(chambers.map((x) => x.toMap())),
+        "spots": List.from(spots.map((x) => x.toMap())),
         "register": register.toMap(),
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'bloc.dart';
 
-class ChamberDropDownButton extends GetView<ChamberDropDownButtonBloc> {
-  const ChamberDropDownButton({
+class SpotDropDownButton extends GetView<SpotDropDownButtonBloc> {
+  const SpotDropDownButton({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => ChamberDropDownButtonBloc());
+    Get.lazyPut(() => SpotDropDownButtonBloc());
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,7 +22,7 @@ class ChamberDropDownButton extends GetView<ChamberDropDownButtonBloc> {
           () => DropdownButtonFormField<String>(
             validator: controller.validator,
             onChanged: controller.onChanged,
-            value: controller.chamber.name,
+            value: controller.spot.name,
             hint: Text('Selecionar Câmara'),
             items: controller.names
                 .map(

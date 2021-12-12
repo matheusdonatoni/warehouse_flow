@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import '/controllers/new_operation_controllers/new_operation_controller.dart';
 import '/data/repositories/position_repository.dart';
-import '../../../../data/models/street.dart';
+import '../../../../data/models/address.dart';
 import '../../../../data/models/position.dart';
 
 class PositionHeightDropDownButtonBloc extends GetxController {
@@ -9,9 +9,9 @@ class PositionHeightDropDownButtonBloc extends GetxController {
 
   NewOperationController get _newOperationController => Get.find();
 
-  Rx<Street> get _street => _newOperationController.street;
-  Street get street => _street.value;
-  set street(Street val) => _street.value = val;
+  Rx<Address> get _address => _newOperationController.address;
+  Address get address => _address.value;
+  set address(Address val) => _address.value = val;
 
   Rx<Position> get _position => _newOperationController.position;
   Position get position => _position.value;
@@ -20,14 +20,18 @@ class PositionHeightDropDownButtonBloc extends GetxController {
   final heights = RxList<int>();
 
   void _listenRelative() {
-    _street.listen(
-      (street) async {
+    _address.listen(
+      (address) async {
         position = Position();
 
-        if (street.id != null) {
+        if (address.id != null) {
           heights.assignAll(
-            await _repo.findHeights(street),
+            await _repo.findHeights(address),
           );
+
+          if (heights.length == 1 && position.height == null) {
+            this.position = Position(height: heights.single);
+          }
         } else {
           heights.clear();
         }

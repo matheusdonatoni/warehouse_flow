@@ -2,20 +2,20 @@ import 'package:get/get.dart';
 import '/data/models/operation.dart';
 import '/controllers/new_operation_controllers/new_operation_controller.dart';
 import '/data/models/warehouse.dart';
-import '/data/models/chamber.dart';
-import '/data/repositories/chamber_repository.dart';
+import '../../../../data/models/spot.dart';
+import '../../../../data/repositories/spot_repository.dart';
 
-class ChamberDropDownButtonBloc extends GetxController {
-  ChamberRepository get _repo => Get.find();
+class SpotDropDownButtonBloc extends GetxController {
+  SpotRepository get _repo => Get.find();
 
   NewOperationController get _newOperationController => Get.find();
   Warehouse get _warehouse => _newOperationController.warehouse;
 
   Operation get operation => _newOperationController.operation;
 
-  Rx<Chamber> get _chamber => _newOperationController.chamber;
-  Chamber get chamber => _chamber.value;
-  set chamber(Chamber val) => _chamber.value = val;
+  Rx<Spot> get _spot => _newOperationController.spot;
+  Spot get spot => _spot.value;
+  set spot(Spot val) => _spot.value = val;
 
   final names = RxList<String>();
 
@@ -28,8 +28,8 @@ class ChamberDropDownButtonBloc extends GetxController {
   }
 
   void onChanged(String? name) async {
-    if (name != null && name != chamber.name) {
-      chamber = await _repo.findFromName(name);
+    if (name != null && name != spot.name) {
+      spot = await _repo.findFromName(name);
     }
   }
 
@@ -38,7 +38,7 @@ class ChamberDropDownButtonBloc extends GetxController {
     super.onInit();
 
     names.assignAll(
-      await _repo.findChamberNames(_warehouse),
+      await _repo.findSpotNames(_warehouse),
     );
   }
 }

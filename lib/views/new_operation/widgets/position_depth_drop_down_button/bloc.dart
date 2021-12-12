@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import '/data/models/operation.dart';
 import '/controllers/new_operation_controllers/new_operation_controller.dart';
 import '/data/repositories/position_repository.dart';
-import '../../../../data/models/street.dart';
+import '../../../../data/models/address.dart';
 import '../../../../data/models/position.dart';
 
 class PositionDepthDropDownButtonBloc extends GetxController {
@@ -12,9 +12,9 @@ class PositionDepthDropDownButtonBloc extends GetxController {
 
   Operation get operation => _newOperationController.operation;
 
-  Rx<Street> get _street => _newOperationController.street;
-  Street get street => _street.value;
-  set street(Street val) => _street.value = val;
+  Rx<Address> get _address => _newOperationController.address;
+  Address get address => _address.value;
+  set address(Address val) => _address.value = val;
 
   Rx<Position> get _position => _newOperationController.position;
   Position get position => _position.value;
@@ -27,7 +27,7 @@ class PositionDepthDropDownButtonBloc extends GetxController {
       (position) async {
         if (position.height != null) {
           depths.assignAll(
-            await _repo.findDepths(street, position.height),
+            await _repo.findDepths(address, position.height),
           );
 
           if (depths.length == 1 && position.id == null) {
@@ -35,7 +35,7 @@ class PositionDepthDropDownButtonBloc extends GetxController {
               depth: depths.single,
             );
 
-            this.position = await _repo.find(street, position);
+            this.position = await _repo.find(address, position);
           }
         } else {
           depths.clear();
@@ -56,7 +56,7 @@ class PositionDepthDropDownButtonBloc extends GetxController {
     if (depth != null && depth != position.depth) {
       position = position.copyWith(depth: depth);
 
-      position = await _repo.find(street, position);
+      position = await _repo.find(address, position);
     }
   }
 

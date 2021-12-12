@@ -2,32 +2,35 @@ import 'dart:convert';
 
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
-import 'street.dart';
+import 'position.dart';
 
-class RxChamber {
+class RxAdress {
   final id = Rxn<int>();
   final name = Rxn<String>();
-  final streets = RxList<Street>();
+  final indicator = Rxn<String>();
+  final positions = RxList<Position>();
   final createdAt = Rxn<DateTime>();
   final updatedAt = Rxn<DateTime>();
 }
 
-class Chamber {
-  Chamber({
+class Address {
+  Address({
     int? id,
     String? name,
-    List<Street>? streets,
+    String? indicator,
+    List<Position>? positions,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
     this.id = id;
     this.name = name;
-    this.streets = streets ?? [];
+    this.indicator = indicator;
+    this.positions = positions ?? [];
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
 
-  final rx = RxChamber();
+  final rx = RxAdress();
 
   int? get id => rx.id.value;
   set id(int? value) => rx.id.value = value;
@@ -35,8 +38,11 @@ class Chamber {
   String? get name => rx.name.value;
   set name(String? value) => rx.name.value = value;
 
-  List<Street> get streets => rx.streets;
-  set streets(List<Street> value) => rx.streets.value = value;
+  String? get indicator => rx.indicator.value;
+  set indicator(String? value) => rx.indicator.value = value;
+
+  List<Position> get positions => rx.positions;
+  set positions(List<Position> value) => rx.positions.value = value;
 
   DateTime? get createdAt => rx.createdAt.value;
   set createdAt(DateTime? value) => rx.createdAt.value = value;
@@ -44,51 +50,56 @@ class Chamber {
   DateTime? get updatedAt => rx.updatedAt.value;
   set updatedAt(DateTime? value) => rx.updatedAt.value = value;
 
-  Chamber copyWith({
+  Address copyWith({
     int? id,
     String? name,
-    List<Street>? streets,
+    String? indicator,
+    List<Position>? positions,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
-      Chamber(
+      Address(
         id: id ?? this.id,
         name: name ?? this.name,
-        streets: streets ?? this.streets,
+        indicator: indicator ?? this.indicator,
+        positions: positions ?? this.positions,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
 
-  factory Chamber.fromJson(String str) => Chamber.fromMap(json.decode(str));
+  factory Address.fromJson(String str) => Address.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Chamber.fromMap(Map<String, dynamic> json) => Chamber(
+  factory Address.fromMap(Map<String, dynamic> json) => Address(
         id: json["id"],
         name: json["name"],
-        streets: List<Street>.from(
-          (json["streets"] ?? []).map((x) => Street.fromMap(x)),
+        indicator: json["indicator"],
+        positions: List<Position>.from(
+          (json["positions"] ?? []).map((x) => Position.fromMap(x)),
         ),
         createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
         updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
       );
 
-  factory Chamber.fromAliasesMap(
+  factory Address.fromAliasesMap(
     Map<String, dynamic> json, {
-    List<Street>? streets,
+    List<Position>? positions,
   }) =>
-      Chamber(
-        id: json["c_id"],
-        name: json["c_name"],
-        streets: streets,
-        createdAt: DateTime.tryParse(json["c_createdAt"] ?? ''),
-        updatedAt: DateTime.tryParse(json["c_updatedAt"] ?? ''),
+      Address(
+        id: json["a_id"],
+        name: json["a_name"],
+        indicator: json["indicator"],
+        positions: positions,
+        createdAt: DateTime.tryParse(json["a_createdAt"] ?? ''),
+        updatedAt: DateTime.tryParse(json["a_updatedAt"] ?? ''),
       );
 
   Map<String, dynamic> toMap() => {
         "id": id,
         "name": name,
-        "streets": List<dynamic>.from(streets.map((x) => x.toMap())),
+        "indicator": indicator,
+        "positions": List<dynamic>.from(positions.map((x) => x.toMap())),
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
       };

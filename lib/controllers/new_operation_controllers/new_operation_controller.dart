@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '/data/models/chamber.dart';
-import '/data/models/street.dart';
+import '../../data/models/spot.dart';
+import '../../data/models/address.dart';
 import '/views/widgets/info_dialog.dart';
 
 import 'package:get/get.dart';
@@ -27,8 +27,8 @@ class NewOperationController extends BaseGetxControllerImpl {
   Operation get operation => _operation.value;
   set operation(Operation val) => _operation.value = val;
 
-  final chamber = Rx<Chamber>(Chamber());
-  final street = Rx<Street>(Street());
+  final spot = Rx<Spot>(Spot());
+  final address = Rx<Address>(Address());
   final position = Rx<Position>(Position());
   final product = Rx<Product>(Product());
 
@@ -99,10 +99,10 @@ class NewOperationController extends BaseGetxControllerImpl {
   }
 
   void updateOperation(dynamic value) {
-    if (value is Chamber) {
-      operation.chamber = value;
-    } else if (value is Street) {
-      operation.street = value;
+    if (value is Spot) {
+      operation.spot = value;
+    } else if (value is Address) {
+      operation.address = value;
     } else if (value is Position) {
       operation.position = value;
     } else if (value is Product) {
@@ -115,7 +115,7 @@ class NewOperationController extends BaseGetxControllerImpl {
     super.onInit();
 
     everAll(
-      [chamber, street, position, product],
+      [spot, address, position, product],
       updateOperation,
     );
   }

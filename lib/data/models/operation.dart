@@ -3,18 +3,18 @@ import 'dart:convert';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:intl/intl.dart';
 
-import 'chamber.dart';
+import 'spot.dart';
 import 'position.dart';
 import 'product.dart';
-import 'street.dart';
+import 'address.dart';
 
 class RxOperation {
   final id = Rxn<int>();
   final amount = Rx<double>(0.0);
   final type = Rx<OperationType>(OperationType.insert);
   final product = Rx<Product>(Product());
-  final chamber = Rx<Chamber>(Chamber());
-  final street = Rx<Street>(Street());
+  final spot = Rx<Spot>(Spot());
+  final address = Rx<Address>(Address());
   final position = Rx<Position>(Position());
   final createdAt = Rxn<DateTime>();
   final updatedAt = Rxn<DateTime>();
@@ -26,8 +26,8 @@ class Operation {
     double? amount,
     OperationType? type,
     Product? product,
-    Chamber? chamber,
-    Street? street,
+    Spot? spot,
+    Address? address,
     Position? position,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -39,8 +39,8 @@ class Operation {
 
     this.type = type ?? OperationType.insert;
     this.product = product ?? Product();
-    this.chamber = chamber ?? Chamber();
-    this.street = street ?? Street();
+    this.spot = spot ?? Spot();
+    this.address = address ?? Address();
     this.position = position ?? Position();
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
@@ -60,11 +60,11 @@ class Operation {
   Product get product => rx.product.value;
   set product(Product value) => rx.product.value = value;
 
-  Chamber get chamber => rx.chamber.value;
-  set chamber(Chamber value) => rx.chamber.value = value;
+  Spot get spot => rx.spot.value;
+  set spot(Spot value) => rx.spot.value = value;
 
-  Street get street => rx.street.value;
-  set street(Street value) => rx.street.value = value;
+  Address get address => rx.address.value;
+  set address(Address value) => rx.address.value = value;
 
   Position get position => rx.position.value;
   set position(Position value) => rx.position.value = value;
@@ -96,8 +96,8 @@ class Operation {
     double? amount,
     OperationType? type,
     Product? product,
-    Chamber? chamber,
-    Street? street,
+    Spot? spot,
+    Address? address,
     Position? position,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -107,8 +107,8 @@ class Operation {
         amount: amount ?? this.amount,
         type: type ?? this.type,
         product: product ?? this.product,
-        chamber: chamber ?? this.chamber,
-        street: street ?? this.street,
+        spot: spot ?? this.spot,
+        address: address ?? this.address,
         position: position ?? this.position,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
@@ -122,8 +122,8 @@ class Operation {
         id: json["id"],
         amount: json["amount"],
         product: Product.fromMap(json["product"] ?? {}),
-        chamber: Chamber.fromMap(json["chamber"] ?? {}),
-        street: Street.fromMap(json["street"] ?? {}),
+        spot: Spot.fromMap(json["spot"] ?? {}),
+        address: Address.fromMap(json["address"] ?? {}),
         position: Position.fromMap(json["position"] ?? {}),
         type: Operation.parseType(json["type"] ?? ''),
         createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
@@ -133,16 +133,16 @@ class Operation {
   factory Operation.fromAliasesMap(
     Map<String, dynamic> json, {
     Product? product,
-    Chamber? chamber,
-    Street? street,
+    Spot? spot,
+    Address? address,
     Position? position,
   }) =>
       Operation(
         id: json["o_id"],
         amount: json["amount"],
         product: product,
-        chamber: chamber,
-        street: street,
+        spot: spot,
+        address: address,
         position: position,
         type: Operation.parseType(json["o_type"] ?? ''),
         createdAt: DateTime.tryParse(json["o_createdAt"] ?? ''),
@@ -154,8 +154,8 @@ class Operation {
         "amount": amount,
         "type": type.valueToString(),
         "product": product.toMap(),
-        "chamber": chamber.toMap(),
-        "street": street.toMap(),
+        "spot": spot.toMap(),
+        "address": address.toMap(),
         "position": position.toMap(),
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
@@ -165,9 +165,9 @@ class Operation {
         "Produto": product.code,
         "Descrição": product.description,
         "Quantidade": formatedAmount,
-        "Câmara": chamber.name,
-        "Rua": street.name,
-        "Número": street.number,
+        "Câmara": spot.name,
+        "Rua": address.name,
+        "Número": address.indicator,
         "Altura": position.height,
         "Profundidade": position.depth,
         "Operação": type.valueToStringInPT,

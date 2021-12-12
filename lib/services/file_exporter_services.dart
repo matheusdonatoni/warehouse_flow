@@ -15,7 +15,7 @@ class FileExporterServices extends GetxService {
     if (await _isAccessGuaranteed()) {
       await _verifyDirectory();
 
-      var file = File(join(_documents.path, kNowForPath + '_' + fileName));
+      var file = File(join(_documents.path, kNowToPath + '_' + fileName));
 
       await Get.dialog(
         SaveFileProgressDialog(

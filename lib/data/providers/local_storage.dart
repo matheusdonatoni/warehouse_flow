@@ -11,8 +11,8 @@ import '../models/operation.dart';
 import '../models/position.dart';
 import '../models/register.dart';
 import '../models/warehouse.dart';
-import '../models/chamber.dart';
-import '../models/street.dart';
+import '../models/spot.dart';
+import '../models/address.dart';
 
 class LocalStorage {
   LocalStorage._create();
@@ -24,32 +24,32 @@ class LocalStorage {
 
     final spaceSql = '''SELECT 
                       $kWarehouseAliasQuery,
-                      $kChamberAliasQuery,
-                      $kStreetAliasQuery,
+                      $kSpotAliasQuery,
+                      $kAddressAliasQuery,
                       $kPositionAliasQuery
                       FROM warehouses as w
-                      LEFT JOIN chambers as c
-                      ON c.warehouseid = w.id
-                      LEFT JOIN streets as s
-                      ON s.chamberid = c.id
+                      LEFT JOIN spots as s
+                      ON s.warehouseId = w.id
+                      LEFT JOIN addresses as a
+                      ON a.spotId = s.id
                       LEFT JOIN positions as p
-                      ON p.streetid = s.id
+                      ON p.addressId = a.id
                       WHERE w.id = ?''';
 
     final registerSql = '''SELECT 
                         $kRegisterAliasQuery,
-                        $kChamberAliasQuery,
-                        $kStreetAliasQuery,
+                        $kSpotAliasQuery,
+                        $kAddressAliasQuery,
                         $kPositionAliasQuery,
                         $kOperationAliasQuery,
                         $kProductAliasQuery
                         FROM registers as r
                         LEFT JOIN operations as o
                         ON r.id = o.registerId
-                        LEFT JOIN chambers as c
-                        ON c.id = o.chamberId
-                        LEFT JOIN streets as s
-                        ON s.id = o.streetId
+                        LEFT JOIN spots as s
+                        ON s.id = o.spotId
+                        LEFT JOIN addresses as a
+                        ON a.id = o.addressId
                         LEFT JOIN positions as p
                         ON p.id = o.positionId
                         LEFT JOIN products as pr
@@ -69,8 +69,8 @@ class LocalStorage {
     final sql = '''SELECT 
                 $kWarehouseAliasQuery,
                 $kRegisterAliasQuery,
-                $kChamberAliasQuery,
-                $kStreetAliasQuery,
+                $kSpotAliasQuery,
+                $kAddressAliasQuery,
                 $kPositionAliasQuery,
                 $kOperationAliasQuery,
                 $kProductAliasQuery
@@ -79,10 +79,10 @@ class LocalStorage {
                 ON w.id = r.warehouseId
                 LEFT JOIN operations as o
                 ON r.id = o.registerId
-                LEFT JOIN chambers as c
-                ON c.id = o.chamberId
-                LEFT JOIN streets as s
-                ON s.id = o.streetId
+                LEFT JOIN spots as s
+                ON s.id = o.spotId
+                LEFT JOIN addresses as a
+                ON a.id = o.addressId
                 LEFT JOIN positions as p
                 ON p.id = o.positionId
                 LEFT JOIN products as pr
@@ -105,31 +105,31 @@ class LocalStorage {
     }
   }
 
-  Future<List<Map<String, dynamic>>> findChambersFromWarehouse(
+  Future<List<Map<String, dynamic>>> findSpotsFromWarehouse(
     Warehouse warehouse,
   ) async {
     var result = await _database.rawQuery(
-      'SELECT * FROM chambers WHERE warehouseId = ${warehouse.id}',
+      'SELECT * FROM spots WHERE warehouseId = ${warehouse.id}',
     );
 
     return result;
   }
 
-  Future<List<Map<String, dynamic>>> findChamberNames(
+  Future<List<Map<String, dynamic>>> findSpotNames(
     Warehouse warehouse,
   ) async {
     var result = await _database.rawQuery(
-      'SELECT name FROM chambers WHERE warehouseid = ${warehouse.id}',
+      'SELECT name FROM spots WHERE warehouseid = ${warehouse.id}',
     );
 
     return result;
   }
 
-  Future<Map<String, dynamic>> findChamberFromName(
+  Future<Map<String, dynamic>> findSpotFromName(
     String name,
   ) async {
     var result = await _database.rawQuery(
-      'SELECT * FROM chambers WHERE name = "$name"',
+      'SELECT * FROM spots WHERE name = "$name"',
     );
 
     try {
@@ -139,46 +139,46 @@ class LocalStorage {
     }
   }
 
-  Future<List<Map<String, dynamic>>> findStreets(
-    Chamber? chamber,
+  Future<List<Map<String, dynamic>>> findAddresses(
+    Spot? spot,
   ) async {
     var result = await _database.rawQuery(
-      'SELECT * FROM streets WHERE chamberId = ${chamber?.id}',
+      'SELECT * FROM addresses WHERE spotId = ${spot?.id}',
     );
 
     return result;
   }
 
-  Future<List<Map<String, dynamic>>> findStreetNames(Chamber chamber) async {
+  Future<List<Map<String, dynamic>>> findAddressNames(Spot spot) async {
     var result = await _database.rawQuery(
-      'SELECT DISTINCT name FROM streets WHERE chamberid = ${chamber.id}',
+      'SELECT DISTINCT name FROM addresses WHERE spotid = ${spot.id}',
     );
 
     return result;
   }
 
-  Future<List<Map<String, dynamic>>> findStreetNumbers(
-    Chamber chamber,
+  Future<List<Map<String, dynamic>>> findAddressIndicators(
+    Spot spot,
     String? name,
   ) async {
     var result = await _database.rawQuery(
-      '''SELECT DISTINCT number 
-      FROM streets WHERE chamberid = ${chamber.id} 
+      '''SELECT DISTINCT indicator 
+      FROM addresses WHERE spotid = ${spot.id} 
       AND name = "$name"''',
     );
 
     return result;
   }
 
-  Future<Map<String, dynamic>> findStreetFromAddress(
-    Chamber chamber,
-    Street street,
+  Future<Map<String, dynamic>> findAddressFromAddress(
+    Spot spot,
+    Address address,
   ) async {
     var result = await _database.rawQuery(
-      '''SELECT * FROM streets 
-      WHERE chamberid = ${chamber.id} 
-      AND name = "${street.name}" 
-      AND number = ${street.number}''',
+      '''SELECT * FROM addresses 
+      WHERE spotId = ${spot.id} 
+      AND name = "${address.name}" 
+      AND indicator = "${address.indicator}"''',
     );
 
     try {
@@ -189,22 +189,22 @@ class LocalStorage {
   }
 
   Future<List<Map<String, dynamic>>> findPositions(
-    Street street,
+    Address address,
   ) async {
     var result = await _database.rawQuery(
-      'SELECT * FROM positions WHERE streetId = ${street.id}',
+      'SELECT * FROM positions WHERE addressId = ${address.id}',
     );
 
     return result;
   }
 
   Future<Map<String, dynamic>> findPosition(
-    Street street,
+    Address address,
     Position position,
   ) async {
     var result = await _database.rawQuery(
       '''SELECT * FROM positions
-      WHERE streetid = ${street.id} 
+      WHERE addressid = ${address.id} 
       AND height = ${position.height} 
       AND depth = ${position.depth}''',
     );
@@ -213,25 +213,25 @@ class LocalStorage {
   }
 
   Future<List<Map<String, dynamic>>> findPositionHeights(
-    Street street,
+    Address address,
   ) async {
     var result = await _database.rawQuery(
       '''SELECT DISTINCT height 
       FROM positions 
-      WHERE streetId = ${street.id}''',
+      WHERE addressId = ${address.id}''',
     );
 
     return result;
   }
 
   Future<List<Map<String, dynamic>>> findPositionDepths(
-    Street street,
+    Address address,
     int? height,
   ) async {
     var result = await _database.rawQuery(
       '''SELECT DISTINCT depth 
       FROM positions 
-      WHERE streetId = ${street.id} 
+      WHERE addressId = ${address.id} 
       AND height = $height''',
     );
 
@@ -291,11 +291,11 @@ class LocalStorage {
   ) async {
     var id = await _database.rawInsert(
       '''INSERT INTO operations 
-      (amount, type, registerid, productid, chamberId, 
-      streetId, positionId, createdat, updatedat) 
+      (amount, type, registerid, productid, spotId, 
+      addressId, positionId, createdat, updatedat) 
       VALUES 
       (${operation.amount}, "${operation.type.valueToString()}", ${register.id}, 
-      ${operation.product.id}, ${operation.chamber.id}, ${operation.street.id},
+      ${operation.product.id}, ${operation.spot.id}, ${operation.address.id},
       ${operation.position.id}, "$kNowToIso", "$kNowToIso")''',
     );
 
@@ -303,16 +303,16 @@ class LocalStorage {
       '''SELECT
       $kOperationAliasQuery,
       $kProductAliasQuery,
-      $kChamberAliasQuery,
-      $kStreetAliasQuery,
+      $kSpotAliasQuery,
+      $kAddressAliasQuery,
       $kPositionAliasQuery
       FROM operations AS o
       LEFT JOIN products as pr
       ON pr.id = o.productId
-      LEFT JOIN chambers as c
-      ON c.id = o.chamberId
-      LEFT JOIN streets as s
-      ON s.id = o.streetId
+      LEFT JOIN spots as s
+      ON s.id = o.spotId
+      LEFT JOIN addresses as a
+      ON a.id = o.addressId
       LEFT JOIN positions as p
       ON p.id = o.positionId
       WHERE o.id = $id''',
@@ -328,16 +328,16 @@ class LocalStorage {
       '''SELECT
       $kOperationAliasQuery,
       $kProductAliasQuery,
-      $kChamberAliasQuery,
-      $kStreetAliasQuery,
+      $kSpotAliasQuery,
+      $kAddressAliasQuery,
       $kPositionAliasQuery
       FROM operations AS o
       LEFT JOIN products as pr
       ON pr.id = o.productId
-      LEFT JOIN chambers as c
-      ON c.id = o.chamberId
-      LEFT JOIN streets as s
-      ON s.id = o.streetId
+      LEFT JOIN spots as s
+      ON s.id = o.spotId
+      LEFT JOIN addresses as a
+      ON a.id = o.addressId
       LEFT JOIN positions as p
       ON p.id = o.positionId
       WHERE registerid = ${register.id}''',

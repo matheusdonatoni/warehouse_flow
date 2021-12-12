@@ -2,8 +2,8 @@ import '../utils/constants.dart';
 
 import '../models/operation.dart';
 import '../models/position.dart';
-import '../models/street.dart';
-import '../models/chamber.dart';
+import '../models/address.dart';
+import '../models/spot.dart';
 import '../models/warehouse.dart';
 import '../models/register.dart';
 import '../models/product.dart';
@@ -32,8 +32,8 @@ class WarehouseRepository extends BaseRepositoryImpl {
 
       final operation = Operation.fromAliasesMap(
         map,
-        chamber: Chamber.fromAliasesMap(map),
-        street: Street.fromAliasesMap(map),
+        spot: Spot.fromAliasesMap(map),
+        address: Address.fromAliasesMap(map),
         position: Position.fromAliasesMap(map),
         product: Product.fromAlisesMap(map),
       );
@@ -62,32 +62,32 @@ class WarehouseRepository extends BaseRepositoryImpl {
         warehouse = Warehouse.fromAliasesMap(map);
       }
 
-      var chamber = Chamber.fromAliasesMap(map);
+      var spot = Spot.fromAliasesMap(map);
 
       if (map[kWarehouseId] == warehouse.id &&
-          chamber.id != null &&
-          !warehouse.chambers.any((e) => e.id == chamber.id)) {
-        warehouse.chambers.add(chamber);
+          spot.id != null &&
+          !warehouse.spots.any((e) => e.id == spot.id)) {
+        warehouse.spots.add(spot);
       } else {
-        chamber = warehouse.chambers.singleWhere((e) => e.id == chamber.id);
+        spot = warehouse.spots.singleWhere((e) => e.id == spot.id);
       }
 
-      var street = Street.fromAliasesMap(map);
+      var address = Address.fromAliasesMap(map);
 
-      if (chamber.id == map[kChamberId] &&
-          street.id != null &&
-          !chamber.streets.any((e) => e.id == street.id)) {
-        chamber.streets.add(street);
+      if (spot.id == map[kSpotId] &&
+          address.id != null &&
+          !spot.addresses.any((e) => e.id == address.id)) {
+        spot.addresses.add(address);
       } else {
-        street = chamber.streets.singleWhere((e) => e.id == street.id);
+        address = spot.addresses.singleWhere((e) => e.id == address.id);
       }
 
       var position = Position.fromAliasesMap(map);
 
-      if (street.id == map[kStreetId] &&
+      if (address.id == map[kAddressId] &&
           position.id != null &&
-          !street.positions.any((e) => e.id == position.id)) {
-        street.positions.add(position);
+          !address.positions.any((e) => e.id == position.id)) {
+        address.positions.add(position);
       }
     }
 
@@ -104,8 +104,8 @@ class WarehouseRepository extends BaseRepositoryImpl {
 
       final operation = Operation.fromAliasesMap(
         map,
-        chamber: Chamber.fromAliasesMap(map),
-        street: Street.fromAliasesMap(map),
+        spot: Spot.fromAliasesMap(map),
+        address: Address.fromAliasesMap(map),
         position: Position.fromAliasesMap(map),
         product: Product.fromAlisesMap(map),
       );
