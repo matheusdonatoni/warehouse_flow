@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../widgets/custom_paginated_data_table/custom_paginated_data_table.dart';
 import '../../controllers/_impl/base_getx_controller_impl.dart';
 import '../../controllers/register_controllers/register_controller.dart';
-import 'widgets/register_data_table/register_data_table.dart';
 
 class RegisterPage extends GetView<RegisterController> {
   const RegisterPage({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class RegisterPage extends GetView<RegisterController> {
         () => FloatingActionButton.extended(
           heroTag: controller.toString(),
           icon: Icon(Icons.add),
-          label: Text("Operação"),
+          label: Text('Operação'),
           onPressed: () => controller.pushNewOperationPage(),
         ),
       ),
@@ -24,7 +24,12 @@ class RegisterPage extends GetView<RegisterController> {
           child: Column(
             children: [
               SizedBox(height: 24.0),
-              RegisterDataTable(),
+              Obx(
+                () => CustomPaginatedDataTable(
+                  title: 'Operações',
+                  data: controller.operations,
+                ),
+              ),
               SizedBox(height: 76.0),
             ],
           ),

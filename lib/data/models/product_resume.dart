@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:intl/intl.dart';
 
+import '_impl/base_model.dart';
 import 'product.dart';
 
 class RxProductResume {
@@ -10,7 +11,7 @@ class RxProductResume {
   final amount = Rx<double>(0.0);
 }
 
-class ProductResume {
+class ProductResume extends BaseModel {
   ProductResume({
     required Product product,
     required double amount,

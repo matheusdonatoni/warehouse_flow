@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../../../../controllers/_impl/base_getx_controller_impl.dart';
 import '../../../../../bindings/products_bindings.dart';
 import '../../../../../routes/routes.dart';
-import '../../../../product/product.dart';
+import '../../../../products/products.dart';
 
 import 'bloc.dart';
 
@@ -20,13 +20,13 @@ class ProductsNavigator extends GetView<ProductsNavigatorBloc> {
         initialRoute: Routes.PRODUCT,
         onGenerateInitialRoutes: (navigator, initialRouteName) => [
           GetPageRoute(
-            page: () => ProductPage(),
+            page: () => ProductsPage(),
             binding: ProductsBinding(),
           )
         ],
         onGenerateRoute: (settings) {
           return GetPageRoute(
-            page: () => ProductPage(),
+            page: () => ProductsPage(),
             binding: ProductsBinding(),
           );
         },

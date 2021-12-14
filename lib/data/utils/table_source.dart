@@ -1,36 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:warehouse_flow/data/utils/data_cell_formater.dart';
 
-class TableSource<T> extends DataTableSource {
-  final RxList<T> data = RxList<T>();
-  final List<DataCell> Function(int index) rowBuilder;
-
-  TableSource({
-    required List<T> data,
-    required this.rowBuilder,
-  }) {
-    this.data.assignAll(data);
+class TableSource extends DataTableSource {
+  TableSource(List<Map<String, dynamic>> data) {
+    this.data.addAll(data);
   }
 
-  void sort<K>(Comparable<K> Function(T value) getField, bool ascending) {
-    data.sort((a, b) {
-      final aValue = getField(a);
-      final bValue = getField(b);
-      return ascending
-          ? Comparable.compare(aValue, bValue)
-          : Comparable.compare(bValue, aValue);
+  final data = <Map<String, dynamic>>[];
+
+  void onSort(int index, bool ascending) {
+    data.sort((firstMap, secondMap) {
+      final key = firstMap.keys.elementAt(index);
+
+      Comparable a = firstMap[key];
+      Comparable b = secondMap[key];
+
+      if (ascending) return Comparable.compare(a, b);
+
+      return Comparable.compare(b, a);
     });
+
+    notifyListeners();
+  }
+
+  void updateData(List<Map<String, dynamic>> newData) {
+    data
+      ..clear()
+      ..addAll(newData);
 
     notifyListeners();
   }
 
   @override
   DataRow? getRow(int index) {
-    if (index <= rowCount - 1)
+    if (index <= rowCount - 1) {
       return DataRow.byIndex(
         index: index,
-        cells: rowBuilder(index),
+        cells: data[index]
+            .keys
+            .map(
+              (e) => DataCell(
+                Text(
+                  dataCellFormater(data[index][e]),
+                ),
+              ),
+            )
+            .toList(),
       );
+    }
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '../../data/models/operation.dart';
 import '../../routes/routes.dart';
 import '../../data/models/warehouse.dart';
 import '../../data/repositories/warehouse_repository.dart';
@@ -11,6 +12,8 @@ class RegisterController extends BaseGetxControllerImpl {
   final _warehouse = Rx<Warehouse>(Warehouse());
   Warehouse get warehouse => _warehouse.value;
   set warehouse(Warehouse val) => _warehouse.value = val;
+
+  RxList<Operation> get operations => warehouse.register.rx.operations;
 
   void pushNewOperationPage() {
     Get.toNamed(Routes.NEW_OPERATION);

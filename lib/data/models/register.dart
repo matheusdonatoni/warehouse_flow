@@ -8,7 +8,7 @@ import 'product_resume.dart';
 
 class RxRegister {
   final id = Rxn<int>();
-  final opreations = RxList<Operation>();
+  final operations = RxList<Operation>();
   final createdAt = Rxn<DateTime>();
   final updatedAt = Rxn<DateTime>();
 }
@@ -31,8 +31,8 @@ class Register {
   int? get id => rx.id.value;
   set id(int? value) => rx.id.value = value;
 
-  List<Operation> get operations => rx.opreations;
-  set _operations(List<Operation> value) => rx.opreations.value = value;
+  List<Operation> get operations => rx.operations;
+  set _operations(List<Operation> value) => rx.operations.value = value;
 
   DateTime? get createdAt => rx.createdAt.value;
   set createdAt(DateTime? value) => rx.createdAt.value = value;
@@ -42,13 +42,10 @@ class Register {
 
   List<Product> get products => resumes.map((e) => e.product).toList();
 
-  List<ProductResume> get resumes => resumesWhere((e) => true)
-    ..sort(
-      (a, b) => a.product.code!.compareTo(b.product.code!),
-    );
+  RxList<ProductResume> get resumes => resumesWhere((e) => true);
 
-  List<ProductResume> resumesWhere(bool Function(Operation operation) test) {
-    final _resumes = <ProductResume>[];
+  RxList<ProductResume> resumesWhere(bool Function(Operation operation) test) {
+    final _resumes = RxList<ProductResume>();
 
     for (final operation in operations.where(test)) {
       if (operation.isNotEmpty) {

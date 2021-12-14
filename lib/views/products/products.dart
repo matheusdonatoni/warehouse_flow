@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../views/widgets/custom_paginated_data_table/custom_paginated_data_table.dart';
 import '../../controllers/products_controller/products_controller.dart';
-import 'widgets/product_data_table/product_data_table.dart';
 
-class ProductPage extends GetView<ProductsController> {
-  const ProductPage({Key? key}) : super(key: key);
+class ProductsPage extends GetView<ProductsController> {
+  const ProductsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,10 @@ class ProductPage extends GetView<ProductsController> {
         child: Column(
           children: [
             SizedBox(height: 24.0),
-            ProductDataTable(),
+            CustomPaginatedDataTable(
+              title: 'Produtos',
+              data: controller.products,
+            ),
             SizedBox(height: 76.0),
           ],
         ),

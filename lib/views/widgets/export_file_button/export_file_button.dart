@@ -25,6 +25,7 @@ class ExportFileButton extends GetView<ExportFileButtonBloc> {
 
     return IconButton(
       onPressed: () => controller.saveJson(json, fileName),
+      tooltip: 'Exportar esta planilha',
       icon: Icon(
         Icons.save_alt,
       ),

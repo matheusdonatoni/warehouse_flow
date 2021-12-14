@@ -1,133 +1,73 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../_impl/filterable_list_mixin.dart';
-import 'package:warehouse_flow/data/utils/table_view_model.dart';
-import '/views/widgets/column_filter.dart';
-import '../../data/repositories/product_repository.dart';
 import '../../data/models/product.dart';
 import '../../controllers/root_controllers/root_controller.dart';
-
 import '../_impl/base_getx_controller_impl.dart';
 
-class ProductsController extends BaseGetxControllerImpl
-    with FilterableTableMixin<Product> {
-  ProductRepository get _repo => Get.find();
+class ProductsController extends BaseGetxControllerImpl{
   RootController get _rootController => Get.find();
 
   RxList<Product> get products => _rootController.products;
 
-  void showColumnFilterBottomSheet(int index) {
-    Get.bottomSheet(
-      ColumnFilterBottomSheet(
-        columnFilter: tableFilters.columnFilters[index],
-      ),
-      backgroundColor: Get.theme.cardColor,
-      isScrollControlled: true,
-      ignoreSafeArea: false,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(4.0),
-        ),
-      ),
-    );
-  }
+  // void showColumnFilterBottomSheet(int index) async {
+  //   ColumnFilter? result = await Get.bottomSheet(
+  //     ColumnFilterBottomSheet(
+  //       filter: tableFilterOptions.columnFilters[index].copyWith(),
+  //     ),
+  //     backgroundColor: Get.theme.cardColor,
+  //     isScrollControlled: true,
+  //     ignoreSafeArea: false,
+  //     shape: RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.vertical(
+  //         top: Radius.circular(4.0),
+  //       ),
+  //     ),
+  //   );
+
+  //   if (result != null) tableFilterOptions.columnFilters[index] = result;
+  // }
 
   @override
   void onInit() async {
     super.onInit();
 
-    setupFilters();
+    // setupFilters();
   }
 
-  @override
-  void setupFilters() {
-    filteredList.value = RxList.from(products);
-
-    tableFilters.columnFilters.addAll([
-      ColumnFilter(
-        'Código',
-        options: products.map(
-          (product) => BooleanFilter(
-            product.code.toString(),
-            onChanged: (value) {
-              if (value != null && value) {
-                filteredList.removeWhere(
-                  (filter) => filter.code == product.code,
-                );
-              } else {
-                filteredList.addAll(
-                  products.where(
-                    (_product) => _product.code == product.code,
-                  ),
-                );
-              }
-            },
-          ),
-        ),
-      ),
-      ColumnFilter(
-        'Descrição',
-        options: products.map(
-          (product) => BooleanFilter(
-            product.description,
-            onChanged: (value) {
-              if (value != null && value) {
-                filteredList.removeWhere(
-                  (filter) => filter.description == product.description,
-                );
-              } else {
-                filteredList.addAll(
-                  products.where(
-                    (_product) => _product.description == product.description,
-                  ),
-                );
-              }
-            },
-          ),
-        ),
-      ),
-      ColumnFilter(
-        'Unidade',
-        options: products.map(
-          (product) => BooleanFilter(
-            product.unit,
-            onChanged: (value) {
-              if (value != null && value) {
-                filteredList.removeWhere(
-                  (filter) => filter.unit == product.unit,
-                );
-              } else {
-                filteredList.addAll(
-                  products.where(
-                    (_product) => _product.unit == product.unit,
-                  ),
-                );
-              }
-            },
-          ),
-        ),
-      ),
-      ColumnFilter(
-        'Tipo',
-        options: products.map(
-          (product) => BooleanFilter(
-            product.type,
-            onChanged: (value) {
-              if (value != null && value) {
-                filteredList.removeWhere(
-                  (filter) => filter.type == product.type,
-                );
-              } else {
-                filteredList.addAll(
-                  products.where(
-                    (_product) => _product.type == product.type,
-                  ),
-                );
-              }
-            },
-          ),
-        ),
-      ),
-    ]);
-  }
+  // @override
+  // void setupFilters() {
+  //   tableFilterOptions.columnFilters.addAll([
+  //     ColumnFilter(
+  //       'Código',
+  //       options: filteredData.map(
+  //         (product) => BooleanFilter(
+  //           product.parsedCode,
+  //         ),
+  //       ),
+  //     ),
+  //     ColumnFilter(
+  //       'Descrição',
+  //       options: filteredData.map(
+  //         (product) => BooleanFilter(
+  //           product.description,
+  //         ),
+  //       ),
+  //     ),
+  //     ColumnFilter(
+  //       'Unidade',
+  //       options: filteredData.map(
+  //         (product) => BooleanFilter(
+  //           product.unit,
+  //         ),
+  //       ),
+  //     ),
+  //     ColumnFilter(
+  //       'Tipo',
+  //       options: filteredData.map(
+  //         (product) => BooleanFilter(
+  //           product.type,
+  //         ),
+  //       ),
+  //     ),
+  //   ]);
+  // }
 }

@@ -47,6 +47,8 @@ class NewOperationController extends BaseGetxControllerImpl {
     operation = await _repo.create(operation, register);
 
     register.operations.insert(0, operation);
+
+    print(register.rx.operations.hashCode);
   }
 
   void callNoProductDialog() {

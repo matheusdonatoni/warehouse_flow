@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:intl/intl.dart';
 
+import '_impl/base_model.dart';
+
 class RxProdcut {
   final id = Rxn<int>();
   final code = Rxn<int>();
@@ -13,7 +15,7 @@ class RxProdcut {
   final updatedAt = Rxn<DateTime>();
 }
 
-class Product {
+class Product extends BaseModel{
   Product({
     int? id,
     int? code,

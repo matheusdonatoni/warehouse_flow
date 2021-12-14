@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:intl/intl.dart';
 
+import '_impl/base_model.dart';
 import 'spot.dart';
 import 'position.dart';
 import 'product.dart';
@@ -20,7 +21,7 @@ class RxOperation {
   final updatedAt = Rxn<DateTime>();
 }
 
-class Operation {
+class Operation extends BaseModel {
   Operation({
     int? id,
     double? amount,
@@ -88,7 +89,7 @@ class Operation {
   String get formatedDate {
     if (createdAt == null) return 'Sem registro';
 
-    return DateFormat('dd/MM/yy - hh:mm').format(createdAt!);
+    return DateFormat('dd/MM/yy - H:mm').format(createdAt!);
   }
 
   Operation copyWith({

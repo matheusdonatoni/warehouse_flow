@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../widgets/custom_paginated_data_table/custom_paginated_data_table.dart';
 import '../../controllers/_impl/base_getx_controller_impl.dart';
 import '../../controllers/home_controllers/home_controller.dart';
-import 'widgets/resume_data_table/resume_data_table.dart';
 
 class HomePage extends GetView<HomeController> {
   const HomePage({Key? key}) : super(key: key);
@@ -24,7 +24,12 @@ class HomePage extends GetView<HomeController> {
           child: Column(
             children: [
               SizedBox(height: 24.0),
-              ResumeDataTable(),
+              Obx(
+                () => CustomPaginatedDataTable(
+                  title: 'Resumo',
+                  data: controller.resumes,
+                ),
+              ),
               SizedBox(height: 76.0),
             ],
           ),
