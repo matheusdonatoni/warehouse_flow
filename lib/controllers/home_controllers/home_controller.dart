@@ -3,7 +3,6 @@ import '../../data/models/product_resume.dart';
 import '../../controllers/root_controllers/root_controller.dart';
 import '../../data/models/warehouse.dart';
 import '../_impl/base_getx_controller_impl.dart';
-import '../../routes/routes.dart';
 
 class HomeController extends BaseGetxControllerImpl {
   RootController get _rootController => Get.find();

@@ -28,10 +28,10 @@ extension StateExt on BaseGetxControllerImpl {
     });
   }
 
-  Widget simpleObx(Widget Function() widget) {
+  Widget simpleObx(Widget Function() widget, {Widget? onEmpty}) {
     return obx(
       widget,
-      onEmpty: const SizedBox.shrink(),
+      onEmpty: onEmpty ?? const SizedBox.shrink(),
       onLoading: const SizedBox.shrink(),
       onError: (_) => const SizedBox.shrink(),
     );

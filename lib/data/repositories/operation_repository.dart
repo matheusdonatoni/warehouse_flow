@@ -38,4 +38,8 @@ class OperationRepository extends BaseRepositoryImpl {
       ),
     );
   }
+
+  Future<List<Operation>> fromCsv(Register register) async {
+    return [];
+  }
 }
