@@ -28,18 +28,12 @@ class CustomPaginatedDataTable<T extends BaseModel>
             header: Text(title),
             actions: [
               IconButton(
-                onPressed: () async {
-                  await Get.dialog(
-                    Dialog(
-                      child: TextField(
-                        onSubmitted: controller.filter,
-                        textInputAction: TextInputAction.search,
-                      ),
-                    ),
-                  );
-                },
+                onPressed: controller.filter,
                 tooltip: 'Procurar nesta planilha',
-                icon: Icon(Icons.search),
+                icon: Icon(
+                  Icons.search,
+                  color: controller.filtering ? Get.theme.primaryColor : null,
+                ),
               ),
               ExportFileButton(
                 json: controller.dataAsJson,

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:warehouse_flow/views/widgets/search_dialog/search_dialog.dart';
 import '../../../data/utils/data_cell_formater.dart';
 import '../../../data/models/_impl/base_model.dart';
 import '../../../data/utils/table_source.dart';
@@ -9,6 +10,7 @@ import '../../../data/utils/table_source.dart';
 class CustomDataTableBloc<T extends BaseModel> extends GetxController {
   late final RxList<T> _data;
   late final TableSource source;
+  late final Worker _worker;
 
   final _sortColumnIndex = Rxn<int>();
   final _sortAscending = Rx<bool>(true);
@@ -17,6 +19,10 @@ class CustomDataTableBloc<T extends BaseModel> extends GetxController {
   int? get sortColumnIndex => _sortColumnIndex.value;
   bool get sortAscending => _sortAscending.value;
   String get query => _query.value.toLowerCase();
+
+  String get dataAsJson => json.encode(filteredData);
+
+  bool get filtering => query.length > 0;
 
   List<Map<String, dynamic>> get dataAsMaps => List.from(
         _data.map(
@@ -38,9 +44,13 @@ class CustomDataTableBloc<T extends BaseModel> extends GetxController {
     );
   }
 
-  String get dataAsJson => json.encode(filteredData);
+  void filter() async {
+    String? result = await Get.dialog(
+      SearchDialog(initialValue: query),
+    );
 
-  void filter(String query) => _query(query);
+    if (result != null) _query(result);
+  }
 
   List<DataColumn> get columns {
     return List<DataColumn>.from(
@@ -61,13 +71,6 @@ class CustomDataTableBloc<T extends BaseModel> extends GetxController {
     _sortAscending(ascending);
   }
 
-  void syncSource() {
-    everAll(
-      [_data, _query],
-      (_) => updateSource(),
-    );
-  }
-
   updateSource() {
     source.updateData(filteredData);
 
@@ -80,6 +83,16 @@ class CustomDataTableBloc<T extends BaseModel> extends GetxController {
 
     source = TableSource(filteredData);
 
-    syncSource();
+    _worker = everAll(
+      [_data, _query],
+      (_) => updateSource(),
+    );
+  }
+
+  @override
+  void onClose() {
+    _worker.dispose();
+
+    super.onClose();
   }
 }

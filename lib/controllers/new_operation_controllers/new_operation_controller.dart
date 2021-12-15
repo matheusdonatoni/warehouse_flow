@@ -21,6 +21,8 @@ class NewOperationController extends BaseGetxControllerImpl {
   HomeController get _homeController => Get.find();
   Warehouse get warehouse => _homeController.warehouse;
 
+  late final Worker _worker;
+
   final formKey = GlobalKey<FormState>();
 
   final _operation = Rx<Operation>(Operation());
@@ -116,9 +118,16 @@ class NewOperationController extends BaseGetxControllerImpl {
   void onInit() {
     super.onInit();
 
-    everAll(
+    _worker = everAll(
       [spot, address, position, product],
       updateOperation,
     );
+  }
+
+  @override
+  void onClose() {
+    _worker.dispose();
+
+    super.onClose();
   }
 }

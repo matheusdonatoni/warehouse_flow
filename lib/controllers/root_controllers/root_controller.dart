@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:warehouse_flow/views/root/widgets/navigators/products_navigator/bloc.dart';
+import '../../views/root/widgets/navigators/file_importer_navigator/bloc.dart';
+import '../../views/root/widgets/navigators/products_navigator/bloc.dart';
 import '../../views/root/widgets/navigators/home_navigator/bloc.dart';
 import '../../views/root/widgets/navigators/register_navigator/bloc.dart';
 import '../../data/repositories/product_repository.dart';
@@ -14,6 +15,7 @@ class RootController extends GetxController {
   HomeNavigatorBloc get _homeNavigatorBloc => Get.find();
   RegisterNavigatorBloc get _registerNavigatorBloc => Get.find();
   ProductsNavigatorBloc get _productNavigatorBloc => Get.find();
+  FileImporterNavigatorBloc get _fileImporterBloc => Get.find();
 
   final warehouse = Rx<Warehouse>(Warehouse());
   final products = RxList<Product>();
@@ -30,5 +32,7 @@ class RootController extends GetxController {
     products.assignAll(await _productRepository.findAll());
 
     _productNavigatorBloc.status = RxStatus.success();
+
+    _fileImporterBloc.status = RxStatus.success();
   }
 }

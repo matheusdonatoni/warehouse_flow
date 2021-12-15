@@ -7,6 +7,7 @@ import 'widgets/drawer/navigation_drawer.dart';
 import 'widgets/navigators/home_navigator/home_navigator.dart';
 import 'widgets/navigators/products_navigator/products_navigator.dart';
 import 'widgets/navigators/register_navigator/register_navigator.dart';
+import 'widgets/navigators/file_importer_navigator/file_importer_navigator.dart';
 
 class RootPage extends GetResponsiveView<RootController> {
   RootPage({Key? key}) : super(key: key);
@@ -55,6 +56,10 @@ class RootPage extends GetResponsiveView<RootController> {
               icon: Icon(Icons.workspaces_outlined),
               label: 'Produtos',
             ),
+            DrawerTile(
+              icon: Icon(Icons.file_copy_outlined),
+              label: 'Importar',
+            ),
           ],
         ),
       );
@@ -66,6 +71,7 @@ class RootPage extends GetResponsiveView<RootController> {
             HomeNavigator(),
             RegisterNavigator(),
             ProductsNavigator(),
+            FileImporterNavigator(),
           ],
         ),
       );

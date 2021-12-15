@@ -10,14 +10,6 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: controller.simpleObx(
-        () => FloatingActionButton.extended(
-          heroTag: controller.toString(),
-          icon: Icon(Icons.add),
-          label: Text("Operação"),
-          onPressed: () => controller.pushNewOperationPage(),
-        ),
-      ),
       body: controller.obx(
         () => SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),

@@ -53,9 +53,9 @@ class Warehouse {
   DateTime? get updatedAt => rx.updatedAt.value;
   set updatedAt(DateTime? value) => rx.updatedAt.value = value;
 
-  List<Product> get products => resumes.map((e) => e.product).toList();
+  List<Product> get products => register.products;
 
-  List<ProductResume> get resumes => <ProductResume>[];
+  List<ProductResume> get resumes => register.resumes;
 
   Warehouse copyWith({
     int? id,

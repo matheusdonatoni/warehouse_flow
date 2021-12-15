@@ -14,10 +14,6 @@ class HomeController extends BaseGetxControllerImpl {
 
   RxList<ProductResume> get resumes => warehouse.register.resumes;
 
-  void pushNewOperationPage() {
-    Get.toNamed(Routes.NEW_OPERATION);
-  }
-
   @override
   void onInit() async {
     super.onInit();

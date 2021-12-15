@@ -69,7 +69,11 @@ class Register {
         }
       }
 
-      _resumes.removeWhere((e) => e.amount == 0);
+      _resumes
+        ..removeWhere((e) => e.amount == 0)
+        ..sort(
+          (a, b) => a.product.code!.compareTo(b.product.code!),
+        );
     }
 
     return _resumes;
