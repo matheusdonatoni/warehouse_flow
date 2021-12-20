@@ -19,50 +19,6 @@ class LocalStorage {
 
   late final Database _database;
 
-  Future<List<Object?>> findWarehouseEagerLoadAll(int id) async {
-    final batch = _database.batch();
-
-    final spaceSql = '''SELECT 
-                      $kWarehouseAliasQuery,
-                      $kSpotAliasQuery,
-                      $kAddressAliasQuery,
-                      $kPositionAliasQuery
-                      FROM warehouses as w
-                      LEFT JOIN spots as s
-                      ON s.warehouseId = w.id
-                      LEFT JOIN addresses as a
-                      ON a.spotId = s.id
-                      LEFT JOIN positions as p
-                      ON p.addressId = a.id
-                      WHERE w.id = ?''';
-
-    final registerSql = '''SELECT 
-                        $kRegisterAliasQuery,
-                        $kSpotAliasQuery,
-                        $kAddressAliasQuery,
-                        $kPositionAliasQuery,
-                        $kOperationAliasQuery,
-                        $kProductAliasQuery
-                        FROM registers as r
-                        LEFT JOIN operations as o
-                        ON r.id = o.registerId
-                        LEFT JOIN spots as s
-                        ON s.id = o.spotId
-                        LEFT JOIN addresses as a
-                        ON a.id = o.addressId
-                        LEFT JOIN positions as p
-                        ON p.id = o.positionId
-                        LEFT JOIN products as pr
-                        ON pr.id = o.productId
-                        WHERE r.warehouseId = ?
-                        ORDER BY o.createdAt DESC''';
-
-    batch.rawQuery(spaceSql, [id]);
-    batch.rawQuery(registerSql, [id]);
-
-    return await batch.commit();
-  }
-
   Future<List<Map<String, dynamic>>> findWarehouseEagerLoadRegister(
     int id,
   ) async {

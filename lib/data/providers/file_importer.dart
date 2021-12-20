@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:charset_converter/charset_converter.dart';
-import 'package:csv/csv.dart';
 import 'package:get/get.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path/path.dart';
