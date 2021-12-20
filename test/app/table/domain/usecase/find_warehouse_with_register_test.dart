@@ -1,19 +1,19 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import '../../../../../lib/app/table/domain/entities/register.dart';
 import '../../../../../lib/app/table/domain/entities/warehouse.dart';
 import '../../../../../lib/app/table/domain/repositories/warehouse_repository.dart';
 import '../../../../../lib/app/table/domain/usecases/find_warehouse_with_register.dart';
 
-class WarehouseRepositoryMock extends Mock implements WarehouseRepository {}
+class MockWarehouseRepository extends Mock implements WarehouseRepository {}
 
 main() {
-  final repository = WarehouseRepositoryMock();
+  final repository = MockWarehouseRepository();
   final usecase = FindWarehouseWithRegisterImpl(repository);
 
-  test('deve retornar uma lista com resultados', () async {
-    when(repository.findWithRegisterById(1)).thenAnswer(
+  test('should return a Warehouse instance', () async {
+    when(() => repository.findWithRegisterById(1)).thenAnswer(
       (_) async => right(
         Warehouse(
           name: 'ADP',
