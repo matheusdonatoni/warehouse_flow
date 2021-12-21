@@ -19,7 +19,7 @@ class FindWarehouseWithRegisterImpl implements FindWarehouseWithRegister {
     var option = optionOf(id);
 
     return option.fold(
-      () => Left(DataSourceException()),
+      () => Left(EmptyValueException()),
       (id) async {
         return await repository.findWithRegisterById(id);
       },

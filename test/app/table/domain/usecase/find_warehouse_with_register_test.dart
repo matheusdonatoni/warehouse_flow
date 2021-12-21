@@ -9,8 +9,9 @@ import '../../../../../lib/app/table/domain/usecases/find_warehouse_with_registe
 class MockWarehouseRepository extends Mock implements WarehouseRepository {}
 
 main() {
+
   final repository = MockWarehouseRepository();
-  final usecase = FindWarehouseWithRegisterImpl(repository);
+  final sut = FindWarehouseWithRegisterImpl(repository);
 
   test('should return a Warehouse instance', () async {
     when(() => repository.findWithRegisterById(1)).thenAnswer(
@@ -22,8 +23,7 @@ main() {
       ),
     );
 
-    var result = await usecase(1);
-
-    expect(result, isA<Warehouse>());
+    var result = await sut(1);
+    expect((result as Right).value, isA<Warehouse>());
   });
 }
