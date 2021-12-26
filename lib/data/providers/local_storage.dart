@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
 import '../utils/constants.dart';
 
@@ -248,7 +250,7 @@ class LocalStorage {
     var id = await _database.rawInsert(
       '''INSERT INTO operations 
       (amount, type, registerid, productid, spotId, 
-      addressId, positionId, createdat, updatedat) 
+      addressId, positionId, createdAt, updatedAt) 
       VALUES 
       (${operation.amount}, "${operation.type.valueToString()}", ${register.id}, 
       ${operation.product.id}, ${operation.spot.id}, ${operation.address.id},
@@ -330,6 +332,10 @@ class LocalStorage {
 
       await File(path).writeAsBytes(bytes, flush: true);
     }
+
+    // Load updated sqlite3 executor.
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
 
     localStorage._database = await openDatabase(path);
 

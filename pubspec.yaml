@@ -1,37 +1,43 @@
 name: warehouse_flow
 description: A new Flutter project.
 
-publish_to: 'none' 
+publish_to: 'none'
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+    sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  flutter:
-    sdk: flutter
-  flutter_localizations: 
-    sdk: flutter  
+    flutter:
+        sdk: flutter
+    flutter_localizations:
+        sdk: flutter
 
-  get: 4.3.8
-  sqflite: 2.0.0+4
-  path: 1.8.0
-  intl: 0.17.0
-  path_provider: 2.0.7
-  permission_handler: 8.3.0
-  file_picker: 4.2.7
-  csv: 5.0.1
-  charset_converter: 2.0.0
-  dartz: 0.10.1
-  mocktail: 0.2.0
-  cupertino_icons: ^1.0.2
-  
+    intl: 0.17.0
+
+    get: 4.3.8
+
+    sqflite: 2.0.0+4
+    sqflite_common_ffi: 2.1.0
+    sqlite3_flutter_libs: 0.5.2
+
+    path: 1.8.0
+    path_provider: 2.0.7
+    permission_handler: 8.3.0
+    file_picker: 4.2.7
+    csv: 5.0.1
+    charset_converter: 2.0.0
+
+    mocktail: 0.2.0
+
+    cupertino_icons: ^1.0.2
+
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+    flutter_test:
+        sdk: flutter
 
 flutter:
-  uses-material-design: true
-  assets:
-    - warehouse_flow.db
+    uses-material-design: true
+    assets:
+        - warehouse_flow.db
