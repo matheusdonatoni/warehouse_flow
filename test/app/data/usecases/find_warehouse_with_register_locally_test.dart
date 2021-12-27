@@ -12,72 +12,32 @@ import '../../infra/database_factory.dart';
 import '../mocks/sqlite_cursor_spy.dart';
 
 void main() {
-  // warehouse without register.
-  late FindWarehouseWithRegisterLocally absentRegisterSut;
-  // warehouse with register only.
-  late FindWarehouseWithRegisterLocally emptyOperationSut;
-  // warehouse with a register and a filled operation list.
-  late FindWarehouseWithRegisterLocally filledOperationSut;
+  late FindWarehouseWithRegisterLocally sut;
 
-  late LocalStorageSpy localStorageWithAbsentRegister;
-  late LocalStorageSpy localStorageWithEmptyOperations;
   late LocalStorageSpy localStorageWithFilledOperation;
 
   late FindWarehouseWithRegisterParams params;
 
-  late List<Map<String, dynamic>> databaseResultWithAbsentRegister;
-  late List<Map<String, dynamic>> databaseResultWithEmptyRegister;
   late List<Map<String, dynamic>> databaseResultWithFilledRegister;
 
   setUp(() {
     params = ParamsFactory.makeFindWarehouseWithRegister();
 
-    localStorageWithAbsentRegister = LocalStorageSpy();
-    databaseResultWithAbsentRegister =
-        DatabaseFactory.makeWarehouseWithAbsentRegister();
-    localStorageWithAbsentRegister.mockFind(databaseResultWithAbsentRegister);
-    absentRegisterSut = FindWarehouseWithRegisterLocally(
-      localStorage: localStorageWithAbsentRegister,
-    );
-
-    localStorageWithEmptyOperations = LocalStorageSpy();
-    databaseResultWithAbsentRegister =
-        DatabaseFactory.makeWarehouseWithAbsentRegister();
-    localStorageWithEmptyOperations.mockFind(databaseResultWithAbsentRegister);
-    absentRegisterSut = FindWarehouseWithRegisterLocally(
-      localStorage: localStorageWithAbsentRegister,
-    );
-
-    databaseResultWithEmptyRegister =
-        DatabaseFactory.makeWarehouseWithEmptyRegisterResultJson();
-    localStorageWithEmptyOperations = LocalStorageSpy();
-    localStorageWithEmptyOperations.mockFind(databaseResultWithEmptyRegister);
-    emptyOperationSut = FindWarehouseWithRegisterLocally(
-      localStorage: localStorageWithEmptyOperations,
-    );
-
     databaseResultWithFilledRegister =
-        DatabaseFactory.makeWarehouseWithFilledRegisterResultJson();
+        DatabaseFactory.makeWarehouseWithRegisterResultJson();
     localStorageWithFilledOperation = LocalStorageSpy();
     localStorageWithFilledOperation.mockFind(databaseResultWithFilledRegister);
-    filledOperationSut = FindWarehouseWithRegisterLocally(
+    sut = FindWarehouseWithRegisterLocally(
       localStorage: localStorageWithFilledOperation,
     );
   });
 
-  test('Should throw DomainError.absentRegister for register without id',
-      () async {
-    final future = absentRegisterSut(params);
-
-    expect(future, throwsA(DomainError.absentRegister));
-  });
-
   test('Should make a successful find query', () async {
-    await emptyOperationSut(params);
+    await sut(params);
 
     verify(
-      () => localStorageWithEmptyOperations.find(
-        query: QueryHelper.findWarehouseWithResiter(
+      () => localStorageWithFilledOperation.find(
+        query: QueryHelper.findWarehouseWithRegister(
           params.id,
         ),
       ),
@@ -87,20 +47,20 @@ void main() {
   test(
       'Should throw DomainError.malformedData on unexpectedFormat database result',
       () async {
-    localStorageWithEmptyOperations.mockFindError(
+    localStorageWithFilledOperation.mockFindError(
       LocalStorageError.unexpectedFormat,
     );
 
-    var future = emptyOperationSut(params);
+    var future = sut(params);
 
     expect(future, throwsA(DomainError.malformedData));
   });
 
   test('Should throw DomainError.missingEntity on notFound database result',
       () async {
-    localStorageWithEmptyOperations.mockFindError(LocalStorageError.notFound);
+    localStorageWithFilledOperation.mockFindError(LocalStorageError.notFound);
 
-    var future = emptyOperationSut(params);
+    var future = sut(params);
 
     expect(future, throwsA(DomainError.missingEntity));
   });
@@ -109,15 +69,15 @@ void main() {
       'Should throw DomainError.unexpected '
       'on any other errors (database failed, not the query) database result',
       () async {
-    localStorageWithEmptyOperations.mockFindError(LocalStorageError.readOnly);
+    localStorageWithFilledOperation.mockFindError(LocalStorageError.readOnly);
 
-    var future = emptyOperationSut(params);
+    var future = sut(params);
 
     expect(future, throwsA(DomainError.unexpected));
   });
 
   test('Should return a WarehouseEntity', () async {
-    final warehouse = await emptyOperationSut(params);
+    final warehouse = await sut(params);
 
     expect(
       warehouse,
@@ -126,7 +86,7 @@ void main() {
   });
 
   test('Should return a WarehouseEntity with id', () async {
-    final warehouse = await emptyOperationSut(params);
+    final warehouse = await sut(params);
 
     expect(
       warehouse.id,
@@ -136,7 +96,7 @@ void main() {
 
   test('Should return a WarehouseEntity with a RegisterEntity with id',
       () async {
-    final register = (await emptyOperationSut(params)).register;
+    final register = (await sut(params)).register;
 
     expect(
       register.id,
@@ -147,7 +107,7 @@ void main() {
   test(
       'Should return a WarehouseEntity with a RegisterEntity with OperationsEntity list',
       () async {
-    final operations = (await emptyOperationSut(params)).register.operations;
+    final operations = (await sut(params)).register.operations;
 
     expect(
       operations,
@@ -156,20 +116,9 @@ void main() {
   });
 
   test(
-      'Should return a WarehouseEntity with a RegisterEntity with an empty OperationsEntity list',
-      () async {
-    final operations = (await emptyOperationSut(params)).register.operations;
-
-    expect(
-      operations.isEmpty,
-      true,
-    );
-  });
-
-  test(
       'Should return a WarehouseEntity with a RegisterEntity with an non-empty OperationsEntity list',
       () async {
-    final operations = (await filledOperationSut(params)).register.operations;
+    final operations = (await sut(params)).register.operations;
 
     expect(
       operations.isNotEmpty,
@@ -180,7 +129,7 @@ void main() {
   test(
       'Should return a WarehouseEntity with a RegisterEntity with an non-empty OperationsEntity list. OperationsEntity must have id',
       () async {
-    final operations = (await filledOperationSut(params)).register.operations;
+    final operations = (await sut(params)).register.operations;
 
     expect(
       operations.first.id,

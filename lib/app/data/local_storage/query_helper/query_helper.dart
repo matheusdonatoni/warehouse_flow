@@ -1,5 +1,5 @@
 class QueryHelper {
-  static String findWarehouseWithResiter(int id) {
+  static String findWarehouseWithRegister(int id) {
     return '''SELECT
     json_object(
       'id', id, 

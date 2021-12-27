@@ -21,19 +21,12 @@ class FindWarehouseWithRegisterLocally implements FindWarehouseWithRegister {
 
     try {
       var result = await localStorage.find(
-        query: QueryHelper.findWarehouseWithResiter(
+        query: QueryHelper.findWarehouseWithRegister(
           localParams.id,
         ),
       );
 
-      if (result.isEmpty) throw LocalStorageError.notFound;
-
-      final warehouse =
-          LocalWarehouseModel.fromJson(result.single['json']).toEntity();
-
-      if (warehouse.register.id == null) throw DomainError.absentRegister;
-
-      return warehouse;
+      return LocalWarehouseModel.fromJson(result.single['json']).toEntity();
     } on LocalStorageError catch (error) {
       if (error == LocalStorageError.unexpectedFormat) {
         throw DomainError.malformedData;
