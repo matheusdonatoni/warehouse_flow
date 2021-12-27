@@ -26,14 +26,24 @@ class FindWarehouseWithRegisterLocally implements FindWarehouseWithRegister {
         ),
       );
 
-      return LocalWarehouseModel.fromJson(result.single['json']).toEntity();
+      if (result.isEmpty) throw LocalStorageError.notFound;
+
+      final warehouse =
+          LocalWarehouseModel.fromJson(result.single['json']).toEntity();
+
+      if (warehouse.register.id == null) throw DomainError.absentRegister;
+
+      return warehouse;
     } on LocalStorageError catch (error) {
-      if (error == LocalStorageError.unexpectedFormat ||
-          error == LocalStorageError.notFound) {
+      if (error == LocalStorageError.unexpectedFormat) {
         throw DomainError.malformedData;
+      } else if (error == LocalStorageError.notFound) {
+        throw DomainError.missingEntity;
       }
 
       throw DomainError.unexpected;
+    } on DomainError catch (error) {
+      throw error;
     }
   }
 }

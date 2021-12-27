@@ -1,4 +1,11 @@
 class DatabaseFactory {
+  static List<Map<String, dynamic>> makeWarehouseWithAbsentRegister() => [
+        {
+          'json':
+              '{"id":1,"name":"ADP","createdAt":"2021-11-12T17:43:33.548","updatedAt":"2021-11-12T17:43:33.548","register":null}'
+        }
+      ];
+
   static List<Map<String, dynamic>>
       makeWarehouseWithEmptyRegisterResultJson() => [
             {

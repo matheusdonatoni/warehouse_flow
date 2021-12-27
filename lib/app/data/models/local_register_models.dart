@@ -26,15 +26,15 @@ class LocalRegisterModel extends RegisterEntity {
     print(json["operations"]);
 
     return LocalRegisterModel(
-        id: json["id"],
-        operations: List<OperationEntity>.from(
-          (json["operations"] ?? []).map(
-            (x) => LocalOperationModel.fromMap(x).toEntity(),
-          ),
+      id: json["id"],
+      operations: List<OperationEntity>.from(
+        (json["operations"] ?? []).map(
+          (x) => LocalOperationModel.fromMap(x).toEntity(),
         ),
-        createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
-        updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
-      );
+      ),
+      createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
+      updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
+    );
   }
 
   Map<String, dynamic> toMap() => {

@@ -27,7 +27,7 @@ class LocalWarehouseModel {
       LocalWarehouseModel(
         id: json["id"],
         name: json["name"] ?? '',
-        register: LocalRegisterModel.fromMap(json['register']).toEntity(),
+        register: LocalRegisterModel.fromMap(json['register'] ?? {}).toEntity(),
         createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
         updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
       );
