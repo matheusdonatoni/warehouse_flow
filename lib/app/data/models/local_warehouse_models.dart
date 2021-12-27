@@ -25,11 +25,11 @@ class LocalWarehouseModel {
 
   factory LocalWarehouseModel.fromMap(Map<String, dynamic> json) =>
       LocalWarehouseModel(
-        id: json["warehouse_id"],
-        name: json["warehouse_name"] ?? '',
-        register: LocalRegisterModel.fromMap(json).toEntity(),
-        createdAt: DateTime.tryParse(json["warehouse_createdAt"] ?? ''),
-        updatedAt: DateTime.tryParse(json["warehouse_updatedAt"] ?? ''),
+        id: json["id"],
+        name: json["name"] ?? '',
+        register: LocalRegisterModel.fromMap(json['register']).toEntity(),
+        createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
+        updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
       );
 
   Map<String, dynamic> toMap() => {

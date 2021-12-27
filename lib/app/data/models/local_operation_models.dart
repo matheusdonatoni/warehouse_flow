@@ -37,15 +37,15 @@ class LocalOperationModel {
 
   factory LocalOperationModel.fromMap(Map<String, dynamic> json) =>
       LocalOperationModel(
-        id: json["operation_id"],
-        amount: json["operation_amount"] ?? 0.0,
-        product: LocalProductModel.fromMap(json).toEntity(),
-        spot: LocalSpotModel.fromMap(json).toEntity(),
-        address: LocalAddressModel.fromMap(json).toEntity(),
-        position: LocalPositionModel.fromMap(json).toEntity(),
-        type: json["operation_type"] ?? '',
-        createdAt: DateTime.tryParse(json["operation_createdAt"] ?? ''),
-        updatedAt: DateTime.tryParse(json["operation_updatedAt"] ?? ''),
+        id: json["id"],
+        amount: json["amount"] ?? 0.0,
+        product: LocalProductModel.fromMap(json['product']).toEntity(),
+        spot: LocalSpotModel.fromMap(json['spot']).toEntity(),
+        address: LocalAddressModel.fromMap(json['address']).toEntity(),
+        position: LocalPositionModel.fromMap(json['position']).toEntity(),
+        type: json["type"] ?? '',
+        createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
+        updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
       );
 
   Map<String, dynamic> toMap() => {

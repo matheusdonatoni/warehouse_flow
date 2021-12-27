@@ -22,8 +22,10 @@ class LocalRegisterModel extends RegisterEntity {
 
   String toJson() => json.encode(toMap());
 
-  factory LocalRegisterModel.fromMap(Map<String, dynamic> json) =>
-      LocalRegisterModel(
+  factory LocalRegisterModel.fromMap(Map<String, dynamic> json) {
+    print(json["operations"]);
+
+    return LocalRegisterModel(
         id: json["id"],
         operations: List<OperationEntity>.from(
           (json["operations"] ?? []).map(
@@ -33,6 +35,7 @@ class LocalRegisterModel extends RegisterEntity {
         createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
         updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
       );
+  }
 
   Map<String, dynamic> toMap() => {
         "id": id,
