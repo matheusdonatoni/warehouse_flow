@@ -27,4 +27,14 @@ void main() {
       ),
     );
   });
+
+  test('Should make a successful find query', () async {
+    final future = await sut();
+
+    verify(
+      () => localStorage.find(
+        query: QueryHelper.findAllProducts(),
+      ),
+    );
+  });
 }

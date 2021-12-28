@@ -35,8 +35,6 @@ class FindWarehouseWithRegisterLocally implements FindWarehouseWithRegister {
       }
 
       throw DomainError.unexpected;
-    } on DomainError catch (error) {
-      throw error;
     }
   }
 }
