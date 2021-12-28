@@ -24,7 +24,7 @@ class FindAllProductsLocally implements FindAllProducts {
 
       return List<ProductEntity>.from(
         json.decode(result.single['json'] ?? []).map<ProductEntity>(
-              (map) => LocalProductModel.fromJson(map).toEntity(),
+              (map) => LocalProductModel.fromMap(map).toEntity(),
             ),
       );
     } on LocalStorageError catch (error) {
