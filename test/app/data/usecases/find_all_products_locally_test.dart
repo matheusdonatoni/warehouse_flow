@@ -71,4 +71,16 @@ void main() {
 
     expect(future, isA<List<ProductEntity>>());
   });
+
+  test(
+      'Should throw DomainError.unexpected for LocalStorageError.invalidEntity data response',
+      () async {
+    localStorage.mockFind([
+      {'invalid': 'result'}
+    ]);
+
+    var future = sut();
+
+    expect(future, throwsA(DomainError.unexpected));
+  });
 }
