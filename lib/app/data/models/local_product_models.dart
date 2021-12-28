@@ -27,7 +27,7 @@ class LocalProductModel {
   String toJson() => json.encode(toMap());
 
   factory LocalProductModel.fromMap(Map<String, dynamic> json) =>
-      AliasedProductModel(
+      LocalProductModel(
         id: json["id"],
         code: json["code"] ?? 0,
         description: json["description"] ?? '',
@@ -66,36 +66,5 @@ class LocalProductModel {
         type: type,
         createdAt: createdAt,
         updatedAt: updatedAt,
-      );
-}
-
-class AliasedProductModel extends LocalProductModel {
-  AliasedProductModel({
-    int? id,
-    int code = 0,
-    String description = '',
-    String unit = '',
-    String type = '',
-    DateTime? createdAt,
-    DateTime? updatedAt,
-  }) : super(
-          id: id,
-          code: code,
-          description: description,
-          unit: unit,
-          type: type,
-          createdAt: createdAt,
-          updatedAt: updatedAt,
-        );
-
-  factory AliasedProductModel.fromMap(Map<String, dynamic> json) =>
-      AliasedProductModel(
-        id: json["product_id"],
-        code: json["product_code"],
-        description: json["product_description"],
-        unit: json["product_unit"],
-        type: json["product_type"],
-        createdAt: DateTime.tryParse(json["product_createdAt"] ?? ''),
-        updatedAt: DateTime.tryParse(json["product_updatedAt"] ?? ''),
       );
 }
