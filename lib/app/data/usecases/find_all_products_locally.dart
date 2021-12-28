@@ -6,15 +6,15 @@ import 'package:warehouse_flow/app/domain/entities/product_entity.dart';
 import 'package:warehouse_flow/app/domain/usecases/find_all_products.dart';
 
 class FindAllProductsLocally implements FindAllProducts {
-  final LocalStorage sqLiteCursor;
+  final LocalStorage localStorage;
 
   FindAllProductsLocally({
-    required this.sqLiteCursor,
+    required this.localStorage,
   });
 
   @override
   Future<List<ProductEntity>> call() async {
-    final result = await sqLiteCursor.find(
+    final result = await localStorage.find(
       query: QueryHelper.findAllProducts(),
     );
 

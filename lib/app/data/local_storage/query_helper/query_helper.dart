@@ -72,9 +72,17 @@ class QueryHelper {
   }
 
   static String findAllProducts() {
-    return '''SELECT * 
-    FROM products 
-    ORDER BY products.code''';
+    return '''SELECT json_group_array(
+      json_object(
+        'id', id,
+        'code', code,
+        'description', description,
+        'unit', unit,
+        'type', type,
+        'createdAt', createdat,
+        'updatedAt', updatedat
+        )
+      ) as json FROM products''';
   }
 }
 

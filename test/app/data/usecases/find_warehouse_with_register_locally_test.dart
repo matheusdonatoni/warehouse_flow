@@ -13,22 +13,17 @@ import '../mocks/local_storage_spy.dart';
 
 void main() {
   late FindWarehouseWithRegisterLocally sut;
-
-  late LocalStorageSpy localStorageWithFilledOperation;
-
+  late LocalStorageSpy localStorage;
   late FindWarehouseWithRegisterParams params;
-
-  late List<Map<String, dynamic>> databaseResultWithFilledRegister;
+  late List<Map<String, dynamic>> databaseResult;
 
   setUp(() {
     params = ParamsFactory.makeFindWarehouseWithRegister();
-
-    databaseResultWithFilledRegister =
-        DatabaseFactory.makeWarehouseWithRegisterResultJson();
-    localStorageWithFilledOperation = LocalStorageSpy();
-    localStorageWithFilledOperation.mockFind(databaseResultWithFilledRegister);
+    databaseResult = DatabaseFactory.makeWarehouseWithRegisterResultJson();
+    localStorage = LocalStorageSpy();
+    localStorage.mockFind(databaseResult);
     sut = FindWarehouseWithRegisterLocally(
-      localStorage: localStorageWithFilledOperation,
+      localStorage: localStorage,
     );
   });
 
@@ -36,7 +31,7 @@ void main() {
     await sut(params);
 
     verify(
-      () => localStorageWithFilledOperation.find(
+      () => localStorage.find(
         query: QueryHelper.findWarehouseWithRegister(
           params.id,
         ),
@@ -47,7 +42,7 @@ void main() {
   test(
       'Should throw DomainError.malformedData on unexpectedFormat database result',
       () async {
-    localStorageWithFilledOperation.mockFindError(
+    localStorage.mockFindError(
       LocalStorageError.unexpectedFormat,
     );
 
@@ -58,7 +53,7 @@ void main() {
 
   test('Should throw DomainError.missingEntity on notFound database result',
       () async {
-    localStorageWithFilledOperation.mockFindError(LocalStorageError.notFound);
+    localStorage.mockFindError(LocalStorageError.notFound);
 
     var future = sut(params);
 
@@ -69,7 +64,7 @@ void main() {
       'Should throw DomainError.unexpected '
       'on any other errors (database failed, not the query) database result',
       () async {
-    localStorageWithFilledOperation.mockFindError(LocalStorageError.readOnly);
+    localStorage.mockFindError(LocalStorageError.readOnly);
 
     var future = sut(params);
 
