@@ -19,7 +19,7 @@ void main() {
 
   setUp(() {
     params = ParamsFactory.makeFindWarehouseWithRegister();
-    databaseResult = DatabaseFactory.makeWarehouseWithRegisterResultJson();
+    databaseResult = DatabaseFactory.makeWarehouseWithRegisterResult();
     localStorage = LocalStorageSpy();
     localStorage.mockFind(databaseResult);
     sut = FindWarehouseWithRegisterLocally(

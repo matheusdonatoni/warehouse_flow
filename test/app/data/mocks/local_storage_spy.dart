@@ -6,7 +6,7 @@ class LocalStorageSpy extends Mock implements LocalStorage {
   When _mockFindCall() => when(() => find(
         query: any(named: 'query'),
       ));
-  void mockFind(Map<String, dynamic> result) =>
+  void mockFind(dynamic result) =>
       this._mockFindCall().thenAnswer(
             (_) async => result,
           );
