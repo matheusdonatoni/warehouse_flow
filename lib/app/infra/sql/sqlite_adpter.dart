@@ -18,12 +18,13 @@ class SQLiteAdapter extends LocalStorage {
     }
   }
 
+  //Should return a Map, or a List of Maps from the ['json'] key;
   @override
-  Future<Map<String, dynamic>> find({required String query}) async {
+  Future<dynamic> find({required String query}) async {
     try {
       var result = await database.rawQuery(query);
 
-      return result.single;
+      return result.single['json'];
     } on DatabaseException catch (e) {
       throw _handleException(e);
     } on StateError catch (_) {

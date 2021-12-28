@@ -18,14 +18,14 @@ class FindAllProductsLocally implements FindAllProducts {
   @override
   Future<List<ProductEntity>> call() async {
     try {
-      final result = await localStorage.find(
+      final json = await localStorage.find(
         query: QueryHelper.findAllProducts(),
       );
 
       return List<ProductEntity>.from(
-        json.decode(result['json'] ?? '[]').map<ProductEntity>(
-              (map) => LocalProductModel.fromMap(map).toEntity(),
-            ),
+        jsonDecode(json ?? '[]').map<ProductEntity>(
+          (map) => LocalProductModel.fromMap(map).toEntity(),
+        ),
       );
     } on LocalStorageError catch (error) {
       if (error == LocalStorageError.malformedData) {
