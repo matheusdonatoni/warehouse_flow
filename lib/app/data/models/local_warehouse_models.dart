@@ -25,7 +25,7 @@ class LocalWarehouseModel {
   String toJson() => json.encode(toMap());
 
   factory LocalWarehouseModel.fromMap(Map<String, dynamic> json) {
-    if (!json.containsKey("id") || json["id"] != null) {
+    if (!json.containsKey("id") || json["id"] == null) {
       throw LocalStorageError.invalidEntity;
     }
 

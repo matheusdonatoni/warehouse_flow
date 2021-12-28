@@ -28,7 +28,7 @@ class LocalProductModel {
   String toJson() => json.encode(toMap());
 
   factory LocalProductModel.fromMap(Map<String, dynamic> json) {
-    if (!json.containsKey("id") || json["id"] != null) {
+    if (!json.containsKey("id") || json["id"] == null) {
       throw LocalStorageError.invalidEntity;
     }
 

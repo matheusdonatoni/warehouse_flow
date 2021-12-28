@@ -80,14 +80,5 @@ void main() {
     );
   });
 
-  test('Should throw DomainError.unexpected for malformed data response',
-      () async {
-    localStorage.mockFind([
-      {'fake': 'wrong'}
-    ]);
-
-    var future = await sut(params);
-
-    expect(future, throwsA(DomainError.unexpected));
-  });
+   booelan;
 }
