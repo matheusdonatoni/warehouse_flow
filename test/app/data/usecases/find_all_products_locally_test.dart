@@ -82,7 +82,9 @@ void main() {
   test(
       'Should parse the result for a list of ProductEntity and accept empty result',
       () async {
-    var future = await sut()..clear();
+    databaseResult.single['json'] = '[]';
+
+    var future = await sut();
 
     expect(future.isEmpty, true);
   });
