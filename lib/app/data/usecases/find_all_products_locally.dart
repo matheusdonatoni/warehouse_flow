@@ -28,9 +28,9 @@ class FindAllProductsLocally implements FindAllProducts {
             ),
       );
     } on LocalStorageError catch (error) {
-      if (error == LocalStorageError.unexpectedFormat) {
+      if (error == LocalStorageError.malformedData) {
         throw DomainError.malformedData;
-      } else if (error == LocalStorageError.notFound) {
+      } else if (error == LocalStorageError.missingEntity) {
         throw DomainError.missingEntity;
       }
 

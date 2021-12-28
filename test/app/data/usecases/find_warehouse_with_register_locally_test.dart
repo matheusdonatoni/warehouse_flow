@@ -40,10 +40,10 @@ void main() {
   });
 
   test(
-      'Should throw DomainError.malformedData on unexpectedFormat database result',
+      'Should throw DomainError.malformedData on LocalStorage.malformedData database result',
       () async {
     localStorage.mockFindError(
-      LocalStorageError.unexpectedFormat,
+      LocalStorageError.malformedData,
     );
 
     var future = sut(params);
@@ -53,7 +53,7 @@ void main() {
 
   test('Should throw DomainError.missingEntity on notFound database result',
       () async {
-    localStorage.mockFindError(LocalStorageError.notFound);
+    localStorage.mockFindError(LocalStorageError.missingEntity);
 
     var future = sut(params);
 

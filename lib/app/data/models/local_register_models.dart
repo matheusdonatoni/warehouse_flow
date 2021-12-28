@@ -23,8 +23,6 @@ class LocalRegisterModel extends RegisterEntity {
   String toJson() => json.encode(toMap());
 
   factory LocalRegisterModel.fromMap(Map<String, dynamic> json) {
-    print(json["operations"]);
-
     return LocalRegisterModel(
       id: json["id"],
       operations: List<OperationEntity>.from(

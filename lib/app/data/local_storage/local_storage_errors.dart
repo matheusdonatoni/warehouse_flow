@@ -1,6 +1,5 @@
 enum LocalStorageError {
   closed,
-  notFound,
   syntax,
   columnDuplicate,
   tableNotFound,
@@ -8,6 +7,7 @@ enum LocalStorageError {
   openFailed,
   readOnly,
   uniqueConstraints,
+  unknown,
   unexpectedFormat,
-  unknown
+  missingEntity
 }
