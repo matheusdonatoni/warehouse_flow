@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:warehouse_flow/app/data/local_storage/local_storage.dart';
 import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
 import 'package:warehouse_flow/app/data/local_storage/query_helper/query_helper.dart';
@@ -21,9 +23,9 @@ class FindAllProductsLocally implements FindAllProducts {
       );
 
       return List<ProductEntity>.from(
-        result.single['json'].map<ProductEntity>(
-          (map) => LocalProductModel.fromJson(map).toEntity(),
-        ),
+        json.decode(result.single['json'] ?? []).map<ProductEntity>(
+              (map) => LocalProductModel.fromJson(map).toEntity(),
+            ),
       );
     } on LocalStorageError catch (error) {
       if (error == LocalStorageError.unexpectedFormat) {
