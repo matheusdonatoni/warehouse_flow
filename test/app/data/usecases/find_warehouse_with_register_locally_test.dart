@@ -127,8 +127,8 @@ void main() {
     final operations = (await sut(params)).register.operations;
 
     expect(
-      operations.first.id,
-      isA<int>(),
+      operations.every((e) => e.id != null),
+      true,
     );
   });
 }
