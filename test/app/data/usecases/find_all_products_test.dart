@@ -70,4 +70,10 @@ void main() {
 
     expect(future, isA<List<ProductEntity>>());
   });
+
+  test('Should parse the result for a list of ProductEntity. Elements should have id', () async {
+    var future = await sut();
+
+    expect(future.first.id, isA<int>());
+  });
 }
