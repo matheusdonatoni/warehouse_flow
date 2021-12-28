@@ -19,14 +19,14 @@ class FindWarehouseWithRegisterLocally implements FindWarehouseWithRegister {
       params,
     );
 
-    List<Map<String, dynamic>> result;
-
     try {
-      result = await localStorage.find(
+      var result = await localStorage.find(
         query: QueryHelper.findWarehouseWithRegister(
           localParams.id,
         ),
       );
+
+      return LocalWarehouseModel.fromJson(result['json']).toEntity();
     } on LocalStorageError catch (error) {
       if (error == LocalStorageError.malformedData) {
         throw DomainError.malformedData;
@@ -36,8 +36,6 @@ class FindWarehouseWithRegisterLocally implements FindWarehouseWithRegister {
 
       throw DomainError.unexpected;
     }
-
-    return LocalWarehouseModel.fromJson(result.single['json']).toEntity();
   }
 }
 

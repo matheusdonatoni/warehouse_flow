@@ -8,7 +8,7 @@ class SQLiteAdapter extends LocalStorage {
   SQLiteAdapter(this.database);
 
   @override
-  Future<int> delete({required String query}) async {
+  Future<void> delete({required String query}) {
     try {
       return database.rawDelete(query);
     } on DatabaseException catch (e) {
@@ -19,11 +19,15 @@ class SQLiteAdapter extends LocalStorage {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> find({required String query}) {
+  Future<Map<String, dynamic>> find({required String query}) async {
     try {
-      return database.rawQuery(query);
+      var result = await database.rawQuery(query);
+
+      return result.single;
     } on DatabaseException catch (e) {
       throw _handleException(e);
+    } on StateError catch (_) {
+      throw LocalStorageError.malformedData;
     } on Exception catch (_) {
       throw LocalStorageError.unknown;
     }
@@ -41,7 +45,7 @@ class SQLiteAdapter extends LocalStorage {
   }
 
   @override
-  Future<int> update({required String query}) {
+  Future<void> update({required String query}) {
     try {
       return database.rawUpdate(query);
     } on DatabaseException catch (e) {
