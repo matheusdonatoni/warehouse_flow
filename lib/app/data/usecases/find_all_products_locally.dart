@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:warehouse_flow/app/data/local_storage/local_storage.dart';
 import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
 import 'package:warehouse_flow/app/data/local_storage/query_helper/query_helper.dart';
@@ -18,12 +16,12 @@ class FindAllProductsLocally implements FindAllProducts {
   @override
   Future<List<ProductEntity>> call() async {
     try {
-      final json = await localStorage.find(
+      final result = await localStorage.find(
         query: QueryHelper.findAllProducts(),
       );
 
       return List<ProductEntity>.from(
-        jsonDecode(json ?? '[]').map<ProductEntity>(
+        result.map<ProductEntity>(
           (map) => LocalProductModel.fromMap(map).toEntity(),
         ),
       );

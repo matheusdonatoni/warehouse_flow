@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:warehouse_flow/app/data/local_storage/local_storage.dart';
 import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
@@ -24,7 +26,7 @@ class SQLiteAdapter extends LocalStorage {
     try {
       var result = await database.rawQuery(query);
 
-      return result.single['json'];
+      return jsonDecode(result.single['json'] as String);
     } on DatabaseException catch (e) {
       throw _handleException(e);
     } on StateError catch (_) {
