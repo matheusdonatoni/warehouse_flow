@@ -22,7 +22,7 @@ class FindAllProductsLocally implements FindAllProducts {
 
       return List<ProductEntity>.from(
         result.single['json'].map<ProductEntity>(
-          (map) => LocalProductModel.fromMap(map).toEntity(),
+          (map) => LocalProductModel.fromJson(map).toEntity(),
         ),
       );
     } on LocalStorageError catch (error) {
