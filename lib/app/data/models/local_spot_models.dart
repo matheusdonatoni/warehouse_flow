@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
 class LocalSpotModel {
@@ -20,12 +21,18 @@ class LocalSpotModel {
 
   String toJson() => json.encode(toMap());
 
-  factory LocalSpotModel.fromMap(Map<String, dynamic> json) => LocalSpotModel(
-        id: json["id"],
-        name: json["name"] ?? '',
-        createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
-        updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
-      );
+  factory LocalSpotModel.fromMap(Map<String, dynamic> json) {
+    if (!json.containsKey("id") || json["id"]) {
+      throw LocalStorageError.invalidEntity;
+    }
+
+    return LocalSpotModel(
+      id: json["id"],
+      name: json["name"] ?? '',
+      createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
+      updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
+    );
+  }
 
   Map<String, dynamic> toMap() => {
         "id": id,

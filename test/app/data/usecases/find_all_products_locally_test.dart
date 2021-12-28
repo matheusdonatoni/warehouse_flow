@@ -43,7 +43,8 @@ void main() {
     expect(future, throwsA(DomainError.malformedData));
   });
 
-  test('Should throw DomainError.missingEntity on LocalStorageError.notFound',
+  test(
+      'Should throw DomainError.missingEntity on LocalStorageError.missingEntity',
       () {
     localStorage.mockFindError(
       LocalStorageError.missingEntity,
@@ -69,25 +70,5 @@ void main() {
     var future = await sut();
 
     expect(future, isA<List<ProductEntity>>());
-  });
-
-  test(
-      'Should parse the result for a list of ProductEntity. Elements should have id',
-      () async {
-    var future = await sut();
-
-    expect(future.every((e) => e.id != null), true);
-  });
-
-  test(
-      'Should parse the result for a list of ProductEntity and accept empty result',
-      () async {
-    databaseResult = DatabaseFactory.makeAllProductsListemptyResultJson();
-
-    localStorage.mockFind(databaseResult);
-
-    var future = await sut();
-
-    expect(future.isEmpty, true);
   });
 }

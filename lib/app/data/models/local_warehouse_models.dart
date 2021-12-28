@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
 import 'package:warehouse_flow/app/data/models/local_register_models.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
@@ -23,14 +24,19 @@ class LocalWarehouseModel {
 
   String toJson() => json.encode(toMap());
 
-  factory LocalWarehouseModel.fromMap(Map<String, dynamic> json) =>
-      LocalWarehouseModel(
-        id: json["id"],
-        name: json["name"] ?? '',
-        register: LocalRegisterModel.fromMap(json['register'] ?? {}).toEntity(),
-        createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
-        updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
-      );
+  factory LocalWarehouseModel.fromMap(Map<String, dynamic> json) {
+    if (!json.containsKey("id") || json["id"]) {
+      throw LocalStorageError.invalidEntity;
+    }
+
+    return LocalWarehouseModel(
+      id: json["id"],
+      name: json["name"] ?? '',
+      register: LocalRegisterModel.fromMap(json['register'] ?? {}).toEntity(),
+      createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
+      updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
+    );
+  }
 
   Map<String, dynamic> toMap() => {
         "id": id,

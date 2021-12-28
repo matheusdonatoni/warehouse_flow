@@ -80,70 +80,14 @@ void main() {
     );
   });
 
-  test('Should return a WarehouseEntity with id', () async {
-    final warehouse = await sut(params);
-
-    expect(
-      warehouse.id,
-      isA<int>(),
-    );
-  });
-
-  test('Should return a WarehouseEntity with a RegisterEntity with id',
+  test('Should throw DomainError.unexpected for malformed data response',
       () async {
-    final register = (await sut(params)).register;
+    localStorage.mockFind([
+      {'fake': 'wrong'}
+    ]);
 
-    expect(
-      register.id,
-      isA<int>(),
-    );
-  });
+    var future = await sut(params);
 
-  test(
-      'Should return a WarehouseEntity with a RegisterEntity with OperationsEntity list',
-      () async {
-    final operations = (await sut(params)).register.operations;
-
-    expect(
-      operations,
-      isA<List<OperationEntity>>(),
-    );
-  });
-
-  test(
-      'Should return a WarehouseEntity with a RegisterEntity with an non-empty OperationsEntity list',
-      () async {
-    final operations = (await sut(params)).register.operations;
-
-    expect(
-      operations.isNotEmpty,
-      true,
-    );
-  });
-
-  test(
-      'Should return a WarehouseEntity with a RegisterEntity with an non-empty OperationsEntity list. OperationsEntity must have id',
-      () async {
-    final operations = (await sut(params)).register.operations;
-
-    expect(
-      operations.every((e) => e.id != null),
-      true,
-    );
-  });
-
-  test(
-      'Should return a WarehouseEntity with a RegisterEntity with an empty OperationsEntity list.',
-      () async {
-    databaseResult = DatabaseFactory.makeWarehouseWithEmptyRegisterResultJson();
-
-    localStorage.mockFind(databaseResult);
-
-    final operations = (await sut(params)).register.operations;
-
-    expect(
-      operations.isEmpty,
-      true,
-    );
+    expect(future, throwsA(DomainError.unexpected));
   });
 }

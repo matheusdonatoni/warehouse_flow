@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
 class LocalPositionModel {
@@ -24,15 +25,20 @@ class LocalPositionModel {
 
   String toJson() => json.encode(toMap());
 
-  factory LocalPositionModel.fromMap(Map<String, dynamic> json) =>
-      LocalPositionModel(
-        id: json["id"],
-        height: json["height"] ?? 0,
-        depth: json["depth"] ?? 0,
-        type: json["type"] ?? '',
-        createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
-        updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
-      );
+  factory LocalPositionModel.fromMap(Map<String, dynamic> json) {
+    if (!json.containsKey("id") || json["id"]) {
+      throw LocalStorageError.invalidEntity;
+    }
+
+    return LocalPositionModel(
+      id: json["id"],
+      height: json["height"] ?? 0,
+      depth: json["depth"] ?? 0,
+      type: json["type"] ?? '',
+      createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
+      updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
+    );
+  }
 
   Map<String, dynamic> toMap() => {
         "id": id,

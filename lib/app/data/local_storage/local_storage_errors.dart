@@ -8,6 +8,7 @@ enum LocalStorageError {
   readOnly,
   uniqueConstraints,
   unknown,
-  unexpectedFormat,
+  invalidEntity,
+  malformedData,
   missingEntity
 }

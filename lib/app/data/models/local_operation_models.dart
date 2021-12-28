@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
 import 'local_address_model.dart';
@@ -35,18 +36,23 @@ class LocalOperationModel {
 
   String toJson() => json.encode(toMap());
 
-  factory LocalOperationModel.fromMap(Map<String, dynamic> json) =>
-      LocalOperationModel(
-        id: json["id"],
-        amount: json["amount"] ?? 0.0,
-        product: LocalProductModel.fromMap(json['product'] ?? {}).toEntity(),
-        spot: LocalSpotModel.fromMap(json['spot'] ?? {}).toEntity(),
-        address: LocalAddressModel.fromMap(json['address'] ?? {}).toEntity(),
-        position: LocalPositionModel.fromMap(json['position'] ?? {}).toEntity(),
-        type: json["type"] ?? '',
-        createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
-        updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
-      );
+  factory LocalOperationModel.fromMap(Map<String, dynamic> json) {
+    if (!json.containsKey("id") || json["id"]) {
+      throw LocalStorageError.invalidEntity;
+    }
+
+    return LocalOperationModel(
+      id: json["id"],
+      amount: json["amount"] ?? 0.0,
+      product: LocalProductModel.fromMap(json['product'] ?? {}).toEntity(),
+      spot: LocalSpotModel.fromMap(json['spot'] ?? {}).toEntity(),
+      address: LocalAddressModel.fromMap(json['address'] ?? {}).toEntity(),
+      position: LocalPositionModel.fromMap(json['position'] ?? {}).toEntity(),
+      type: json["type"] ?? '',
+      createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
+      updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
+    );
+  }
 
   Map<String, dynamic> toMap() => {
         "id": id,
