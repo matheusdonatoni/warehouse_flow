@@ -80,11 +80,12 @@ void main() {
     );
   });
 
-  test('Should throw DomainError.unexpected for malformed data response',
+  test(
+      'Should throw DomainError.unexpected for LocalStorageError.invalidEntity data response',
       () async {
     localStorage.mockFind({'fake': 'wrong'});
 
-    var future = await sut(params);
+    var future = sut(params);
 
     expect(future, throwsA(DomainError.unexpected));
   });
