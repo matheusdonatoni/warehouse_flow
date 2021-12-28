@@ -78,4 +78,12 @@ void main() {
 
     expect(future.every((e) => e.id != null), true);
   });
+
+  test(
+      'Should parse the result for a list of ProductEntity and accept empty result',
+      () async {
+    var future = await sut()..clear();
+
+    expect(future.isEmpty, true);
+  });
 }
