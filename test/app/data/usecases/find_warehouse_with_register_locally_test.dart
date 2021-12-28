@@ -131,4 +131,19 @@ void main() {
       true,
     );
   });
+
+  test(
+      'Should return a WarehouseEntity with a RegisterEntity with an empty OperationsEntity list.',
+      () async {
+    databaseResult = DatabaseFactory.makeWarehouseWithEmptyRegisterResultJson();
+
+    localStorage.mockFind(databaseResult);
+
+    final operations = (await sut(params)).register.operations;
+
+    expect(
+      operations.isEmpty,
+      true,
+    );
+  });
 }

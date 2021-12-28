@@ -82,7 +82,9 @@ void main() {
   test(
       'Should parse the result for a list of ProductEntity and accept empty result',
       () async {
-    databaseResult.single['json'] = '[]';
+    databaseResult = DatabaseFactory.makeAllProductsListemptyResultJson();
+
+    localStorage.mockFind(databaseResult);
 
     var future = await sut();
 
