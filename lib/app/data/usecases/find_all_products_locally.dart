@@ -21,7 +21,7 @@ class FindAllProductsLocally implements FindAllProducts {
       );
 
       return List<ProductEntity>.from(
-        result.map<ProductEntity>(
+        result.single['json'].map<ProductEntity>(
           (map) => LocalProductModel.fromMap(map).toEntity(),
         ),
       );
