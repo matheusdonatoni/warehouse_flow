@@ -15,7 +15,7 @@ void main() {
   late FindWarehouseWithRegisterLocally sut;
   late LocalStorageSpy localStorage;
   late FindWarehouseWithRegisterParams params;
-  late List<Map<String, dynamic>> databaseResult;
+  late Map<String, dynamic> databaseResult;
 
   setUp(() {
     params = ParamsFactory.makeFindWarehouseWithRegister();
@@ -80,5 +80,12 @@ void main() {
     );
   });
 
-   booelan;
+  test('Should throw DomainError.unexpected for malformed data response',
+      () async {
+    localStorage.mockFind({'fake': 'wrong'});
+
+    var future = await sut(params);
+
+    expect(future, throwsA(DomainError.unexpected));
+  });
 }

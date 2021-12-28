@@ -12,7 +12,7 @@ import '../mocks/local_storage_spy.dart';
 void main() {
   late FindAllProductsLocally sut;
   late LocalStorageSpy localStorage;
-  late List<Map<String, dynamic>> databaseResult;
+  late Map<String, dynamic> databaseResult;
 
   setUp(() {
     databaseResult = DatabaseFactory.makeAllProductsListResultJson();
