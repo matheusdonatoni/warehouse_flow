@@ -22,7 +22,7 @@ class LocalSpotModel {
   String toJson() => json.encode(toMap());
 
   factory LocalSpotModel.fromMap(Map<String, dynamic> json) {
-    if (!json.containsKey("id") || json["id"]) {
+    if (!json.containsKey("id") || json["id"] != null) {
       throw LocalStorageError.invalidEntity;
     }
 

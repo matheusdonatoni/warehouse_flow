@@ -26,7 +26,7 @@ class LocalPositionModel {
   String toJson() => json.encode(toMap());
 
   factory LocalPositionModel.fromMap(Map<String, dynamic> json) {
-    if (!json.containsKey("id") || json["id"]) {
+    if (!json.containsKey("id") || json["id"] != null) {
       throw LocalStorageError.invalidEntity;
     }
 

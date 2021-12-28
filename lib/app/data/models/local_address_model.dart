@@ -24,7 +24,7 @@ class LocalAddressModel {
   String toJson() => json.encode(toMap());
 
   factory LocalAddressModel.fromMap(Map<String, dynamic> json) {
-    if (!json.containsKey("id") || json["id"]) {
+    if (!json.containsKey("id") || json["id"] != null) {
       throw LocalStorageError.invalidEntity;
     }
 
