@@ -8,7 +8,7 @@ import 'package:warehouse_flow/app/domain/helpers/domain_errors.dart';
 import 'package:warehouse_flow/app/domain/usecases/find_warehouse_with_register.dart';
 
 import '../../domain/params_factory.dart';
-import '../../infra/database_factory.dart';
+import '../../infra/mocks/database_factory.dart';
 import '../mocks/local_storage_spy.dart';
 
 void main() {
