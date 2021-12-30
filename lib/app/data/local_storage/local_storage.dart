@@ -1,6 +1,6 @@
 abstract class LocalStorage {
-  Future<dynamic> find({required String query});
-  Future<void> insert({required String query});
-  Future<void> update({required String query});
-  Future<void> delete({required String query});
+  Future<dynamic> find({required String query, List<Object?>? arguments});
+  Future<void> insert({required String query, List<Object?>? arguments});
+  Future<void> update({required String query, List<Object?>? arguments});
+  Future<void> delete({required String query, List<Object?>? arguments});
 }

@@ -3,7 +3,12 @@ import 'package:warehouse_flow/app/data/local_storage/local_storage.dart';
 import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
 
 class LocalStorageSpy extends Mock implements LocalStorage {
-  When _mockFindCall() => when(() => find(query: any(named: 'query')));
+  When _mockFindCall() => when(
+        () => find(
+          query: any(named: 'query'),
+          arguments: any(named: 'arguments'),
+        ),
+      );
   void mockFind(dynamic result) => this._mockFindCall().thenAnswer(
         (_) async => result,
       );

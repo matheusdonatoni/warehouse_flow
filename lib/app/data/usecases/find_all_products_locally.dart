@@ -17,7 +17,7 @@ class FindAllProductsLocally implements FindAllProducts {
   Future<List<ProductEntity>> call() async {
     try {
       final result = await localStorage.find(
-        query: QueryHelper.findAllProducts(),
+        query: QueryHelper.findAllProducts,
       );
 
       return List<ProductEntity>.from(

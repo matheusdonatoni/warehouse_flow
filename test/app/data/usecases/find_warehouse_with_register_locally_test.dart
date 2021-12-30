@@ -32,9 +32,8 @@ void main() {
 
     verify(
       () => localStorage.find(
-        query: QueryHelper.findWarehouseWithRegister(
-          params.id,
-        ),
+        query: QueryHelper.findWarehouseWithRegister,
+        arguments: [params.id],
       ),
     );
   });

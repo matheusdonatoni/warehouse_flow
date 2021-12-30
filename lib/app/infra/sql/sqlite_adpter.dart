@@ -10,9 +10,12 @@ class SQLiteAdapter extends LocalStorage {
   SQLiteAdapter(this.database);
 
   @override
-  Future<void> delete({required String query}) {
+  Future<void> delete({
+    required String query,
+    List<Object?>? arguments,
+  }) {
     try {
-      return database.rawDelete(query);
+      return database.rawDelete(query, arguments);
     } on DatabaseException catch (e) {
       throw _handleException(e);
     } on Exception catch (_) {
@@ -21,9 +24,12 @@ class SQLiteAdapter extends LocalStorage {
   }
 
   @override
-  Future<dynamic> find({required String query}) async {
+  Future<dynamic> find({
+    required String query,
+    List<Object?>? arguments,
+  }) async {
     try {
-      var result = await database.rawQuery(query);
+      var result = await database.rawQuery(query, arguments);
 
       return jsonDecode(result.single['json'] as String);
     } on DatabaseException catch (e) {
@@ -36,9 +42,12 @@ class SQLiteAdapter extends LocalStorage {
   }
 
   @override
-  Future<int> insert({required String query}) {
+  Future<int> insert({
+    required String query,
+    List<Object?>? arguments,
+  }) {
     try {
-      return database.rawInsert(query);
+      return database.rawInsert(query, arguments);
     } on DatabaseException catch (e) {
       throw _handleException(e);
     } on Exception catch (_) {
@@ -47,9 +56,12 @@ class SQLiteAdapter extends LocalStorage {
   }
 
   @override
-  Future<void> update({required String query}) {
+  Future<void> update({
+    required String query,
+    List<Object?>? arguments,
+  }) {
     try {
-      return database.rawUpdate(query);
+      return database.rawUpdate(query, arguments);
     } on DatabaseException catch (e) {
       throw _handleException(e);
     } on Exception catch (_) {

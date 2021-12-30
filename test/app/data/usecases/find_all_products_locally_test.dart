@@ -26,7 +26,7 @@ void main() {
 
     verify(
       () => localStorage.find(
-        query: QueryHelper.findAllProducts(),
+        query: QueryHelper.findAllProducts,
       ),
     );
   });

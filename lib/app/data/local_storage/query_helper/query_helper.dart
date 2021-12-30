@@ -1,6 +1,5 @@
 class QueryHelper {
-  static String findWarehouseWithRegister(int id) {
-    return '''SELECT
+  static String get findWarehouseWithRegister => '''SELECT
     json_object(
       'id', id, 
       'name', name,
@@ -68,22 +67,20 @@ class QueryHelper {
           )
         ) FROM registers WHERE registers.warehouseId = warehouses.id
       ) 
-    ) AS json FROM warehouses WHERE warehouses.id = $id''';
-  }
+    ) AS json FROM warehouses WHERE warehouses.id = ?''';
 
-  static String findAllProducts() {
-    return '''SELECT json_group_array(
-      json_object(
-        'id', id,
+  static String get findAllProducts => '''SELECT
+   json_group_array(
+     json_object(
+        'id', id, 
         'code', code,
         'description', description,
-        'unit', unit,
-        'type', type,
-        'createdAt', createdat,
+        'unit', unit, 
+        'type', type, 
+        'createdAt', createdat, 
         'updatedAt', updatedat
-        )
-      ) as json FROM products''';
-  }
+      )
+    ) as json FROM products''';
 }
 
 // Aliased columns query for easier joined table operations.

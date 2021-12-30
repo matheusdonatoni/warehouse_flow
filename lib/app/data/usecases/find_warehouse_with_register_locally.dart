@@ -21,9 +21,8 @@ class FindWarehouseWithRegisterLocally implements FindWarehouseWithRegister {
 
     try {
       var result = await localStorage.find(
-        query: QueryHelper.findWarehouseWithRegister(
-          localParams.id,
-        ),
+        query: QueryHelper.findWarehouseWithRegister,
+        arguments: [localParams.id],
       );
 
       return LocalWarehouseModel.fromMap(result).toEntity();
