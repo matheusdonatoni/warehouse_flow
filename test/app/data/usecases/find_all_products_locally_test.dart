@@ -6,7 +6,7 @@ import 'package:warehouse_flow/app/data/usecases/find_all_products_locally.dart'
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 import 'package:warehouse_flow/app/domain/helpers/domain_errors.dart';
 
-import '../../infra/mocks/database_factory.dart';
+import '../mocks/local_storage_factory.dart';
 import '../mocks/local_storage_spy.dart';
 
 void main() {
@@ -15,7 +15,7 @@ void main() {
   late List<Map<String, dynamic>> databaseResult;
 
   setUp(() {
-    databaseResult = DatabaseFactory.makeAllProductsListResult();
+    databaseResult = LocalStorageFactory.makeAllProductsListResult();
     localStorage = LocalStorageSpy();
     localStorage.mockFind(databaseResult);
     sut = FindAllProductsLocally(localStorage: localStorage);
