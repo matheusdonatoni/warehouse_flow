@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:sqflite/src/exception.dart';
 import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
 import 'package:warehouse_flow/app/data/local_storage/query_helper/query_helper.dart';
 import 'package:warehouse_flow/app/infra/sql/sqlite_adpter.dart';
@@ -73,6 +74,20 @@ void main() {
       expect(future, throwsA(LocalStorageError.malformedData));
     });
 
+    test('Should throw LocalStorageError.closed on DatabaseException.closed',
+        () async {
+      database.mockRawQueryError(
+        SqfliteDatabaseException('database_closed', null),
+      );
+
+      var future = sut.find(
+        query: QueryHelper.findWarehouseWithRegister,
+        arguments: [1],
+      );
+
+      expect(future, throwsA(LocalStorageError.closed));
+    });
+
     test('Should call rawQuery with correct values', () async {
       database.mockRawQuery(
         DatabaseFactory.makeWarehouseWithRegisterResult(),
@@ -137,4 +152,6 @@ void main() {
       );
     });
   });
+
+  group('Insert tests', () {});
 }
