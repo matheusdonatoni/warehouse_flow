@@ -195,5 +195,16 @@ void main() {
         ),
       );
     });
+
+    test('Should return a int on a rawInsert', () async {
+      database.mockRawInsert(1);
+
+      var future = await sut.insert(
+        query: QueryHelper.insertIntoOperations,
+        arguments: [1, 1, 1, 1, 1, 1, 1, 1, 1],
+      );
+
+      expect(future, isA<int>());
+    });
   });
 }
