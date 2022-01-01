@@ -81,6 +81,11 @@ class QueryHelper {
         'updatedAt', updatedat
       )
     ) as json FROM products''';
+
+  static String get insertOperation => '''INSERT 
+  INTO operations 
+  (amount, type, registerid, productid, spotId, addressId, positionId, createdAt, updatedAt) 
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''';
 }
 
 // Aliased columns query for easier joined table operations.
