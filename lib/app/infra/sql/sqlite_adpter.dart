@@ -13,9 +13,9 @@ class SQLiteAdapter extends LocalStorage {
   Future<void> delete({
     required String query,
     List<Object?>? arguments,
-  }) {
+  }) async {
     try {
-      return database.rawDelete(query, arguments);
+      await database.rawDelete(query, arguments);
     } on DatabaseException catch (e) {
       throw _handleException(e);
     } catch (_) {
@@ -47,9 +47,9 @@ class SQLiteAdapter extends LocalStorage {
   Future<int> insert({
     required String query,
     List<Object?>? arguments,
-  }) {
+  }) async {
     try {
-      return database.rawInsert(query, arguments);
+      return await database.rawInsert(query, arguments);
     } on DatabaseException catch (e) {
       throw _handleException(e);
     } catch (_) {
@@ -61,9 +61,9 @@ class SQLiteAdapter extends LocalStorage {
   Future<void> update({
     required String query,
     List<Object?>? arguments,
-  }) {
+  }) async {
     try {
-      return database.rawUpdate(query, arguments);
+      await database.rawUpdate(query, arguments);
     } on DatabaseException catch (e) {
       throw _handleException(e);
     } catch (_) {

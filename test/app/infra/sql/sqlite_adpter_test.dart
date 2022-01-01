@@ -154,7 +154,31 @@ void main() {
   });
 
   group('Insert tests', () {
-    
+    test('Should throw LocalStorageError.unknown on unknown Exception',
+        () async {
+      database.mockRawInsertError(Exception('unknown'));
+
+      var future = sut.insert(
+        query: QueryHelper.insertIntoOperations,
+        arguments: [1, 1, 1, 1, 1, 1, 1, 1, 1],
+      );
+
+      expect(future, throwsA(LocalStorageError.unknown));
+    });
+
+    test('Should throw LocalStorageError.closed on DatabaseException.closed',
+        () async {
+      database.mockRawInsertError(
+        SqfliteDatabaseException('database_closed', null),
+      );
+
+      var future = sut.insert(
+        query: QueryHelper.insertIntoOperations,
+        arguments: [1, 1, 1, 1, 1, 1, 1, 1, 1],
+      );
+
+      expect(future, throwsA(LocalStorageError.closed));
+    });
 
     test('Should call rawInsert with correct values', () async {
       database.mockRawInsert(1);
