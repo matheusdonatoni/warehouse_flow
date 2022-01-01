@@ -59,6 +59,6 @@ class LocalStorageFactory {
           "type": "APL",
           "createdAt": "2021-11-23T18:32:20.268",
           "updatedAt": "2021-11-23T18:32:20.268"
-        }
+        },
       ];
 }
