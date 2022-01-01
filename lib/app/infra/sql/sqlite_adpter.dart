@@ -18,7 +18,7 @@ class SQLiteAdapter extends LocalStorage {
       return database.rawDelete(query, arguments);
     } on DatabaseException catch (e) {
       throw _handleException(e);
-    } on Exception catch (_) {
+    } catch (_) {
       throw LocalStorageError.unknown;
     }
   }
@@ -36,7 +36,9 @@ class SQLiteAdapter extends LocalStorage {
       throw _handleException(e);
     } on StateError catch (_) {
       throw LocalStorageError.malformedData;
-    } on Exception catch (_) {
+    } on TypeError catch (_) {
+      throw LocalStorageError.malformedData;
+    } catch (_) {
       throw LocalStorageError.unknown;
     }
   }
@@ -50,7 +52,7 @@ class SQLiteAdapter extends LocalStorage {
       return database.rawInsert(query, arguments);
     } on DatabaseException catch (e) {
       throw _handleException(e);
-    } on Exception catch (_) {
+    } catch (_) {
       throw LocalStorageError.unknown;
     }
   }
@@ -64,7 +66,7 @@ class SQLiteAdapter extends LocalStorage {
       return database.rawUpdate(query, arguments);
     } on DatabaseException catch (e) {
       throw _handleException(e);
-    } on Exception catch (_) {
+    } catch (_) {
       throw LocalStorageError.unknown;
     }
   }
