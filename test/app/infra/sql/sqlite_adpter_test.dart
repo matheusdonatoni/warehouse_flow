@@ -16,10 +16,49 @@ void main() {
     sut = SQLiteAdapter(database);
   });
 
+  test('Should throw LocalStorageError.malformedData on malformed key result',
+      () async {
+    database.mockRawQuery(
+      DatabaseFactory.makeWarehouseWithRegisterMalformedKeyResult(),
+    );
+
+    var future = sut.find(
+      query: QueryHelper.findWarehouseWithRegister,
+      arguments: [1],
+    );
+
+    expect(
+      future,
+      throwsA(
+        LocalStorageError.malformedData,
+      ),
+    );
+  });
+
+  test(
+      'Should throw LocalStorageError.malformedData on malformed lenght result',
+      () async {
+    database.mockRawQuery(
+      DatabaseFactory.makeWarehouseWithRegisterMalformedLengthResult(),
+    );
+
+    var future = sut.find(
+      query: QueryHelper.findWarehouseWithRegister,
+      arguments: [1],
+    );
+
+    expect(
+      future,
+      throwsA(
+        LocalStorageError.malformedData,
+      ),
+    );
+  });
+
   test('Should throw LocalStorageError.malformedData on Bad StateError',
       () async {
     database.mockRawQuery(
-      DatabaseFactory.makeWarehouseWithMalformedRegisterResult(),
+      DatabaseFactory.makeWarehouseWithRegisterMalformedKeyResult(),
     );
 
     var future = sut.find(

@@ -12,7 +12,21 @@ class DatabaseFactory {
       ];
 
   static List<Map<String, Object?>>
-      makeWarehouseWithMalformedRegisterResult() => [
+      makeWarehouseWithRegisterMalformedKeyResult() => [
+            {
+              "malformed_json_key": jsonEncode(
+                LocalStorageFactory.makeWarehouseWithRegisterResult(),
+              ),
+            }
+          ];
+
+  static List<Map<String, Object?>>
+      makeWarehouseWithRegisterMalformedLengthResult() => [
+            {
+              "malformed_json_key": jsonEncode(
+                LocalStorageFactory.makeWarehouseWithRegisterResult(),
+              ),
+            },
             {
               "malformed_json_key": jsonEncode(
                 LocalStorageFactory.makeWarehouseWithRegisterResult(),
