@@ -82,7 +82,7 @@ class QueryHelper {
       )
     ) as json FROM products''';
 
-  static String get insertOperation => '''INSERT 
+  static String get insertIntoOperations => '''INSERT 
   INTO operations 
   (amount, type, registerid, productid, spotId, addressId, positionId, createdAt, updatedAt) 
   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''';

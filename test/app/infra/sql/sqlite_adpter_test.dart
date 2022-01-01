@@ -154,26 +154,22 @@ void main() {
   });
 
   group('Insert tests', () {
+    
+
     test('Should call rawInsert with correct values', () async {
       database.mockRawInsert(1);
 
-      await sut.find(
-        query: QueryHelper.findWarehouseWithRegister,
-        arguments: [1],
+      await sut.insert(
+        query: QueryHelper.insertIntoOperations,
+        arguments: [1, 1, 1, 1, 1, 1, 1, 1, 1],
       );
 
       verify(
-          () => database.rawQuery(QueryHelper.findWarehouseWithRegister, [1]));
-
-      database.mockRawQuery(
-        DatabaseFactory.makeAllProductsListResult(),
+        () => database.rawInsert(
+          QueryHelper.insertIntoOperations,
+          [1, 1, 1, 1, 1, 1, 1, 1, 1],
+        ),
       );
-
-      await sut.find(
-        query: QueryHelper.findAllProducts,
-      );
-
-      verify(() => database.rawQuery(QueryHelper.findAllProducts));
     });
   });
 }
