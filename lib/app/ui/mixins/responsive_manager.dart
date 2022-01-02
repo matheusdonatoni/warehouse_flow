@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../ui/enums/screen_type.dart';
+import '../helpers/screens/screen_type.dart';
 
 /// Add this mixin to a StatelessWidget to make it resposive
 /// Then implements mobile, tablet, desktop, tv methods to make it responsive.

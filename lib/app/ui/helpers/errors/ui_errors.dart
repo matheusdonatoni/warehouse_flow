@@ -1,0 +1,4 @@
+enum UiError {
+  empty,
+  unexpected,
+}

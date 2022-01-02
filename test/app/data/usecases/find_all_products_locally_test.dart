@@ -4,7 +4,7 @@ import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart'
 import 'package:warehouse_flow/app/data/local_storage/query_helper/query_helper.dart';
 import 'package:warehouse_flow/app/data/usecases/find_all_products_locally.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
-import 'package:warehouse_flow/app/domain/helpers/domain_errors.dart';
+import 'package:warehouse_flow/app/domain/helpers/errors/domain_errors.dart';
 
 import '../mocks/local_storage_factory.dart';
 import '../mocks/local_storage_spy.dart';
