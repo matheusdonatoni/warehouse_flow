@@ -6,4 +6,7 @@ export 'register_entity.dart';
 export 'resume_entity.dart';
 export 'spot_entity.dart';
 export 'warehouse_entity.dart';
+export 'product_consolidation_per_position.dart';
+export 'position_consolidation.dart';
+export 'product_consolidation.dart';
 
