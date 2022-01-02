@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-abstract class PositionConsolidationPresenter extends Listenable {
+abstract class PositionConsolidationPresenter implements Listenable {
 
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-abstract class OperationsHistoryPresenter extends Listenable {
+abstract class OperationsHistoryPresenter implements Listenable {
 
 }

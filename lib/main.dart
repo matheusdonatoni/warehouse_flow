@@ -1,11 +1,8 @@
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'data/providers/local_storage.dart';
-
 import 'routes/pages.dart';
-
 import 'bindings/initial_bindings.dart';
 
 void main() async {
