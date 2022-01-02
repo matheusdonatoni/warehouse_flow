@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
-class LocalPositionModel {
+class LocalPositionModel implements PositionEntity {
   LocalPositionModel({
     this.id,
     required this.height,

@@ -4,7 +4,7 @@ import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart'
 import 'package:warehouse_flow/app/data/models/local_register_models.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
-class LocalWarehouseModel {
+class LocalWarehouseModel implements WarehouseEntity {
   LocalWarehouseModel({
     this.id,
     required this.name,

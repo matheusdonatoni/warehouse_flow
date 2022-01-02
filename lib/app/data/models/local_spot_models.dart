@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
-class LocalSpotModel {
+class LocalSpotModel implements SpotEntity {
   LocalSpotModel({
     this.id,
     required this.name,

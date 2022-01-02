@@ -5,18 +5,18 @@ import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
 import 'local_operation_models.dart';
 
-class LocalRegisterModel extends RegisterEntity {
+class LocalRegisterModel implements RegisterEntity {
   LocalRegisterModel({
-    int? id,
-    List<OperationEntity> operations = const [],
-    DateTime? createdAt,
-    DateTime? updatedAt,
-  }) : super(
-          id: id,
-          operations: operations,
-          createdAt: createdAt,
-          updatedAt: updatedAt,
-        );
+    this.id,
+    this.operations = const [],
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  int? id;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  List<OperationEntity> operations;
 
   factory LocalRegisterModel.fromJson(String str) =>
       LocalRegisterModel.fromMap(json.decode(str));

@@ -1,9 +1,8 @@
 import 'dart:convert';
-
 import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
-class LocalAddressModel {
+class LocalAddressModel implements AddressEntity {
   LocalAddressModel({
     this.id,
     required this.name,
@@ -28,7 +27,7 @@ class LocalAddressModel {
       throw LocalStorageError.invalidEntity;
     }
 
-    return AliasedAddressModel(
+    return LocalAddressModel(
       id: json["id"],
       name: json["name"] ?? '',
       indicator: json["indicator"] ?? '',
@@ -60,30 +59,5 @@ class LocalAddressModel {
         indicator: indicator,
         createdAt: createdAt,
         updatedAt: updatedAt,
-      );
-}
-
-class AliasedAddressModel extends LocalAddressModel {
-  AliasedAddressModel({
-    int? id,
-    String name = '',
-    String indicator = '',
-    DateTime? createdAt,
-    DateTime? updatedAt,
-  }) : super(
-          id: id,
-          name: name,
-          indicator: indicator,
-          createdAt: createdAt,
-          updatedAt: updatedAt,
-        );
-
-  factory AliasedAddressModel.fromMap(Map<String, dynamic> json) =>
-      AliasedAddressModel(
-        id: json["address_id"],
-        name: json["address_name"],
-        indicator: json["address_indicator"],
-        createdAt: DateTime.tryParse(json["address_createdAt"] ?? ''),
-        updatedAt: DateTime.tryParse(json["address_updatedAt"] ?? ''),
       );
 }
