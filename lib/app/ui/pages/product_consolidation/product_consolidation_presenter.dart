@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-abstract class ConsolidatedPresenter implements Listenable {
+abstract class ProductConsolidationPresenter implements Listenable {
   Future<void> loadData();
 }
