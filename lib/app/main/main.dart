@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'helpers/pages/pages.dart';
+import 'helpers/routes/pages.dart';
 import 'helpers/routes/routes.dart';
 
 void main() => runApp(App());
@@ -11,7 +11,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Controle de Estoque',
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.ROOT,
+      initialRoute: NamedRoute.ROOT,
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -21,7 +21,7 @@ class App extends StatelessWidget {
         Locale('pt', 'BR'),
         Locale('en', 'US'),
       ],
-      routes: pages,
+      routes: routes,
     );
   }
 }

@@ -1,4 +1,4 @@
-class Routes {
+class NamedRoute {
   static const ROOT = '/';
   static const HOME = '/home';
   static const REGISTER = '/register';
