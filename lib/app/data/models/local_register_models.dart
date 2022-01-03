@@ -5,7 +5,7 @@ import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
 import 'local_operation_models.dart';
 
-class LocalRegisterModel implements RegisterEntity {
+class LocalRegisterModel  {
   LocalRegisterModel({
     this.id,
     this.operations = const [],

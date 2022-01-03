@@ -4,8 +4,8 @@ import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart'
 import 'package:warehouse_flow/app/data/models/local_register_models.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
-class LocalWarehouseModel implements WarehouseEntity {
-  LocalWarehouseModel({
+class LocalWarehouseModel {
+  LocalWarehouseModel._({
     this.id,
     required this.name,
     required this.register,
@@ -29,7 +29,7 @@ class LocalWarehouseModel implements WarehouseEntity {
       throw LocalStorageError.invalidEntity;
     }
 
-    return LocalWarehouseModel(
+    return LocalWarehouseModel._(
       id: json["id"],
       name: json["name"] ?? '',
       register: LocalRegisterModel.fromMap(json['register'] ?? {}).toEntity(),
@@ -47,7 +47,7 @@ class LocalWarehouseModel implements WarehouseEntity {
       };
 
   factory LocalWarehouseModel.fromEntity(WarehouseEntity entity) =>
-      LocalWarehouseModel(
+      LocalWarehouseModel._(
         id: entity.id,
         name: entity.name,
         register: entity.register,

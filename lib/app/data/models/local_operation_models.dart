@@ -8,7 +8,7 @@ import 'local_position_models.dart';
 import 'local_product_models.dart';
 import 'local_spot_models.dart';
 
-class LocalOperationModel implements OperationEntity {
+class LocalOperationModel  {
   LocalOperationModel({
     this.id,
     required this.amount,
