@@ -42,6 +42,45 @@ class DatabaseFactory {
             }
           ];
 
+  static List<Map<String, Object?>> makeAllWarehouseOperationListResult() => [
+        {
+          "json": jsonEncode(
+            LocalStorageFactory.makeAllWarehouseOperationListResult(),
+          ),
+        }
+      ];
+
+  static List<Map<String, Object?>>
+      makeAllWarehouseOperationListMalformedKeyResult() => [
+            {
+              "malformed_json_key": jsonEncode(
+                LocalStorageFactory.makeAllWarehouseOperationListResult(),
+              ),
+            }
+          ];
+
+  static List<Map<String, Object?>>
+      makeAllWarehouseOperationListMalformedLengthResult() => [
+            {
+              "malformed_json_key": jsonEncode(
+                LocalStorageFactory.makeAllWarehouseOperationListResult(),
+              ),
+            },
+            {
+              "malformed_json_key": jsonEncode(
+                LocalStorageFactory.makeAllWarehouseOperationListResult(),
+              ),
+            }
+          ];
+
+  static List<Map<String, Object?>>
+      makeAllWarehouseOperationListMalformedValueResult() => [
+            {
+              "malformed_json_key":
+                  LocalStorageFactory.makeAllWarehouseOperationListResult(),
+            }
+          ];
+
   static List<Map<String, Object?>> makeAllProductsListResult() => [
         {"json": jsonEncode(LocalStorageFactory.makeAllProductsListResult())}
       ];
