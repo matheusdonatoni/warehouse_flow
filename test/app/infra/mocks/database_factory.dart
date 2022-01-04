@@ -45,7 +45,7 @@ class DatabaseFactory {
   static List<Map<String, Object?>> makeAllWarehouseOperationListResult() => [
         {
           "json": jsonEncode(
-            LocalStorageFactory.makeAllWarehouseOperationListResult(),
+            LocalStorageFactory.makeWarehouseOperationListResult(),
           ),
         }
       ];
@@ -54,7 +54,7 @@ class DatabaseFactory {
       makeAllWarehouseOperationListMalformedKeyResult() => [
             {
               "malformed_json_key": jsonEncode(
-                LocalStorageFactory.makeAllWarehouseOperationListResult(),
+                LocalStorageFactory.makeWarehouseOperationListResult(),
               ),
             }
           ];
@@ -63,12 +63,12 @@ class DatabaseFactory {
       makeAllWarehouseOperationListMalformedLengthResult() => [
             {
               "malformed_json_key": jsonEncode(
-                LocalStorageFactory.makeAllWarehouseOperationListResult(),
+                LocalStorageFactory.makeWarehouseOperationListResult(),
               ),
             },
             {
               "malformed_json_key": jsonEncode(
-                LocalStorageFactory.makeAllWarehouseOperationListResult(),
+                LocalStorageFactory.makeWarehouseOperationListResult(),
               ),
             }
           ];
@@ -77,7 +77,7 @@ class DatabaseFactory {
       makeAllWarehouseOperationListMalformedValueResult() => [
             {
               "malformed_json_key":
-                  LocalStorageFactory.makeAllWarehouseOperationListResult(),
+                  LocalStorageFactory.makeWarehouseOperationListResult(),
             }
           ];
 

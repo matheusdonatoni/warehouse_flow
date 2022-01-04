@@ -50,7 +50,7 @@ class LocalStorageFactory {
         }
       };
 
-  static List<Map<String, dynamic>> makeAllWarehouseOperationListResult() => [
+  static List<Map<String, dynamic>> makeWarehouseOperationListResult() => [
         {
           "id": 1,
           "amount": 73.0,
