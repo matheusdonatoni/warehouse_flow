@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
-class LocalSpotModel {
-  LocalSpotModel._({
+class LocalPositionModel {
+  LocalPositionModel({
     this.id,
-    required this.name,
+    required this.height,
+    required this.depth,
+    required this.type,
     this.createdAt,
     this.updatedAt,
   });
@@ -14,21 +16,25 @@ class LocalSpotModel {
   int? id;
   DateTime? createdAt;
   DateTime? updatedAt;
-  String name;
+  int height;
+  int depth;
+  String type;
 
-  factory LocalSpotModel.fromJson(String str) =>
-      LocalSpotModel.fromMap(json.decode(str));
+  factory LocalPositionModel.fromJson(String str) =>
+      LocalPositionModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory LocalSpotModel.fromMap(Map<String, dynamic> json) {
+  factory LocalPositionModel.fromMap(Map<String, dynamic> json) {
     if (!json.containsKey("id") || json["id"] == null) {
       throw LocalStorageError.invalidEntity;
     }
 
-    return LocalSpotModel._(
+    return LocalPositionModel(
       id: json["id"],
-      name: json["name"] ?? '',
+      height: json["height"] ?? 0,
+      depth: json["depth"] ?? 0,
+      type: json["type"] ?? '',
       createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
       updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
     );
@@ -36,21 +42,28 @@ class LocalSpotModel {
 
   Map<String, dynamic> toMap() => {
         "id": id,
-        "name": name,
+        "height": height,
+        "depth": depth,
+        "type": type,
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
       };
 
-  factory LocalSpotModel.fromEntity(SpotEntity entity) => LocalSpotModel._(
+  factory LocalPositionModel.fromEntity(PositionEntity entity) =>
+      LocalPositionModel(
         id: entity.id,
-        name: entity.name,
+        height: entity.height,
+        depth: entity.depth,
+        type: entity.type,
         createdAt: entity.createdAt,
         updatedAt: entity.updatedAt,
       );
 
-  SpotEntity toEntity() => SpotEntity(
+  PositionEntity toEntity() => PositionEntity(
         id: id,
-        name: name,
+        height: height,
+        depth: depth,
+        type: type,
         createdAt: createdAt,
         updatedAt: updatedAt,
       );

@@ -4,12 +4,12 @@ import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart'
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
 import 'local_address_model.dart';
-import 'local_position_models.dart';
-import 'local_product_models.dart';
-import 'local_spot_models.dart';
+import 'local_position_model.dart';
+import 'local_product_model.dart';
+import 'local_spot_model.dart';
 
 class LocalOperationModel  {
-  LocalOperationModel._({
+  LocalOperationModel({
     this.id,
     required this.amount,
     required this.type,
@@ -41,7 +41,7 @@ class LocalOperationModel  {
       throw LocalStorageError.invalidEntity;
     }
 
-    return LocalOperationModel._(
+    return LocalOperationModel(
       id: json["id"],
       amount: json["amount"] ?? 0.0,
       product: LocalProductModel.fromMap(json['product'] ?? {}).toEntity(),
@@ -67,7 +67,7 @@ class LocalOperationModel  {
       };
 
   factory LocalOperationModel.fromEntity(OperationEntity entity) =>
-      LocalOperationModel._(
+      LocalOperationModel(
         id: entity.id,
         amount: entity.amount,
         product: entity.product,

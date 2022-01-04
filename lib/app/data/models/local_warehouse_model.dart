@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
+import 'package:warehouse_flow/app/data/models/local_register_model.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
-import 'local_operation_models.dart';
-
-class LocalRegisterModel  {
-  LocalRegisterModel._({
+class LocalWarehouseModel {
+  LocalWarehouseModel({
     this.id,
-    this.operations = const [],
+    required this.name,
+    required this.register,
     this.createdAt,
     this.updatedAt,
   });
@@ -16,25 +16,23 @@ class LocalRegisterModel  {
   int? id;
   DateTime? createdAt;
   DateTime? updatedAt;
-  List<OperationEntity> operations;
+  String name;
+  RegisterEntity register;
 
-  factory LocalRegisterModel.fromJson(String str) =>
-      LocalRegisterModel.fromMap(json.decode(str));
+  factory LocalWarehouseModel.fromJson(String str) =>
+      LocalWarehouseModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory LocalRegisterModel.fromMap(Map<String, dynamic> json) {
+  factory LocalWarehouseModel.fromMap(Map<String, dynamic> json) {
     if (!json.containsKey("id") || json["id"] == null) {
       throw LocalStorageError.invalidEntity;
     }
 
-    return LocalRegisterModel._(
+    return LocalWarehouseModel(
       id: json["id"],
-      operations: List<OperationEntity>.from(
-        (json["operations"] ?? []).map(
-          (x) => LocalOperationModel.fromMap(x).toEntity(),
-        ),
-      ),
+      name: json["name"] ?? '',
+      register: LocalRegisterModel.fromMap(json['register'] ?? {}).toEntity(),
       createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
       updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
     );
@@ -42,26 +40,25 @@ class LocalRegisterModel  {
 
   Map<String, dynamic> toMap() => {
         "id": id,
-        "operations": List.from(
-          operations.map(
-            (x) => LocalOperationModel.fromEntity(x).toMap(),
-          ),
-        ),
+        "name": name,
+        "register": LocalRegisterModel.fromEntity(register).toMap(),
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
       };
 
-  factory LocalRegisterModel.fromEntity(RegisterEntity entity) =>
-      LocalRegisterModel._(
+  factory LocalWarehouseModel.fromEntity(WarehouseEntity entity) =>
+      LocalWarehouseModel(
         id: entity.id,
-        operations: entity.operations,
+        name: entity.name,
+        register: entity.register,
         createdAt: entity.createdAt,
         updatedAt: entity.updatedAt,
       );
 
-  RegisterEntity toEntity() => RegisterEntity(
+  WarehouseEntity toEntity() => WarehouseEntity(
         id: id,
-        operations: operations,
+        name: name,
+        register: register,
         createdAt: createdAt,
         updatedAt: updatedAt,
       );

@@ -1,14 +1,12 @@
 import 'dart:convert';
 
 import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
-import 'package:warehouse_flow/app/data/models/local_register_models.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
-class LocalWarehouseModel {
-  LocalWarehouseModel._({
+class LocalSpotModel {
+  LocalSpotModel({
     this.id,
     required this.name,
-    required this.register,
     this.createdAt,
     this.updatedAt,
   });
@@ -17,22 +15,20 @@ class LocalWarehouseModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   String name;
-  RegisterEntity register;
 
-  factory LocalWarehouseModel.fromJson(String str) =>
-      LocalWarehouseModel.fromMap(json.decode(str));
+  factory LocalSpotModel.fromJson(String str) =>
+      LocalSpotModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory LocalWarehouseModel.fromMap(Map<String, dynamic> json) {
+  factory LocalSpotModel.fromMap(Map<String, dynamic> json) {
     if (!json.containsKey("id") || json["id"] == null) {
       throw LocalStorageError.invalidEntity;
     }
 
-    return LocalWarehouseModel._(
+    return LocalSpotModel(
       id: json["id"],
       name: json["name"] ?? '',
-      register: LocalRegisterModel.fromMap(json['register'] ?? {}).toEntity(),
       createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
       updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
     );
@@ -41,24 +37,20 @@ class LocalWarehouseModel {
   Map<String, dynamic> toMap() => {
         "id": id,
         "name": name,
-        "register": LocalRegisterModel.fromEntity(register).toMap(),
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
       };
 
-  factory LocalWarehouseModel.fromEntity(WarehouseEntity entity) =>
-      LocalWarehouseModel._(
+  factory LocalSpotModel.fromEntity(SpotEntity entity) => LocalSpotModel(
         id: entity.id,
         name: entity.name,
-        register: entity.register,
         createdAt: entity.createdAt,
         updatedAt: entity.updatedAt,
       );
 
-  WarehouseEntity toEntity() => WarehouseEntity(
+  SpotEntity toEntity() => SpotEntity(
         id: id,
         name: name,
-        register: register,
         createdAt: createdAt,
         updatedAt: updatedAt,
       );

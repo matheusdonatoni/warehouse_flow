@@ -5,7 +5,7 @@ import '../../domain/usecases/find_warehouse_with_register.dart';
 import '../local_storage/local_storage.dart';
 import '../local_storage/local_storage_errors.dart';
 import '../local_storage/query_helper/query_helper.dart';
-import '../models/local_warehouse_models.dart';
+import '../models/local_warehouse_model.dart';
 
 // working on DB version 5 only
 

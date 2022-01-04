@@ -3,7 +3,7 @@ import '../../domain/entities/operation_entity.dart';
 import '../../domain/usecases/find_warehouse_operations.dart';
 
 import '../local_storage/local_storage_errors.dart';
-import '../models/local_operation_models.dart';
+import '../models/local_operation_model.dart';
 import '../local_storage/query_helper/query_helper.dart';
 import '../local_storage/local_storage.dart';
 
@@ -44,7 +44,7 @@ class FindWarehouseOperationsLocally implements FindWarehouseOperations {
 }
 
 class FindWarehouseOperationsLocallyParams {
-  FindWarehouseOperationsLocallyParams._({
+  FindWarehouseOperationsLocallyParams({
     required this.warehouseId,
   });
 
@@ -53,5 +53,5 @@ class FindWarehouseOperationsLocallyParams {
   factory FindWarehouseOperationsLocallyParams.fromDomain(
     FindWarehouseOperationsParams params,
   ) =>
-      FindWarehouseOperationsLocallyParams._(warehouseId: params.id);
+      FindWarehouseOperationsLocallyParams(warehouseId: params.id);
 }

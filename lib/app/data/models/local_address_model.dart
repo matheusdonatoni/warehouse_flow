@@ -3,7 +3,7 @@ import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart'
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
 class LocalAddressModel {
-  LocalAddressModel._({
+  LocalAddressModel({
     this.id,
     required this.name,
     required this.indicator,
@@ -27,7 +27,7 @@ class LocalAddressModel {
       throw LocalStorageError.invalidEntity;
     }
 
-    return LocalAddressModel._(
+    return LocalAddressModel(
       id: json["id"],
       name: json["name"] ?? '',
       indicator: json["indicator"] ?? '',
@@ -45,7 +45,7 @@ class LocalAddressModel {
       };
 
   factory LocalAddressModel.fromEntity(AddressEntity entity) =>
-      LocalAddressModel._(
+      LocalAddressModel(
         id: entity.id,
         name: entity.name,
         indicator: entity.indicator,

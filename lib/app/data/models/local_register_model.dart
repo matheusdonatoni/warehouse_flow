@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
-class LocalPositionModel {
-  LocalPositionModel._({
+import 'local_operation_model.dart';
+
+class LocalRegisterModel  {
+  LocalRegisterModel({
     this.id,
-    required this.height,
-    required this.depth,
-    required this.type,
+    this.operations = const [],
     this.createdAt,
     this.updatedAt,
   });
@@ -16,25 +16,25 @@ class LocalPositionModel {
   int? id;
   DateTime? createdAt;
   DateTime? updatedAt;
-  int height;
-  int depth;
-  String type;
+  List<OperationEntity> operations;
 
-  factory LocalPositionModel.fromJson(String str) =>
-      LocalPositionModel.fromMap(json.decode(str));
+  factory LocalRegisterModel.fromJson(String str) =>
+      LocalRegisterModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory LocalPositionModel.fromMap(Map<String, dynamic> json) {
+  factory LocalRegisterModel.fromMap(Map<String, dynamic> json) {
     if (!json.containsKey("id") || json["id"] == null) {
       throw LocalStorageError.invalidEntity;
     }
 
-    return LocalPositionModel._(
+    return LocalRegisterModel(
       id: json["id"],
-      height: json["height"] ?? 0,
-      depth: json["depth"] ?? 0,
-      type: json["type"] ?? '',
+      operations: List<OperationEntity>.from(
+        (json["operations"] ?? []).map(
+          (x) => LocalOperationModel.fromMap(x).toEntity(),
+        ),
+      ),
       createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
       updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
     );
@@ -42,28 +42,26 @@ class LocalPositionModel {
 
   Map<String, dynamic> toMap() => {
         "id": id,
-        "height": height,
-        "depth": depth,
-        "type": type,
+        "operations": List.from(
+          operations.map(
+            (x) => LocalOperationModel.fromEntity(x).toMap(),
+          ),
+        ),
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
       };
 
-  factory LocalPositionModel.fromEntity(PositionEntity entity) =>
-      LocalPositionModel._(
+  factory LocalRegisterModel.fromEntity(RegisterEntity entity) =>
+      LocalRegisterModel(
         id: entity.id,
-        height: entity.height,
-        depth: entity.depth,
-        type: entity.type,
+        operations: entity.operations,
         createdAt: entity.createdAt,
         updatedAt: entity.updatedAt,
       );
 
-  PositionEntity toEntity() => PositionEntity(
+  RegisterEntity toEntity() => RegisterEntity(
         id: id,
-        height: height,
-        depth: depth,
-        type: type,
+        operations: operations,
         createdAt: createdAt,
         updatedAt: updatedAt,
       );
