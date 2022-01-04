@@ -38,4 +38,13 @@ void main() {
 
     expect(future, isA<List<OperationEntity>>());
   });
+
+  test('Should return a not empty list of OperationsEntity with mocked data',
+      () async {
+    var future = await sut(params);
+
+    expect(future.isNotEmpty, true);
+  });
+
+  
 }
