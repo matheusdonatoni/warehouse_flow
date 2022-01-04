@@ -1,8 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
 import 'package:warehouse_flow/app/data/local_storage/query_helper/query_helper.dart';
 import 'package:warehouse_flow/app/data/usecases/find_warehouse_operations_locally.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
+import 'package:warehouse_flow/app/domain/helpers/errors/domain_errors.dart';
 import 'package:warehouse_flow/app/domain/usecases/find_warehouse_operations.dart';
 
 import '../mocks/local_storage_factory.dart';
@@ -46,7 +48,16 @@ void main() {
     expect(future.isNotEmpty, true);
   });
 
-  test('', () {
-    
+  test('Should throw a DomainError.unexpected with a Entity without id', () {
+    databaseResult =
+        LocalStorageFactory.makeWarehouseOperationListWithoutIdResult();
+
+    localStorage.mockFind(databaseResult);
+
+    var future = sut(params);
+
+    expect(future, throwsA(DomainError.unexpected));
   });
+
+  
 }
