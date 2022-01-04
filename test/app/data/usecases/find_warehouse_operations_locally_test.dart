@@ -59,5 +59,13 @@ void main() {
     expect(future, throwsA(DomainError.unexpected));
   });
 
-  
+  test(
+      'Should throw a DomainError.missingEntity on LocalStorageError.missingEntity',
+      () {
+    localStorage.mockFindError(LocalStorageError.missingEntity);
+
+    var future = sut(params);
+
+    expect(future, throwsA(DomainError.missingEntity));
+  });
 }
