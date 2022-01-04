@@ -22,7 +22,7 @@ class FindWarehouseOperationsLocally implements FindWarehouseOperations {
 
     try {
       final result = await localStorage.find(
-        query: QueryHelper.findAllProducts,
+        query: QueryHelper.findWarehouseOperations,
         arguments: [localParams.warehouseId],
       );
 
