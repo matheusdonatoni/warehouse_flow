@@ -9,5 +9,5 @@ class PositionConsolidation {
 
   PositionEntity position;
   List<ProductEntity> products;
-  List<ProductConsolidationPerPosition> productConsolidationPerPositions;
+  List<OperationEntity> productConsolidationPerPositions;
 }

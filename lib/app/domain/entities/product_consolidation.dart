@@ -11,5 +11,5 @@ class ProductConsolidation {
   PositionEntity position;
   int amount;
   List<PositionEntity> positions;
-  List<ProductConsolidationPerPosition> productConsolidationPerPositions;
+  List<OperationEntity> productConsolidationPerPositions;
 }

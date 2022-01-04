@@ -8,15 +8,15 @@ import 'local_position_model.dart';
 import 'local_product_model.dart';
 import 'local_spot_model.dart';
 
-class LocalOperationModel  {
+class LocalOperationModel {
   LocalOperationModel({
     this.id,
     required this.amount,
     required this.type,
     required this.product,
-    required this.spot,
-    required this.address,
     required this.position,
+    this.spot,
+    this.address,
     this.createdAt,
     this.updatedAt,
   });
@@ -27,9 +27,9 @@ class LocalOperationModel  {
   double amount;
   String type;
   ProductEntity product;
-  SpotEntity spot;
-  AddressEntity address;
   PositionEntity position;
+  SpotEntity? spot;
+  AddressEntity? address;
 
   factory LocalOperationModel.fromJson(String str) =>
       LocalOperationModel.fromMap(json.decode(str));
@@ -59,8 +59,10 @@ class LocalOperationModel  {
         "amount": amount,
         "type": type.toString(),
         "product": LocalProductModel.fromEntity(product).toMap(),
-        "spot": LocalSpotModel.fromEntity(spot).toMap(),
-        "address": LocalAddressModel.fromEntity(address).toMap(),
+        "spot": spot == null ? null : LocalSpotModel.fromEntity(spot!).toMap(),
+        "address": address == null
+            ? null
+            : LocalAddressModel.fromEntity(address!).toMap(),
         "position": LocalPositionModel.fromEntity(position).toMap(),
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
@@ -71,8 +73,8 @@ class LocalOperationModel  {
         id: entity.id,
         amount: entity.amount,
         product: entity.product,
-        spot: entity.spot,
-        address: entity.address,
+        spot: null,
+        address: null,
         position: entity.position,
         type: entity.type,
         createdAt: entity.createdAt,
@@ -83,8 +85,6 @@ class LocalOperationModel  {
         id: id,
         amount: amount,
         product: product,
-        spot: spot,
-        address: address,
         position: position,
         type: type,
         createdAt: createdAt,
