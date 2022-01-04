@@ -78,4 +78,14 @@ void main() {
 
     expect(future, throwsA(DomainError.malformedData));
   });
+
+  test(
+      'Should throw a DomainError.unexpected on any other LocalStorageError',
+      () {
+    localStorage.mockFindError(LocalStorageError.closed);
+
+    var future = sut(params);
+
+    expect(future, throwsA(DomainError.unexpected));
+  });
 }
