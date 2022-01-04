@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:warehouse_flow/app/data/local_storage/query_helper/query_helper.dart';
 import 'package:warehouse_flow/app/data/usecases/find_warehouse_operations_locally.dart';
+import 'package:warehouse_flow/app/domain/entities/entities.dart';
 import 'package:warehouse_flow/app/domain/usecases/find_warehouse_operations.dart';
 
 import '../mocks/local_storage_factory.dart';
@@ -30,5 +31,11 @@ void main() {
         arguments: [1],
       ),
     );
+  });
+
+  test('Should return a list of OperationsEntity', () async {
+    var future = await sut(params);
+
+    expect(future, isA<List<OperationEntity>>());
   });
 }
