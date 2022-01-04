@@ -4,7 +4,7 @@ import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart'
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
 class LocalProductModel  {
-  LocalProductModel({
+  LocalProductModel._({
     this.id,
     required this.code,
     required this.description,
@@ -32,7 +32,7 @@ class LocalProductModel  {
       throw LocalStorageError.invalidEntity;
     }
 
-    return LocalProductModel(
+    return LocalProductModel._(
       id: json["id"],
       code: json["code"] ?? 0,
       description: json["description"] ?? '',
@@ -54,7 +54,7 @@ class LocalProductModel  {
       };
 
   factory LocalProductModel.fromEntity(ProductEntity entity) =>
-      LocalProductModel(
+      LocalProductModel._(
         id: entity.id,
         code: entity.code,
         description: entity.description,

@@ -4,7 +4,7 @@ import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart'
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
 class LocalSpotModel {
-  LocalSpotModel({
+  LocalSpotModel._({
     this.id,
     required this.name,
     this.createdAt,
@@ -26,7 +26,7 @@ class LocalSpotModel {
       throw LocalStorageError.invalidEntity;
     }
 
-    return LocalSpotModel(
+    return LocalSpotModel._(
       id: json["id"],
       name: json["name"] ?? '',
       createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
@@ -41,7 +41,7 @@ class LocalSpotModel {
         "updatedAt": updatedAt?.toIso8601String(),
       };
 
-  factory LocalSpotModel.fromEntity(SpotEntity entity) => LocalSpotModel(
+  factory LocalSpotModel.fromEntity(SpotEntity entity) => LocalSpotModel._(
         id: entity.id,
         name: entity.name,
         createdAt: entity.createdAt,

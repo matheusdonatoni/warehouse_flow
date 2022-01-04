@@ -6,7 +6,7 @@ import 'package:warehouse_flow/app/domain/entities/entities.dart';
 import 'local_operation_models.dart';
 
 class LocalRegisterModel  {
-  LocalRegisterModel({
+  LocalRegisterModel._({
     this.id,
     this.operations = const [],
     this.createdAt,
@@ -28,7 +28,7 @@ class LocalRegisterModel  {
       throw LocalStorageError.invalidEntity;
     }
 
-    return LocalRegisterModel(
+    return LocalRegisterModel._(
       id: json["id"],
       operations: List<OperationEntity>.from(
         (json["operations"] ?? []).map(
@@ -52,7 +52,7 @@ class LocalRegisterModel  {
       };
 
   factory LocalRegisterModel.fromEntity(RegisterEntity entity) =>
-      LocalRegisterModel(
+      LocalRegisterModel._(
         id: entity.id,
         operations: entity.operations,
         createdAt: entity.createdAt,

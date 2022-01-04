@@ -9,7 +9,7 @@ import 'local_product_models.dart';
 import 'local_spot_models.dart';
 
 class LocalOperationModel  {
-  LocalOperationModel({
+  LocalOperationModel._({
     this.id,
     required this.amount,
     required this.type,
@@ -41,7 +41,7 @@ class LocalOperationModel  {
       throw LocalStorageError.invalidEntity;
     }
 
-    return LocalOperationModel(
+    return LocalOperationModel._(
       id: json["id"],
       amount: json["amount"] ?? 0.0,
       product: LocalProductModel.fromMap(json['product'] ?? {}).toEntity(),
@@ -67,7 +67,7 @@ class LocalOperationModel  {
       };
 
   factory LocalOperationModel.fromEntity(OperationEntity entity) =>
-      LocalOperationModel(
+      LocalOperationModel._(
         id: entity.id,
         amount: entity.amount,
         product: entity.product,

@@ -1,10 +1,13 @@
-import 'package:warehouse_flow/app/data/local_storage/local_storage.dart';
-import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
-import 'package:warehouse_flow/app/data/local_storage/query_helper/query_helper.dart';
-import 'package:warehouse_flow/app/data/models/local_warehouse_models.dart';
-import 'package:warehouse_flow/app/domain/entities/entities.dart';
-import 'package:warehouse_flow/app/domain/helpers/errors/domain_errors.dart';
-import 'package:warehouse_flow/app/domain/usecases/find_warehouse_with_register.dart';
+import '../../domain/entities/entities.dart';
+import '../../domain/helpers/errors/domain_errors.dart';
+import '../../domain/usecases/find_warehouse_with_register.dart';
+
+import '../local_storage/local_storage.dart';
+import '../local_storage/local_storage_errors.dart';
+import '../local_storage/query_helper/query_helper.dart';
+import '../models/local_warehouse_models.dart';
+
+// working on DB version 5 only
 
 class FindWarehouseWithRegisterLocally implements FindWarehouseWithRegister {
   final LocalStorage localStorage;

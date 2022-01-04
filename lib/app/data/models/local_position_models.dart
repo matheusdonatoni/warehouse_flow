@@ -4,7 +4,7 @@ import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart'
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 
 class LocalPositionModel {
-  LocalPositionModel({
+  LocalPositionModel._({
     this.id,
     required this.height,
     required this.depth,
@@ -30,7 +30,7 @@ class LocalPositionModel {
       throw LocalStorageError.invalidEntity;
     }
 
-    return LocalPositionModel(
+    return LocalPositionModel._(
       id: json["id"],
       height: json["height"] ?? 0,
       depth: json["depth"] ?? 0,
@@ -50,7 +50,7 @@ class LocalPositionModel {
       };
 
   factory LocalPositionModel.fromEntity(PositionEntity entity) =>
-      LocalPositionModel(
+      LocalPositionModel._(
         id: entity.id,
         height: entity.height,
         depth: entity.depth,
