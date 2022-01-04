@@ -68,4 +68,14 @@ void main() {
 
     expect(future, throwsA(DomainError.missingEntity));
   });
+
+  test(
+      'Should throw a DomainError.malformedData on LocalStorageError.malformedData',
+      () {
+    localStorage.mockFindError(LocalStorageError.malformedData);
+
+    var future = sut(params);
+
+    expect(future, throwsA(DomainError.malformedData));
+  });
 }
