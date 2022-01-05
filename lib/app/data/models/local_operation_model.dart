@@ -15,8 +15,8 @@ class LocalOperationModel {
     required this.type,
     required this.product,
     required this.position,
-    this.spot,
-    this.address,
+    required this.spot,
+    required this.address,
     this.createdAt,
     this.updatedAt,
   });
@@ -28,8 +28,8 @@ class LocalOperationModel {
   String type;
   ProductEntity product;
   PositionEntity position;
-  SpotEntity? spot;
-  AddressEntity? address;
+  SpotEntity spot;
+  AddressEntity address;
 
   factory LocalOperationModel.fromJson(String str) =>
       LocalOperationModel.fromMap(json.decode(str));
@@ -59,10 +59,8 @@ class LocalOperationModel {
         "amount": amount,
         "type": type.toString(),
         "product": LocalProductModel.fromEntity(product).toMap(),
-        "spot": spot == null ? null : LocalSpotModel.fromEntity(spot!).toMap(),
-        "address": address == null
-            ? null
-            : LocalAddressModel.fromEntity(address!).toMap(),
+        "spot": LocalSpotModel.fromEntity(spot).toMap(),
+        "address": LocalAddressModel.fromEntity(address).toMap(),
         "position": LocalPositionModel.fromEntity(position).toMap(),
         "createdAt": createdAt?.toIso8601String(),
         "updatedAt": updatedAt?.toIso8601String(),
@@ -73,8 +71,8 @@ class LocalOperationModel {
         id: entity.id,
         amount: entity.amount,
         product: entity.product,
-        spot: null,
-        address: null,
+        spot: entity.spot,
+        address: entity.address,
         position: entity.position,
         type: entity.type,
         createdAt: entity.createdAt,
@@ -85,6 +83,8 @@ class LocalOperationModel {
         id: id,
         amount: amount,
         product: product,
+        spot: spot,
+        address: address,
         position: position,
         type: type,
         createdAt: createdAt,
