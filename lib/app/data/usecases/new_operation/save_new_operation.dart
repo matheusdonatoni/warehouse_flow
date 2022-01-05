@@ -1,11 +1,46 @@
-import 'package:warehouse_flow/app/domain/entities/operation_entity.dart';
-import 'package:warehouse_flow/app/domain/usecases/new_operation/save_new_operation.dart';
+import '../../local_storage/local_storage.dart';
+import '../../local_storage/local_storage_errors.dart';
+import '../../local_storage/query_helper/query_helper.dart';
+import '../../models/local_operation_model.dart';
+import '../../../domain/entities/operation_entity.dart';
+import '../../../domain/helpers/errors/domain_errors.dart';
+import '../../../domain/usecases/new_operation/save_new_operation.dart';
 
 class SaveNewOperationLocally implements SaveNewOperation {
+  final LocalStorage localStorage;
+
+  SaveNewOperationLocally(this.localStorage);
+
   @override
-  Future<OperationEntity> call(SaveNewOperationParms params) {
-    // TODO: implement call
-    throw UnimplementedError();
+  Future<OperationEntity> call(SaveNewOperationParms params) async {
+    final localParams = SaveNewOperationLocallyParms.fromDomain(params);
+
+    try {
+      var id = await localStorage.insert(
+        query: QueryHelper.insertIntoOperations,
+        arguments: [
+          localParams.amount,
+          localParams.type,
+          localParams.productId,
+          localParams.positionId,
+        ],
+      );
+
+      var result = await localStorage.find(
+        query: QueryHelper.findOperation,
+        arguments: [id],
+      );
+
+      return LocalOperationModel.fromMap(result).toEntity();
+    } on LocalStorageError catch (error) {
+      if (error == LocalStorageError.malformedData) {
+        throw DomainError.malformedData;
+      } else if (error == LocalStorageError.missingEntity) {
+        throw DomainError.missingEntity;
+      }
+
+      throw DomainError.unexpected;
+    }
   }
 }
 
