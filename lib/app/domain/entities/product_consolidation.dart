@@ -2,14 +2,27 @@ import 'entities.dart';
 
 class ProductConsolidation {
   ProductConsolidation({
-    required this.position,
-    this.amount = 0,
-    this.positions = const [],
-    this.productConsolidationPerPositions = const [],
-  });
+    required this.productConsolidationsPerPosition,
+  }) : assert(
+          productConsolidationsPerPosition.isEmpty ||
+              productConsolidationsPerPosition.every(
+                (e) =>
+                    e.product.id ==
+                    productConsolidationsPerPosition.first.product.id,
+              ),
+        );
 
-  PositionEntity position;
-  int amount;
-  List<PositionEntity> positions;
-  List<OperationEntity> productConsolidationPerPositions;
+  double get total {
+    if (productConsolidationsPerPosition.isEmpty) return 0;
+    return productConsolidationsPerPosition
+        .map((e) => e.amount)
+        .reduce((value, element) => value + element);
+  }
+
+  ProductEntity? get product {
+    if (productConsolidationsPerPosition.isNotEmpty)
+      return productConsolidationsPerPosition.first.product;
+  }
+
+  List<ProductConsolidationPerPosition> productConsolidationsPerPosition;
 }

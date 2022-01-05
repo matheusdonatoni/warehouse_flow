@@ -2,12 +2,20 @@ import 'entities.dart';
 
 class PositionConsolidation {
   PositionConsolidation({
-    required this.position,
-    this.products = const [],
-    this.productConsolidationPerPositions = const [],
-  });
+    required this.productConsolidationsPerPosition,
+  }) : assert(
+          productConsolidationsPerPosition.isEmpty ||
+              productConsolidationsPerPosition.every(
+                (e) =>
+                    e.position.id ==
+                    productConsolidationsPerPosition.first.position.id,
+              ),
+        );
 
-  PositionEntity position;
-  List<ProductEntity> products;
-  List<OperationEntity> productConsolidationPerPositions;
+  PositionEntity? get position {
+    if (productConsolidationsPerPosition.isNotEmpty)
+      return productConsolidationsPerPosition.first.position;
+  }
+
+  List<ProductConsolidationPerPosition> productConsolidationsPerPosition;
 }
