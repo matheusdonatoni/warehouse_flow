@@ -1,10 +1,10 @@
-import '../entities/entities.dart';
+import '../../entities/entities.dart';
 
-abstract class PerformNewOperation {
-  Future<OperationEntity> call(PerformNewOperationParms params);
+abstract class SaveNewOperation {
+  Future<OperationEntity> call(SaveNewOperationParms params);
 }
 
-class PerformNewOperationParms {
+class SaveNewOperationParms {
   final int registerId;
   final int spotId;
   final int addressId;
@@ -13,7 +13,7 @@ class PerformNewOperationParms {
   final String type;
   final double amount;
 
-  PerformNewOperationParms({
+  SaveNewOperationParms({
     required this.registerId,
     required this.spotId,
     required this.addressId,

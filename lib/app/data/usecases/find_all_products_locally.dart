@@ -4,7 +4,7 @@ import 'package:warehouse_flow/app/data/local_storage/query_helper/query_helper.
 import 'package:warehouse_flow/app/data/models/local_product_model.dart';
 import 'package:warehouse_flow/app/domain/entities/product_entity.dart';
 import 'package:warehouse_flow/app/domain/helpers/errors/domain_errors.dart';
-import 'package:warehouse_flow/app/domain/usecases/find_all_products.dart';
+import 'package:warehouse_flow/app/domain/usecases/products_catalog/find_all_products.dart';
 
 class FindAllProductsLocally implements FindAllProducts {
   final LocalStorage localStorage;
