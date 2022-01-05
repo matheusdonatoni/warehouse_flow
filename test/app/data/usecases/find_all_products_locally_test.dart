@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:warehouse_flow/app/data/local_storage/local_storage_errors.dart';
 import 'package:warehouse_flow/app/data/local_storage/query_helper/query_helper.dart';
-import 'package:warehouse_flow/app/data/usecases/find_all_products_locally.dart';
+import 'package:warehouse_flow/app/data/usecases/products_catalog/find_all_products_locally.dart';
 import 'package:warehouse_flow/app/domain/entities/entities.dart';
 import 'package:warehouse_flow/app/domain/helpers/errors/domain_errors.dart';
 

@@ -7,9 +7,9 @@ abstract class FindAllSpotFromWarehouse {
 }
 
 class FindAllSpotFromWarehouseParams {
-  final WarehouseEntity warehouse;
+  final int warehouseId;
 
   FindAllSpotFromWarehouseParams({
-    required this.warehouse,
+    required this.warehouseId,
   });
 }

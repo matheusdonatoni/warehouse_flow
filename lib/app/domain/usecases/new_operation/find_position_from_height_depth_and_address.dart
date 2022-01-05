@@ -9,11 +9,11 @@ abstract class FindPositionFromHeightDepthAndAddress {
 class FindPositionFromHeightDepthAndAddressParams {
   final int height;
   final int depth;
-  final AddressEntity address;
+  final int addressId;
 
   FindPositionFromHeightDepthAndAddressParams({
     required this.height,
     required this.depth,
-    required this.address,
+    required this.addressId,
   });
 }

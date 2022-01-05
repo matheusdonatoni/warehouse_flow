@@ -11,11 +11,11 @@ abstract class FindAddressFromNameIndicatorAndSpot {
 class FindAddressFromNameIndicatorAndSpotParams {
   final String name;
   final String indicator;
-  final SpotEntity spot;
+  final int spotId;
 
   FindAddressFromNameIndicatorAndSpotParams({
     required this.name,
     required this.indicator,
-    required this.spot,
+    required this.spotId,
   });
 }

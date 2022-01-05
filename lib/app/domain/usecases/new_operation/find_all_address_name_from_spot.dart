@@ -7,9 +7,9 @@ abstract class FindAllAddressNamesFromSpot {
 }
 
 class FindAllAddressNamesFromSpotParams {
-  final SpotEntity spot;
+  final int spotId;
 
   FindAllAddressNamesFromSpotParams({
-    required this.spot,
+    required this.spotId,
   });
 }

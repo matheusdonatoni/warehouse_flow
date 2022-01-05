@@ -8,10 +8,10 @@ abstract class FindSpotFromNameAndWarehouse {
 
 class FindSpotFromNameAndWarehouseParams {
   final String name;
-  final WarehouseEntity warehouse;
+  final int warehouseId;
 
   FindSpotFromNameAndWarehouseParams({
     required this.name,
-    required this.warehouse,
+    required this.warehouseId,
   });
 }

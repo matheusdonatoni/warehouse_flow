@@ -7,11 +7,11 @@ abstract class FindAllIndicatorsFromSpotAndAddressName {
 }
 
 class FindAllIndicatorsFromSpotAndAddressNameParams {
-  final SpotEntity spot;
+  final int spotId;
   final String name;
 
   FindAllIndicatorsFromSpotAndAddressNameParams({
-    required this.spot,
+    required this.spotId,
     required this.name,
   });
 }

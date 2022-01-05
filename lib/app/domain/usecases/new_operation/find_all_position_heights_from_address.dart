@@ -7,9 +7,9 @@ abstract class FindAllPositionHeightsFromAddress {
 }
 
 class FindAllPositionHeightsFromAddressParams {
-  final AddressEntity address;
+  final int addressId;
 
   FindAllPositionHeightsFromAddressParams({
-    required this.address,
+    required this.addressId,
   });
 }
