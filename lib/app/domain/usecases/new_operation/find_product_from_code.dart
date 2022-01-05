@@ -1,7 +1,9 @@
 import '../../entities/entities.dart';
 
 abstract class FindProductFromCode {
-  Future<ProductEntity> call();
+  Future<ProductEntity> call(
+    FindProductFromCodeParams params,
+  );
 }
 
 class FindProductFromCodeParams {

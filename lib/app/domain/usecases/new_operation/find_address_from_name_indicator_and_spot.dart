@@ -3,7 +3,9 @@ import 'package:warehouse_flow/app/domain/entities/entities.dart';
 import '../../entities/address_entity.dart';
 
 abstract class FindAddressFromNameIndicatorAndSpot {
-  Future<AddressEntity> call();
+  Future<AddressEntity> call(
+    FindAddressFromNameIndicatorAndSpotParams params,
+  );
 }
 
 class FindAddressFromNameIndicatorAndSpotParams {

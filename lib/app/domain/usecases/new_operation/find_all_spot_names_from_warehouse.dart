@@ -1,7 +1,9 @@
 import '../../entities/entities.dart';
 
 abstract class FindAllSpotFromWarehouse {
-  Future<List<SpotEntity>> call();
+  Future<List<SpotEntity>> call(
+    FindAllSpotFromWarehouseParams params,
+  );
 }
 
 class FindAllSpotFromWarehouseParams {

@@ -1,7 +1,9 @@
 import '../../entities/entities.dart';
 
 abstract class SaveNewOperation {
-  Future<OperationEntity> call(SaveNewOperationParms params);
+  Future<OperationEntity> call(
+    SaveNewOperationParms params,
+  );
 }
 
 class SaveNewOperationParms {

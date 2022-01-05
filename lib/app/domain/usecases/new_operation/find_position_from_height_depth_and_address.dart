@@ -1,7 +1,9 @@
 import '../../entities/entities.dart';
 
 abstract class FindPositionFromHeightDepthAndAddress {
-  Future<PositionEntity> call();
+  Future<PositionEntity> call(
+    FindPositionFromHeightDepthAndAddressParams params,
+  );
 }
 
 class FindPositionFromHeightDepthAndAddressParams {
