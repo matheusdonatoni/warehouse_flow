@@ -292,6 +292,20 @@ class QueryHelper {
       AND addresses.name = ?''';
   }
 
+  static String get findAddressFromNameIndicatorAndSpot {
+    return '''SELECT 
+    json_object(
+      'id', addresses.id, 
+      'name', addresses.name,
+      'indicator', addresses.indicator,
+      'createdAt', addresses.createdAt,
+      'updatedAt', addresses.updatedAt
+    ) as json FROM addresses 
+    WHERE name = ?
+    AND indicator = ?
+    AND spotid = ?''';
+  }
+
   static String get findPositionHeightsFromAddress {
     return '''
     SELECT 
