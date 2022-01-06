@@ -1,5 +1,7 @@
 class QueryHelper {
-  static String get _now => "strftime('%Y-%m-%dT%H:%M:%f', 'now')";
+  static String get _now {
+    return "strftime('%Y-%m-%dT%H:%M:%f', 'now', 'localtime')";
+  }
 
   static String get findWarehouseWithRegister {
     return '''SELECT
@@ -145,7 +147,8 @@ class QueryHelper {
     WHERE warehouses.id = ?''';
   }
 
-  static String get findOperation => '''SELECT 
+  static String get findOperation {
+    return '''SELECT 
   json_object(
     'id', operations.id, 
     'amount', operations.amount,
@@ -212,6 +215,7 @@ class QueryHelper {
   JOIN warehouses
   on warehouses.id = spots.warehouseid
   WHERE operations.id = ?''';
+  }
 
   static String get findAllProducts {
     return '''SELECT
@@ -233,5 +237,9 @@ class QueryHelper {
   INTO operations 
   (amount, type, productid, positionId, createdAt, updatedAt) 
   VALUES (?, ?, ?, ?, $_now, $_now)''';
+  }
+
+  static String get findSpotNamesFromWarehouse {
+    return "SELECT json_group_array(spots.name) as json FROM spots WHERE warehouseid = ?";
   }
 }

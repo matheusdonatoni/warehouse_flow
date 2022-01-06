@@ -1,15 +1,13 @@
-import '../../entities/entities.dart';
-
-abstract class FindAllSpotFromWarehouse {
-  Future<List<SpotEntity>> call(
-    FindAllSpotFromWarehouseParams params,
+abstract class FindAllSpotNamesFromWarehouse {
+  Future<List<String>> call(
+    FindAllSpotNamesFromWarehouseParams params,
   );
 }
 
-class FindAllSpotFromWarehouseParams {
+class FindAllSpotNamesFromWarehouseParams {
   final int warehouseId;
 
-  FindAllSpotFromWarehouseParams({
+  FindAllSpotNamesFromWarehouseParams({
     required this.warehouseId,
   });
 }
