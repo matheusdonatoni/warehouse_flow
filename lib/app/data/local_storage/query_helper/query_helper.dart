@@ -325,4 +325,19 @@ class QueryHelper {
       WHERE addressid = ? 
       AND height = ?''';
   }
+
+  static String get findPositionFromHeightDepthAndAddress {
+    return '''SELECT 
+    json_object(
+      'id', positions.id, 
+      'height', positions.height,
+      'depth', positions.depth,
+      'type', positions.type,
+      'createdAt', positions.createdAt,
+      'updatedAt', positions.updatedAt
+    ) as json FROM positions
+    WHERE height = ?
+    AND depth = ?
+    AND addressid = ?''';
+  }
 }
