@@ -9,7 +9,7 @@ import '../../../domain/usecases/new_operation/save_new_operation.dart';
 class SaveNewOperationLocally implements SaveNewOperation {
   final LocalStorage localStorage;
 
-  SaveNewOperationLocally(this.localStorage);
+  SaveNewOperationLocally({required this.localStorage});
 
   @override
   Future<OperationEntity> call(SaveNewOperationParms params) async {

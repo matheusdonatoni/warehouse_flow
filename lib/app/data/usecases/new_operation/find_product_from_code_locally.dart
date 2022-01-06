@@ -10,7 +10,7 @@ import '../../../domain/entities/entities.dart';
 class FindProductFromCodeLocally implements FindProductFromCode {
   final LocalStorage localStorage;
 
-  FindProductFromCodeLocally(this.localStorage);
+  FindProductFromCodeLocally({required this.localStorage});
 
   @override
   Future<ProductEntity> call(FindProductFromCodeParams params) async {

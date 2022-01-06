@@ -10,7 +10,7 @@ class FindAddressFromNameIndicatorAndSpotLocally
     implements FindAddressFromNameIndicatorAndSpot {
   final LocalStorage localStorage;
 
-  FindAddressFromNameIndicatorAndSpotLocally(this.localStorage);
+  FindAddressFromNameIndicatorAndSpotLocally({required this.localStorage});
 
   @override
   Future<AddressEntity> call(

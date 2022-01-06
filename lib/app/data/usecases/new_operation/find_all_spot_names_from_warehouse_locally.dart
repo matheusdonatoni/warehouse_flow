@@ -7,7 +7,7 @@ import 'package:warehouse_flow/app/domain/usecases/new_operation/find_all_spot_n
 class FindAllSpotFromWarehouseLocally implements FindAllSpotNamesFromWarehouse {
   final LocalStorage localStorage;
 
-  FindAllSpotFromWarehouseLocally(this.localStorage);
+  FindAllSpotFromWarehouseLocally({required this.localStorage});
 
   @override
   Future<List<String>> call(FindAllSpotNamesFromWarehouseParams params) async {

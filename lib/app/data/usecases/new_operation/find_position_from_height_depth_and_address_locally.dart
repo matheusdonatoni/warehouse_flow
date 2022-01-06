@@ -11,7 +11,7 @@ class FindPositionFromHeightDepthAndAddressLocally
     implements FindPositionFromHeightDepthAndAddress {
   final LocalStorage localStorage;
 
-  FindPositionFromHeightDepthAndAddressLocally(this.localStorage);
+  FindPositionFromHeightDepthAndAddressLocally({required this.localStorage});
 
   @override
   Future<PositionEntity> call(

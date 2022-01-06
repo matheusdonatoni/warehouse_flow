@@ -11,7 +11,7 @@ class FindSpotFromNameAndWarehouseLocally
     implements FindSpotFromNameAndWarehouse {
   final LocalStorage localStorage;
 
-  FindSpotFromNameAndWarehouseLocally(this.localStorage);
+  FindSpotFromNameAndWarehouseLocally({required this.localStorage});
 
   @override
   Future<SpotEntity> call(FindSpotFromNameAndWarehouseParams params) async {

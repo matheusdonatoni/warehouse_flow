@@ -8,7 +8,7 @@ class FindAllPositionHeightsFromAddressLocally
     implements FindAllPositionHeightsFromAddress {
   final LocalStorage localStorage;
 
-  FindAllPositionHeightsFromAddressLocally(this.localStorage);
+  FindAllPositionHeightsFromAddressLocally({required this.localStorage});
 
   @override
   Future<List<int>> call(FindAllPositionHeightsFromAddressParams params) async {

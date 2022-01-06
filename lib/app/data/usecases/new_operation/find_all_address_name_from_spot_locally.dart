@@ -8,7 +8,7 @@ class FindAllAddressNamesFromSpotLocally
     implements FindAllAddressNamesFromSpot {
   final LocalStorage localStorage;
 
-  FindAllAddressNamesFromSpotLocally(this.localStorage);
+  FindAllAddressNamesFromSpotLocally({required this.localStorage});
 
   @override
   Future<List<String>> call(FindAllAddressNamesFromSpotParams params) async {

@@ -9,7 +9,7 @@ class FindAllIndicatorsFromSpotAndAddressNameLocally
     implements FindAllIndicatorsFromSpotAndAddressName {
   final LocalStorage localStorage;
 
-  FindAllIndicatorsFromSpotAndAddressNameLocally(this.localStorage);
+  FindAllIndicatorsFromSpotAndAddressNameLocally({required this.localStorage});
 
   @override
   Future<List<String>> call(
