@@ -340,4 +340,19 @@ class QueryHelper {
     AND depth = ?
     AND addressid = ?''';
   }
+
+  static String get findProductFromCode {
+    return '''
+    SELECT 
+    json_object(
+      'id', products.id, 
+      'code', products.code,
+      'description', products.description,
+      'unit', products.unit,
+      'type', products.type,
+      'createdAt', products.createdAt,
+      'updatedAt', products.updatedAt
+    ) as json FROM products
+    WHERE code = ?''';
+  }
 }
