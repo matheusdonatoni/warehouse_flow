@@ -261,6 +261,18 @@ class QueryHelper {
       WHERE warehouseid = ?''';
   }
 
+  static String get findSpotFromNameAndWarehouse {
+    return '''
+    SELECT json_object(
+      'id', spots.id, 
+      'name', spots.name,
+      'createdAt', spots.createdAt,
+      'updatedAt', spots.updatedAt
+    ) as json FROM spots 
+    WHERE spots.name = ? 
+    AND warehouseId = ?''';
+  }
+
   static String get findAddressNamesFromSpot {
     return '''SELECT 
     json_group_array(
