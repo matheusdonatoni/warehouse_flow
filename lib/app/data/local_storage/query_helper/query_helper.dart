@@ -289,4 +289,14 @@ class QueryHelper {
       FROM positions 
       WHERE addressid = ?''';
   }
+
+  static String get findPositionDepthsFromAddressAndPositionHeight {
+    return '''SELECT 
+    json_group_array(
+      positions.depth
+      ) as json 
+      FROM positions 
+      WHERE addressid = ? 
+      AND height = ?''';
+  }
 }
