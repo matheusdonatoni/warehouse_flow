@@ -255,7 +255,7 @@ class QueryHelper {
   static String get findSpotNamesFromWarehouse {
     return '''SELECT 
     json_group_array(
-      spots.name
+      name
       ) as json 
       FROM spots 
       WHERE warehouseid = ?''';

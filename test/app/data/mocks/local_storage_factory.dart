@@ -254,5 +254,93 @@ class LocalStorageFactory {
         "updatedAt": "2021-11-23T18:32:20.268"
       };
 
-  
+  static List<String> makeSpotNameListResult() => [
+        "Câmara 1",
+        "Câmara 2",
+        "Câmara 3",
+        "Câmara 4",
+        "Câmara 5",
+        "Prateleira 1",
+        "Prateleira 2",
+        "Prateleira 3",
+        "Prateleira 4",
+        "Prateleira 5"
+      ];
+
+  static List<String> makeAddressNameListResult() => [
+        "Rua A",
+        "Rua B",
+        "Rua C",
+        "Rua D",
+        "E",
+        "N",
+        "H",
+        "P1",
+        "D",
+        "I",
+        "G",
+        "CM",
+        "O",
+        "CG",
+        "S",
+        "L",
+        "Q",
+        "F",
+        "A",
+        "C",
+        "P",
+        "B",
+        "M",
+        "R",
+        "J",
+        "CAM5",
+        "CAM4",
+        "CAM3",
+        "P2"
+      ];
+
+  static List<String> makeAddressIndicatorListResult() => [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27"
+      ];
+
+  static List<String> makePositionHeightListResult() => [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+      ];
+
+  static List<String> makePositionDepthListResult() => [
+        "1",
+        "2",
+        "3",
+        "4",
+      ];
 }
