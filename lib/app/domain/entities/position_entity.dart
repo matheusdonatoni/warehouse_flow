@@ -1,5 +1,3 @@
-
-
 class PositionEntity {
   PositionEntity({
     this.id,
@@ -13,7 +11,7 @@ class PositionEntity {
   int? id;
   DateTime? createdAt;
   DateTime? updatedAt;
-  int height;
-  int depth;
+  String height;
+  String depth;
   String type;
 }

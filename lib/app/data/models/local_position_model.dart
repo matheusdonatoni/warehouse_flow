@@ -16,8 +16,8 @@ class LocalPositionModel {
   int? id;
   DateTime? createdAt;
   DateTime? updatedAt;
-  int height;
-  int depth;
+  String height;
+  String depth;
   String type;
 
   factory LocalPositionModel.fromJson(String str) =>
@@ -32,8 +32,8 @@ class LocalPositionModel {
 
     return LocalPositionModel(
       id: json["id"],
-      height: json["height"] ?? 0,
-      depth: json["depth"] ?? 0,
+      height: json["height"] ?? "0",
+      depth: json["depth"] ?? "0",
       type: json["type"] ?? '',
       createdAt: DateTime.tryParse(json["createdAt"] ?? ''),
       updatedAt: DateTime.tryParse(json["updatedAt"] ?? ''),
