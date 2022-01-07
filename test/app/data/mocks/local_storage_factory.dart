@@ -219,4 +219,40 @@ class LocalStorageFactory {
           "updatedAt": "2021-11-23T18:32:20.268"
         },
       ];
+
+  static Map<String, dynamic> makeSpotResult() => {
+        "id": 1,
+        "name": "Câmara 1",
+        "createdAt": "2021-12-07T18:58:05.326",
+        "updatedAt": "2021-12-07T18:58:05.326"
+      };
+
+  static Map<String, dynamic> makeAddressResult() => {
+        "id": 1,
+        "name": "Rua A",
+        "indicator": "1",
+        "createdAt": "2021-11-14T01:07:29.812",
+        "updatedAt": "2021-11-14T01:07:29.812"
+      };
+
+  static Map<String, dynamic> makePositionResult() => {
+        "id": 1,
+        "height": 1,
+        "depth": 1,
+        "type": "Embalagens",
+        "createdAt": "2021-11-14T01:07:29.812",
+        "updatedAt": "2021-11-14T01:07:29.812"
+      };
+
+  static Map<String, dynamic> makeProductResult() => {
+        "id": 8,
+        "code": 34435,
+        "description": "PASTA SANFONADA;C/ELASTICO;PP;TRANSP;12 DIV;390X255MM",
+        "unit": "UN",
+        "type": "APL",
+        "createdAt": "2021-11-23T18:32:20.268",
+        "updatedAt": "2021-11-23T18:32:20.268"
+      };
+
+  
 }
